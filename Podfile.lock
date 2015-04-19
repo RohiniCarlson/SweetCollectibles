@@ -1,0 +1,10 @@
+PODS:
+  - CollapseClick (1.0.1)
+
+DEPENDENCIES:
+  - CollapseClick (= 1.0.1)
+
+SPEC CHECKSUMS:
+  CollapseClick: 9eec7952e091ce0c03848577cfbcb2ec45414dde
+
+COCOAPODS: 0.36.0

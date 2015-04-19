@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="13F34" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Ingredient" representedClassName="Ingredient" syncable="YES">
+        <attribute name="amount" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="ingredientType" attributeType="String" syncable="YES"/>
+        <attribute name="unitOfMeasure" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="recipeDetail" maxCount="1" deletionRule="Nullify" destinationEntity="RecipeDetail" inverseName="ingredients" inverseEntity="RecipeDetail" syncable="YES"/>
+    </entity>
+    <entity name="Recipe" representedClassName="Recipe" syncable="YES">
+        <attribute name="category" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="favorite" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="howToAssemble" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="recipeDetails" toMany="YES" deletionRule="Cascade" destinationEntity="RecipeDetail" inverseName="recipe" inverseEntity="RecipeDetail" syncable="YES"/>
+    </entity>
+    <entity name="RecipeDetail" representedClassName="RecipeDetail" syncable="YES">
+        <attribute name="instructions" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subTitle" attributeType="String" syncable="YES"/>
+        <relationship name="ingredients" toMany="YES" deletionRule="Cascade" destinationEntity="Ingredient" inverseName="recipeDetail" inverseEntity="Ingredient" syncable="YES"/>
+        <relationship name="recipe" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="recipeDetails" inverseEntity="Recipe" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Recipe" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="RecipeDetail" positionX="-54" positionY="-9" width="128" height="103"/>
+        <element name="Ingredient" positionX="-36" positionY="9" width="128" height="103"/>
+    </elements>
+</model>
