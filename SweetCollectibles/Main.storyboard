@@ -91,7 +91,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="allRecipes" rowHeight="50" id="fxo-68-tzf">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="allRecipes" rowHeight="50" id="fxo-68-tzf" customClass="SearchResultCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fxo-68-tzf" id="ZZo-dZ-56t">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -108,7 +108,7 @@
                                     <segue destination="vCh-Fk-iAE" kind="show" id="u0J-z8-eDt"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell tag="2" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="filteredRecipes" rowHeight="50" id="Mmy-Hn-INw">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="recipeFiltered" rowHeight="50" id="Mmy-Hn-INw" customClass="SearchResultCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mmy-Hn-INw" id="Pci-Th-ZEK">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -121,6 +121,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="searchResultCell" destination="XCN-pn-eCc" id="eTj-gi-vba"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

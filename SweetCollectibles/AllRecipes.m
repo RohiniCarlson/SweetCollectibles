@@ -11,6 +11,7 @@
 #import "Recipe.h"
 #import "RecipeDetail.h"
 #import "Ingredient.h"
+#import "SearchResultCell.h"
 
 @interface AllRecipes ()
 @property (nonatomic) NSArray *fetchedObjects;
@@ -28,6 +29,7 @@
     //[self addNewRecipe];
     [self fetchRecipes];
     [self createArrayForSectionRecipeTitles];
+    [self.tableView registerClass: [SearchResultCell class] forCellReuseIdentifier:@"recipeFiltered"];
 }
 
 -(void)addNewRecipe {
@@ -316,7 +318,7 @@
      Recipe *recipe;
     
     if (tableView == self.tableView) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allRecipes" forIndexPath:indexPath];
+        SearchResultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allRecipes" forIndexPath:indexPath];
         recipeNameLabel = (UILabel*)[cell.contentView viewWithTag:1];
         NSString *sectionTitle = [self.sectionRecipeTitles objectAtIndex:indexPath.section];
         NSMutableArray *allRecipes = [[NSMutableArray alloc]init];
@@ -332,10 +334,11 @@
         recipeNameLabel.text = recipe.title;
         return cell;
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filteredRecipes" forIndexPath:indexPath];
-        recipeNameLabel = (UILabel*)[cell.contentView viewWithTag:2];
+        SearchResultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"recipeFiltered" forIndexPath:indexPath];
+        //recipeNameLabel = (UILabel*)[cell.contentView viewWithTag:1];
         recipe = self.filteredResult[indexPath.row];
-        recipeNameLabel.text = recipe.title;
+        //recipeNameLabel.text = recipe.title;
+        cell.searchResultCell.text = recipe.title;
         return cell;
     }
 }
@@ -353,7 +356,7 @@
 }
 
 
-/*- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF['title'] contains[c] %@", searchText];
     //self.filteredResult = [self.fetchedObjects filteredArrayUsingPredicate:predicate];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
@@ -365,16 +368,22 @@
     [fetchRequest setEntity:entity];
  
     NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc]
-    initWithKey:@"name" ascending:YES];
+    initWithKey:@"title" ascending:YES];
     NSArray* sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title contains[c] %@", searchText];
     [fetchRequest setPredicate:predicate];
     
     NSError *error;
-    
-   self.filteredResult = [context executeFetchRequest:fetchRequest error:&error];
-}*/
+ 
+ NSArray* loadedEntities = [context executeFetchRequest:fetchRequest error:&error];
+ self.filteredResult = [[NSMutableArray alloc] initWithArray:loadedEntities];
+ 
+ [self.tableView reloadData];
+ 
+   //self.filteredResult = [context executeFetchRequest:fetchRequest error:&error];
+}
+ 
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
