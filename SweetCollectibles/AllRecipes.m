@@ -12,6 +12,7 @@
 #import "RecipeDetail.h"
 #import "Ingredient.h"
 #import "SearchResultCell.h"
+#import "RecipeInfo.h"
 
 @interface AllRecipes ()
 @property (nonatomic) NSArray *fetchedObjects;
@@ -332,13 +333,15 @@
         }
         recipe = [allRecipes objectAtIndex:indexPath.row];
         recipeNameLabel.text = recipe.title;
+        cell.recipeTitle = recipe.title;
         return cell;
     } else {
         SearchResultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"recipeFiltered" forIndexPath:indexPath];
-        //recipeNameLabel = (UILabel*)[cell.contentView viewWithTag:1];
+        recipeNameLabel = (UILabel*)[cell.contentView viewWithTag:2];
         recipe = self.filteredResult[indexPath.row];
-        //recipeNameLabel.text = recipe.title;
-        cell.searchResultCell.text = recipe.title;
+        recipeNameLabel.text = recipe.title;
+        //cell.searchResultCell.text = recipe.title;
+        cell.recipeTitle = recipe.title;
         return cell;
     }
 }
@@ -380,8 +383,6 @@
  self.filteredResult = [[NSMutableArray alloc] initWithArray:loadedEntities];
  
  [self.tableView reloadData];
- 
-   //self.filteredResult = [context executeFetchRequest:fetchRequest error:&error];
 }
  
 /*
@@ -418,14 +419,30 @@
 }
 */
 
-/*
+-(Recipe*)getRecipeObject:(NSString*)recipeTitle {
+    Recipe *recipe;
+    for (int i=0; i<self.fetchedObjects.count; i++) {
+        recipe = self.fetchedObjects[i];
+        if ([recipeTitle isEqualToString:recipe.title]) {
+            return recipe;
+        }
+    }
+    return nil;
+}
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    RecipeInfo *recipeInfo = [segue destinationViewController];
+    SearchResultCell *cell = (SearchResultCell*)sender;
+    if ([segue.identifier isEqualToString:@"fromAllRecipes"] ) {
+        NSLog(@"All Recipes");
+        NSLog(cell.recipeTitle);
+        recipeInfo.recipe = [self getRecipeObject:cell.recipeTitle];
+    } else {
+        NSLog(@"You forgot the segue %@",segue);
+    }
 }
-*/
+
 
 @end

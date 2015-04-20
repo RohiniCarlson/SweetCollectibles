@@ -1,5 +1,5 @@
 //
-//  RecipeDetail.h
+//  RecipeInfo.h
 //  SweetCollectibles
 //
 //  Created by it-högskolan on 2015-04-15.
@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Recipe.h"
 
 @interface RecipeInfo : UIViewController
-
+@property (nonatomic) Recipe *recipe;
 @end

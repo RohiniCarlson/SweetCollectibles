@@ -1,5 +1,5 @@
 //
-//  RecipeDetail.m
+//  RecipeInfo.m
 //  SweetCollectibles
 //
 //  Created by it-högskolan on 2015-04-15.
@@ -9,13 +9,18 @@
 #import "RecipeInfo.h"
 
 @interface RecipeInfo ()
-
+@property (strong, nonatomic) IBOutlet UIImageView *recipePicture;
+@property (strong, nonatomic) IBOutlet UILabel *recipeTitle;
 @end
 
 @implementation RecipeInfo
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"RecipeInfo - viewDidLoad()");
+    NSLog(self.recipe.title);
+    self.recipePicture.image = [UIImage imageWithData:self.recipe.picture];
+    self.recipeTitle.text = self.recipe.title;
     // Do any additional setup after loading the view.
 }
 

@@ -10,5 +10,5 @@
 
 @interface SearchResultCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *searchResultCell;
-
+@property (nonatomic) NSString *recipeTitle;
 @end
