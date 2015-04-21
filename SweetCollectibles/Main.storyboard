@@ -340,7 +340,7 @@
         <!--Recipe Info-->
         <scene sceneID="B6d-6X-SvP">
             <objects>
-                <viewController id="vCh-Fk-iAE" customClass="RecipeInfo" sceneMemberID="viewController">
+                <viewController id="vCh-Fk-iAE" customClass="EntireRecipe" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jol-u6-niH"/>
                         <viewControllerLayoutGuide type="bottom" id="Wpd-HD-U3v"/>
@@ -349,26 +349,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yyq-tZ-DDs">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yyq-tZ-DDs" customClass="CollapseClick">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PIp-K4-faQ">
                                         <color key="backgroundColor" red="1" green="0.97084048190000005" blue="0.99878276509999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wSJ-hJ-uCd">
-                                        <rect key="frame" x="8" y="8" width="270" height="129"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wun-FK-PJc">
-                                                <rect key="frame" x="0.0" y="0.0" width="103" height="128"/>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recipe Title" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90y-6S-aaa">
-                                                <rect key="frame" x="111" y="8" width="154" height="105"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                             </scrollView>
@@ -377,8 +362,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Recipe Info" id="cHq-cY-5nS"/>
                     <connections>
-                        <outlet property="recipePicture" destination="Wun-FK-PJc" id="6gy-M0-hwB"/>
-                        <outlet property="recipeTitle" destination="90y-6S-aaa" id="UB5-ms-9gi"/>
+                        <outlet property="collapseClick" destination="yyq-tZ-DDs" id="GSg-0L-GQY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybq-nJ-PJP" userLabel="First Responder" sceneMemberID="firstResponder"/>

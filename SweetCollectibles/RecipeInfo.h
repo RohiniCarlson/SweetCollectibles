@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Recipe.h"
+#import "CollapseClick.h"
 
-@interface RecipeInfo : UIViewController
+@interface RecipeInfo : UIViewController<CollapseClickDelegate, UITextFieldDelegate>
 @property (nonatomic) Recipe *recipe;
 @end
