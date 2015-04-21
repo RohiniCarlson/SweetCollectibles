@@ -88,6 +88,13 @@
 
 -(void)addHeadersAndViewsToAccordionView {
     [self.accordion addHeader:self.headerButton withView:self.headerView];
+    [self.accordion setNeedsLayout];
+    
+    // Set this if you want to allow multiple selection
+    [self.accordion setAllowsMultipleSelection:YES];
+    
+    // Set this to NO if you want to have at least one open section at all times
+    [self.accordion setAllowsEmptySelection:YES];
 }
 
 /*-(void)createIngrdientsView {
