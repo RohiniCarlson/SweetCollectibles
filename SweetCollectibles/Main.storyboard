@@ -340,7 +340,7 @@
         <!--Recipe Info-->
         <scene sceneID="B6d-6X-SvP">
             <objects>
-                <viewController id="vCh-Fk-iAE" customClass="EntireRecipe" sceneMemberID="viewController">
+                <viewController id="vCh-Fk-iAE" customClass="RecipeInfo" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jol-u6-niH"/>
                         <viewControllerLayoutGuide type="bottom" id="Wpd-HD-U3v"/>
@@ -348,22 +348,9 @@
                     <view key="view" contentMode="scaleToFill" id="iJ0-JS-AeN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yyq-tZ-DDs" customClass="CollapseClick">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PIp-K4-faQ">
-                                        <color key="backgroundColor" red="1" green="0.97084048190000005" blue="0.99878276509999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                </subviews>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Recipe Info" id="cHq-cY-5nS"/>
-                    <connections>
-                        <outlet property="collapseClick" destination="yyq-tZ-DDs" id="GSg-0L-GQY"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybq-nJ-PJP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

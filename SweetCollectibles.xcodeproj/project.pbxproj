@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		446B55DC1AE444FB001DBF71 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 446B55DB1AE444FB001DBF71 /* SearchResultCell.m */; };
-		446B55E01AE59968001DBF71 /* EntireRecipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 446B55DE1AE59968001DBF71 /* EntireRecipe.m */; };
-		446B55E11AE59968001DBF71 /* EntireRecipe.xib in Resources */ = {isa = PBXBuildFile; fileRef = 446B55DF1AE59968001DBF71 /* EntireRecipe.xib */; };
+		446B56881AE65927001DBF71 /* AccordionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 446B56871AE65927001DBF71 /* AccordionView.m */; };
 		447359F91AE392DE00FCF9E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 447359F81AE392DE00FCF9E1 /* main.m */; };
 		447359FC1AE392DE00FCF9E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 447359FB1AE392DE00FCF9E1 /* AppDelegate.m */; };
 		44735A071AE392DE00FCF9E1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44735A061AE392DE00FCF9E1 /* Images.xcassets */; };
@@ -47,9 +46,8 @@
 		27C5584C9EFFF22C26DD522B /* libPods-SweetCollectibles.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SweetCollectibles.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		446B55DA1AE444FB001DBF71 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultCell.h; sourceTree = "<group>"; };
 		446B55DB1AE444FB001DBF71 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultCell.m; sourceTree = "<group>"; };
-		446B55DD1AE59968001DBF71 /* EntireRecipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntireRecipe.h; sourceTree = "<group>"; };
-		446B55DE1AE59968001DBF71 /* EntireRecipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntireRecipe.m; sourceTree = "<group>"; };
-		446B55DF1AE59968001DBF71 /* EntireRecipe.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntireRecipe.xib; sourceTree = "<group>"; };
+		446B56861AE65927001DBF71 /* AccordionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccordionView.h; sourceTree = "<group>"; };
+		446B56871AE65927001DBF71 /* AccordionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccordionView.m; sourceTree = "<group>"; };
 		447359F31AE392DE00FCF9E1 /* SweetCollectibles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SweetCollectibles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		447359F71AE392DE00FCF9E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		447359F81AE392DE00FCF9E1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -157,14 +155,13 @@
 				447359FA1AE392DE00FCF9E1 /* AppDelegate.h */,
 				447359FB1AE392DE00FCF9E1 /* AppDelegate.m */,
 				44735A221AE397A900FCF9E1 /* Main.storyboard */,
-				446B55DD1AE59968001DBF71 /* EntireRecipe.h */,
-				446B55DE1AE59968001DBF71 /* EntireRecipe.m */,
-				446B55DF1AE59968001DBF71 /* EntireRecipe.xib */,
 				44735A061AE392DE00FCF9E1 /* Images.xcassets */,
 				44735A081AE392DE00FCF9E1 /* LaunchScreen.xib */,
 				447359F61AE392DE00FCF9E1 /* Supporting Files */,
 				44735A1F1AE3930F00FCF9E1 /* EntityModel.xcdatamodeld */,
 				44735A421AE3B5DC00FCF9E1 /* Recipe.h */,
+				446B56861AE65927001DBF71 /* AccordionView.h */,
+				446B56871AE65927001DBF71 /* AccordionView.m */,
 				44735A431AE3B5DC00FCF9E1 /* Recipe.m */,
 				44735A451AE3B5F900FCF9E1 /* RecipeDetail.h */,
 				44735A461AE3B5F900FCF9E1 /* RecipeDetail.m */,
@@ -301,7 +298,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				446B55E11AE59968001DBF71 /* EntireRecipe.xib in Resources */,
 				44735A0A1AE392DE00FCF9E1 /* LaunchScreen.xib in Resources */,
 				44735A071AE392DE00FCF9E1 /* Images.xcassets in Resources */,
 				44735A231AE397A900FCF9E1 /* Main.storyboard in Resources */,
@@ -361,7 +357,6 @@
 				44735A371AE3991B00FCF9E1 /* AllRecipes.m in Sources */,
 				44735A211AE3930F00FCF9E1 /* EntityModel.xcdatamodeld in Sources */,
 				44735A3A1AE3991B00FCF9E1 /* FrostingsAndFillings.m in Sources */,
-				446B55E01AE59968001DBF71 /* EntireRecipe.m in Sources */,
 				446B55DC1AE444FB001DBF71 /* SearchResultCell.m in Sources */,
 				44735A3D1AE3991B00FCF9E1 /* ShoppingListRecipes.m in Sources */,
 				44735A361AE3991B00FCF9E1 /* AddToFavorites.m in Sources */,
@@ -373,6 +368,7 @@
 				44735A3B1AE3991B00FCF9E1 /* RecipesHome.m in Sources */,
 				44735A411AE39B4500FCF9E1 /* RecipeInfo.m in Sources */,
 				44735A3C1AE3991B00FCF9E1 /* ShoppingList.m in Sources */,
+				446B56881AE65927001DBF71 /* AccordionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
