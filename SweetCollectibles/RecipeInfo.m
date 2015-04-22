@@ -17,6 +17,9 @@
 @property (nonatomic) UIButton *headerButton, *ingredientsButton, *instructionsButton;
 @property (nonatomic) UIView *headerView, *ingredientsView, *instructionsView;
 @property (nonatomic) AccordionView *accordion;
+@property (nonatomic) CGFloat screenWidth;
+@property (nonatomic) CGFloat screenHeight;
+@property (nonatomic) CGRect newFrame;
 @end
 
 @implementation RecipeInfo
@@ -24,18 +27,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.translucent = NO;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    self.screenWidth = screenRect.size.width;
+    self.screenHeight = screenRect.size.height;
     [self createAccordionView];
     [self createAndStyleHeaderButtons];
     [self createHeaderView];
+    [self createIngredientsView];
     [self addHeadersAndViewsToAccordionView];
-    //self.recipePicture.image = [UIImage imageWithData:self.recipe.picture];
-    //self.recipeTitle.text = self.recipe.title;
 }
 
 -(void)createAccordionView{
     self.accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
     [self.view insertSubview:self.accordion atIndex:0];
-    //[self.view addSubview:self.accordion];
 }
 
 
@@ -65,17 +69,17 @@
 
 
 -(void)createHeaderView {
-    // Create header view
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 82)];
+    // Create main header view
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 92)];
     self.headerView.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
     
-    // Create detail element image in header view
-    UIImageView *recipeImage =[[UIImageView alloc] initWithFrame:CGRectMake(0,0,100,82)];
+    // Create image view
+    UIImageView *recipeImage =[[UIImageView alloc] initWithFrame:CGRectMake(0,5,100,82)];
     recipeImage.image = [UIImage imageWithData:self.recipe.picture];
     [recipeImage setContentMode:UIViewContentModeScaleAspectFit];
     [self.headerView addSubview:recipeImage];
     
-    // Create detail element image in header view
+    // Create label
     UILabel *recipeLabel =[[UILabel alloc] initWithFrame:CGRectMake(108,14,167,70)];
     [recipeLabel setFont:[UIFont boldSystemFontOfSize:14]];
     recipeLabel.text = [self.recipe.title uppercaseString];
@@ -86,8 +90,74 @@
     [self.headerView addSubview:recipeLabel];
 }
 
+-(void)createIngredientsView {
+    NSArray *details = [self.recipe.recipeDetails allObjects];
+    CGSize size, adjustedSize;
+    float offsetFromViewTop = 8.0f;
+    float offsetbetweenItems = 5.0f;
+    
+    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0,50)];
+    tempView.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
+    
+    // create subviews
+    for (RecipeDetail *detail in details) {
+        size = [detail.subTitle sizeWithAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:12]}];
+        adjustedSize = CGSizeMake(ceilf(size.width), ceilf(size.height));
+        
+        // Create ingredients sub-title
+        UILabel *recipeSubTitle =[[UILabel alloc] initWithFrame:CGRectMake(10,offsetFromViewTop,self.screenWidth-10.0f,adjustedSize.height+16)];
+        [recipeSubTitle setFont:[UIFont boldSystemFontOfSize:12]];
+        recipeSubTitle.text = detail.subTitle;
+        [recipeSubTitle setTextAlignment:NSTextAlignmentLeft];
+        [recipeSubTitle setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
+        recipeSubTitle.lineBreakMode = NSLineBreakByWordWrapping;
+        recipeSubTitle.numberOfLines = 2;
+        
+        // Add label to view and resize view
+        CGSize newSize;
+        newSize.height = 500;
+        newSize.width = self.screenWidth;
+        [tempView addSubview:recipeSubTitle];
+        [tempView sizeThatFits:newSize];
+        [tempView sizeToFit];
+        [tempView setNeedsLayout];
+        [tempView setNeedsDisplayInRect:tempView.frame];
+        
+        
+        // Create list of ingredients
+        NSArray *ingredients = [detail.ingredients allObjects];
+        NSString *individualIngredient = @"";
+        NSString *listIngredients = @"";
+        for (Ingredient *ingredient in ingredients) {
+            individualIngredient = [NSString stringWithFormat:@"%@ %@ %@\n",ingredient.amount, ingredient.unitOfMeasure, ingredient.ingredientType];
+            listIngredients = [listIngredients stringByAppendingString:individualIngredient];
+        }
+        size = [listIngredients sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11]}];
+        adjustedSize = CGSizeMake(ceilf(size.width), ceilf(size.height));
+        
+        // Create textview
+         UITextView *ingredientsList =[[UITextView alloc] initWithFrame:CGRectMake(30,recipeSubTitle.frame.size.height+offsetbetweenItems,self.screenWidth-20.0f,adjustedSize.height+16)];
+        [ingredientsList setFont:[UIFont systemFontOfSize:11]];
+        ingredientsList.text = listIngredients;
+        [ingredientsList setTextAlignment:NSTextAlignmentLeft];
+         ingredientsList.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
+        
+        // Add textview to view and resize view
+        [tempView addSubview:ingredientsList];
+        [tempView sizeToFit];
+        [tempView setNeedsLayout];
+
+        [tempView setNeedsDisplayInRect:tempView.frame];
+        // Create ingredients view
+        self.ingredientsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, tempView.frame.size.height)];
+        self.ingredientsView.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
+        [self.ingredientsView addSubview:tempView];
+    }
+}
+
 -(void)addHeadersAndViewsToAccordionView {
     [self.accordion addHeader:self.headerButton withView:self.headerView];
+    [self.accordion addHeader:self.ingredientsButton withView:self.ingredientsView];
     [self.accordion setNeedsLayout];
     
     // Set this if you want to allow multiple selection
