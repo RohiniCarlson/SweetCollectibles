@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		446B55DC1AE444FB001DBF71 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 446B55DB1AE444FB001DBF71 /* SearchResultCell.m */; };
 		446B56881AE65927001DBF71 /* AccordionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 446B56871AE65927001DBF71 /* AccordionView.m */; };
+		446B568B1AE778A0001DBF71 /* ResizeDynamically.m in Sources */ = {isa = PBXBuildFile; fileRef = 446B568A1AE778A0001DBF71 /* ResizeDynamically.m */; };
 		447359F91AE392DE00FCF9E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 447359F81AE392DE00FCF9E1 /* main.m */; };
 		447359FC1AE392DE00FCF9E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 447359FB1AE392DE00FCF9E1 /* AppDelegate.m */; };
 		44735A071AE392DE00FCF9E1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44735A061AE392DE00FCF9E1 /* Images.xcassets */; };
@@ -48,6 +49,8 @@
 		446B55DB1AE444FB001DBF71 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultCell.m; sourceTree = "<group>"; };
 		446B56861AE65927001DBF71 /* AccordionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccordionView.h; sourceTree = "<group>"; };
 		446B56871AE65927001DBF71 /* AccordionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccordionView.m; sourceTree = "<group>"; };
+		446B56891AE778A0001DBF71 /* ResizeDynamically.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeDynamically.h; sourceTree = "<group>"; };
+		446B568A1AE778A0001DBF71 /* ResizeDynamically.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizeDynamically.m; sourceTree = "<group>"; };
 		447359F31AE392DE00FCF9E1 /* SweetCollectibles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SweetCollectibles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		447359F71AE392DE00FCF9E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		447359F81AE392DE00FCF9E1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 				44735A491AE3B67500FCF9E1 /* Ingredient.m */,
 				446B55DA1AE444FB001DBF71 /* SearchResultCell.h */,
 				446B55DB1AE444FB001DBF71 /* SearchResultCell.m */,
+				446B56891AE778A0001DBF71 /* ResizeDynamically.h */,
+				446B568A1AE778A0001DBF71 /* ResizeDynamically.m */,
 			);
 			path = SweetCollectibles;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				446B568B1AE778A0001DBF71 /* ResizeDynamically.m in Sources */,
 				44735A4A1AE3B67500FCF9E1 /* Ingredient.m in Sources */,
 				447359FC1AE392DE00FCF9E1 /* AppDelegate.m in Sources */,
 				44735A441AE3B5DC00FCF9E1 /* Recipe.m in Sources */,

@@ -168,7 +168,7 @@
     
     Ingredient *frostingIngredient2 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
     frostingIngredient2.ingredientType = @"(1 1/2 cups) unsalted butter, room temperature ";
-    frostingIngredient2.amount = @0;
+    frostingIngredient2.amount = @340;
     frostingIngredient2.unitOfMeasure = @"";
     frostingIngredient2.recipeDetail = frosting;
     [frosting addIngredientsObject:frostingIngredient2];
