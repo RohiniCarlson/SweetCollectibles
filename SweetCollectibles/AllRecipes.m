@@ -66,7 +66,8 @@
     NSString *step2 = @"2.In bowl of electric mixer fitted with the whisk attachment, sift all dry ingredients, including sugar. Combine eggs, buttermilk, coffee, oil and vanilla in a measuring cup and beat lightly with a fork.";
     NSString *step3 = @"3. Add milk mixture to the dry ingredients mix for 1 minute on medium speed (you may need the plastic splash-guard that comes with mixer). Divide batter evenly among prepared pans--each pan should contain about 600 grams of batter.";
     NSString *step4 = @"4. Bake the first 2 layers for 20 minutes and rotate pans in oven. Continue to bake until toothpick or skewer comes almost clean (a few crumbs), about 5 more minutes. Cool on wire racks for 20 minutes. Repeat with remaining layer, and then gently invert onto racks until completely cool.";
-    cake.instructions = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",step1, step2, step3, step4];
+    
+   cake.instructions = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",step1, step2, step3, step4];
     
     // Creating ingredients for cake
     Ingredient *cakeIngredient1 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
@@ -154,8 +155,8 @@
     RecipeDetail *frosting = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeDetail" inManagedObjectContext:context];
     frosting.recipe = recipe;
     frosting.subTitle = @"For the Chocolate Frosting:";
-    NSString *step5 = @"5. Put all of the ingredients in a food processor, and pulse until smooth and glossy, about 1 minute. The frosting will be very soft. Refrigerate the frosting until it thickens slightly, about 15 minutes.";
-    frosting.instructions = [NSString stringWithFormat:@"%@",step5];
+    NSString *step5 = @"Put all of the ingredients in a food processor, and pulse until smooth and glossy, about 1 minute. The frosting will be very soft. Refrigerate the frosting until it thickens slightly, about 15 minutes.";
+    frosting.instructions = step5;
     
     
     // Creating ingredients for frosting

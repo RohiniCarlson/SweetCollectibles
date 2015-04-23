@@ -15,8 +15,8 @@
 @interface RecipeInfo ()
 //@property (nonatomic) UITextView *ingredientsTextView;
 //@property (nonatomic) UIView *ingredientsView;
-@property (nonatomic) UIButton *headerButton, *ingredientsButton, *instructionsButton;
-@property (nonatomic) UIView *headerView, *ingredientsView, *instructionsView;
+@property (nonatomic) UIButton *headerButton, *ingredientsButton, *ingredientsButton2, *instructionsButton;
+@property (nonatomic) UIView *headerView, *ingredientsView, *ingredientsView2, *instructionsView;
 @property (nonatomic) AccordionView *accordion;
 @property (nonatomic) CGFloat screenWidth;
 @property (nonatomic) CGFloat screenHeight;
@@ -35,12 +35,15 @@
     [self createAndStyleHeaderButtons];
     [self createHeaderView];
     [self createIngredientsView];
+   // [self createIngredientsView2];
+    [self createInstructionsView];
     [self addHeadersAndViewsToAccordionView];
 }
 
 -(void)createAccordionView{
     self.accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-    [self.view insertSubview:self.accordion atIndex:0];
+    //[self.view insertSubview:self.accordion atIndex:0];
+    [self.view addSubview:self.accordion];
 }
 
 
@@ -63,6 +66,9 @@
     
     self.ingredientsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
     [self styleButton:self.ingredientsButton withTitle:@"Ingredients" andImage:@"collapse" colorRed:204 colorBlue:153 colorGreen:204];
+    
+    //self.ingredientsButton2 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
+    //[self styleButton:self.ingredientsButton2 withTitle:@"Ingredients" andImage:@"collapse" colorRed:153 colorBlue:153 colorGreen:204];
     
     self.instructionsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
     [self styleButton:self.instructionsButton withTitle:@"Instructions" andImage:@"collapse"colorRed:153 colorBlue:153 colorGreen:204];
@@ -97,12 +103,12 @@
     return fetchedIngredients;
 }
 
+
+
 -(void)createIngredientsView {
     NSArray *details = [self.recipe.recipeDetails allObjects];
     CGSize size, adjustedSize;
     CGRect newFrame;
-    //float offsetFromViewTop = 5.0f;
-    //float offsetbetweenItems = 0.0f;
     
     UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.screenWidth,0)];
     tempView.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
@@ -113,7 +119,7 @@
         adjustedSize = CGSizeMake(ceilf(size.width), ceilf(size.height));
         
         // Create label for sub-title
-        UILabel *recipeSubTitle =[[UILabel alloc] initWithFrame:CGRectMake(10,tempView.frame.size.height, self.screenWidth-10.0f,adjustedSize.height+16)];
+        UILabel *recipeSubTitle =[[UILabel alloc] initWithFrame:CGRectMake(10,tempView.frame.size.height, self.screenWidth-10.0f,adjustedSize.height+10)];
         [recipeSubTitle setFont:[UIFont boldSystemFontOfSize:12]];
         recipeSubTitle.text = detail.subTitle;
         [recipeSubTitle setTextAlignment:NSTextAlignmentLeft];
@@ -128,44 +134,27 @@
         
         // Create list of ingredients
         NSArray *ingredients = [detail.ingredients allObjects];
-        NSLog(@"num ingredients: %lu",(unsigned long)ingredients.count);
         NSString *temp = @"";
         NSString *individualIngredient = @"";
         NSString *listIngredients = @"";
         for (Ingredient *ingredient in ingredients) {
-            
-            //NSLog(@"type(length): %lu",(unsigned long)ingredient.ingredientType.length );
             if ([ingredient.amount intValue] != 0) {
                 temp = [ingredient.amount stringValue];
                 temp = [NSString stringWithFormat:@"%@ ",temp];
-                NSLog(@"added amount %@",temp);
             }
             if (![self stringIsNullOrEmpty:ingredient.unitOfMeasure]) {
-                //NSLog(@"uof(length): %lu",(unsigned long)ingredient.unitOfMeasure.length );
                 if ([self stringIsNullOrEmpty:temp]) {
                     temp = ingredient.unitOfMeasure;
-                    NSLog(@"added uom %@",temp);
                 } else {
                   temp = [temp stringByAppendingString:ingredient.unitOfMeasure];
-                    NSLog(@"added uom %@",temp);
                 }
                 temp = [NSString stringWithFormat:@"%@ ",temp];
             }
             if ([self stringIsNullOrEmpty:temp]) {
                 temp = ingredient.ingredientType;
-                NSLog(@"added type %@",temp);
             } else {
                 temp = [temp stringByAppendingString:ingredient.ingredientType];
-                NSLog(@"added type %@",temp);
             }
-            //NSLog(@"temp",temp);
-            
-            /*if (![self stringIsNullOrEmpty:ingredient.unitOfMeasure]) {
-                [temp stringByAppendingString:ingredient.unitOfMeasure];
-            }
-            if (![self stringIsNullOrEmpty:ingredient.ingredientType]) {
-                [temp stringByAppendingString:ingredient.ingredientType];
-            }*/
             individualIngredient = [NSString stringWithFormat:@"%@\n",temp];
             temp = @"";
             listIngredients = [listIngredients stringByAppendingString:individualIngredient];
@@ -174,7 +163,7 @@
         adjustedSize = CGSizeMake(ceilf(size.width), ceilf(size.height));
         
         // Create textview for ingredients
-         UITextView *ingredientsList =[[UITextView alloc] initWithFrame:CGRectMake(15,tempView.bounds.size.height,self.screenWidth-20.0f,adjustedSize.height+16)];
+         UITextView *ingredientsList =[[UITextView alloc] initWithFrame:CGRectMake(15,tempView.bounds.size.height,self.screenWidth-20.0f,adjustedSize.height+10)];
         [ingredientsList setFont:[UIFont systemFontOfSize:11]];
         ingredientsList.text = listIngredients;
         [ingredientsList setTextAlignment:NSTextAlignmentLeft];
@@ -184,19 +173,179 @@
         newFrame.size.height = ingredientsList.frame.size.height;
         tempView.frame = CGRectMake(0,0,self.screenWidth,tempView.frame.size.height + newFrame.size.height);
         [tempView addSubview:ingredientsList];
-       // offsetFromViewTop = tempView.bounds.size.height + 10.0f;
-       // NSLog(recipeSubTitle.text);
-        //NSLog(ingredientsList.text);
     }
+    
     // Create ingredients view
     self.ingredientsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, tempView.frame.size.height)];
     self.ingredientsView.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
     [self.ingredientsView addSubview:tempView];
 }
 
+-(void)createIngredientsView2 {
+    NSArray *details = [self.recipe.recipeDetails allObjects];
+    CGSize size, adjustedSize;
+    CGRect newFrame;
+    
+    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.screenWidth,0)];
+    tempView.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
+    
+    // create subviews
+    for (RecipeDetail *detail in details) {
+        size = [detail.subTitle sizeWithAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:12]}];
+        adjustedSize = CGSizeMake(ceilf(size.width), ceilf(size.height));
+        
+        // Create label for sub-title
+        UILabel *recipeSubTitle =[[UILabel alloc] initWithFrame:CGRectMake(10,tempView.frame.size.height, self.screenWidth-10.0f,adjustedSize.height+10)];
+        [recipeSubTitle setFont:[UIFont boldSystemFontOfSize:12]];
+        recipeSubTitle.text = detail.subTitle;
+        [recipeSubTitle setTextAlignment:NSTextAlignmentLeft];
+        [recipeSubTitle setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
+        recipeSubTitle.lineBreakMode = NSLineBreakByWordWrapping;
+        recipeSubTitle.numberOfLines = 2;
+        
+        // Add label to view and resize view
+        newFrame.size.height = recipeSubTitle.frame.size.height;
+        tempView.frame = CGRectMake(0,0,self.screenWidth,tempView.frame.size.height + newFrame.size.height);
+        [tempView addSubview:recipeSubTitle];
+        
+        // Create list of ingredients
+        NSArray *ingredients = [detail.ingredients allObjects];
+        NSString *temp = @"";
+        NSString *individualIngredient = @"";
+        NSString *listIngredients = @"";
+        for (Ingredient *ingredient in ingredients) {
+            if ([ingredient.amount intValue] != 0) {
+                temp = [ingredient.amount stringValue];
+                temp = [NSString stringWithFormat:@"%@ ",temp];
+            }
+            if (![self stringIsNullOrEmpty:ingredient.unitOfMeasure]) {
+                if ([self stringIsNullOrEmpty:temp]) {
+                    temp = ingredient.unitOfMeasure;
+                } else {
+                    temp = [temp stringByAppendingString:ingredient.unitOfMeasure];
+                }
+                temp = [NSString stringWithFormat:@"%@ ",temp];
+            }
+            if ([self stringIsNullOrEmpty:temp]) {
+                temp = ingredient.ingredientType;
+            } else {
+                temp = [temp stringByAppendingString:ingredient.ingredientType];
+            }
+            individualIngredient = [NSString stringWithFormat:@"%@\n",temp];
+            temp = @"";
+            listIngredients = [listIngredients stringByAppendingString:individualIngredient];
+        }
+        size = [listIngredients sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11]}];
+        adjustedSize = CGSizeMake(ceilf(size.width), ceilf(size.height));
+        
+        // Create textview for ingredients
+        UITextView *ingredientsList =[[UITextView alloc] initWithFrame:CGRectMake(15,tempView.bounds.size.height,self.screenWidth-20.0f,adjustedSize.height+10)];
+        [ingredientsList setFont:[UIFont systemFontOfSize:11]];
+        ingredientsList.text = listIngredients;
+        [ingredientsList setTextAlignment:NSTextAlignmentLeft];
+        ingredientsList.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
+        
+        // Add textview to view and resize view
+        newFrame.size.height = ingredientsList.frame.size.height;
+        tempView.frame = CGRectMake(0,0,self.screenWidth,tempView.frame.size.height + newFrame.size.height);
+        [tempView addSubview:ingredientsList];
+    }
+    
+    // Create ingredients view
+    self.ingredientsView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, tempView.frame.size.height)];
+    self.ingredientsView2.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
+    [self.ingredientsView2 addSubview:tempView];
+}
+
+
+-(void)createInstructionsView {
+    NSArray *details = [self.recipe.recipeDetails allObjects];
+    CGSize size, adjustedSize;
+    CGRect newFrame;
+    
+    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.screenWidth,0)];
+    tempView.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
+    
+    // create subviews
+    for (RecipeDetail *detail in details) {
+        size = [detail.subTitle sizeWithAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:12]}];
+        adjustedSize = CGSizeMake(ceilf(size.width), ceilf(size.height));
+        
+        // Create label for sub-title
+        UILabel *recipeSubTitle =[[UILabel alloc] initWithFrame:CGRectMake(10,tempView.frame.size.height, self.screenWidth-10.0f,adjustedSize.height+10)];
+        [recipeSubTitle setFont:[UIFont boldSystemFontOfSize:12]];
+        recipeSubTitle.text = detail.subTitle;
+        [recipeSubTitle setTextAlignment:NSTextAlignmentLeft];
+        [recipeSubTitle setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
+        recipeSubTitle.lineBreakMode = NSLineBreakByWordWrapping;
+        recipeSubTitle.numberOfLines = 2;
+        
+        // Add label to view and resize view
+        newFrame.size.height = recipeSubTitle.frame.size.height;
+        tempView.frame = CGRectMake(0,0,self.screenWidth,tempView.frame.size.height + newFrame.size.height);
+        [tempView addSubview:recipeSubTitle];
+        
+        // Create textview for instructions
+        
+        NSString *instructionsStr = [NSString stringWithFormat:@"%@", detail.instructions];
+        NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:11]};
+        // NSString class method: boundingRectWithSize:options:attributes:context is
+        // available only on ios7.0 sdk.
+        size = [instructionsStr sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11]}];
+        NSLog(@"size(height): %f",size.height);
+        adjustedSize = CGSizeMake(ceilf(size.width), ceilf(size.height));
+        NSLog(@"adjustedSize(height): %f",adjustedSize.height);
+        CGRect rect = [instructionsStr boundingRectWithSize:CGSizeMake(adjustedSize.width, CGFLOAT_MAX)
+                                                  options:NSStringDrawingUsesLineFragmentOrigin
+                                               attributes:attributes
+                                                  context:nil];
+        
+
+        
+        UITextView *instructions =[[UITextView alloc] initWithFrame:CGRectMake(15,tempView.bounds.size.height,self.screenWidth-20.0f,rect.size.height)];
+        NSLog(@"TextView(height): %f",instructions.frame.size.height);
+        [instructions setFont:[UIFont systemFontOfSize:11]];
+        instructions.text = instructionsStr;
+        NSLog(@"instructions %@",detail.instructions);
+        [instructions setTextAlignment:NSTextAlignmentLeft];
+        instructions.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
+        
+        // Add textview to view and resize view
+        newFrame.size.height = instructions.frame.size.height;
+        tempView.frame = CGRectMake(0,0,self.screenWidth,tempView.frame.size.height + newFrame.size.height);
+        [tempView addSubview:instructions];
+    }
+    
+    // Create instructions view
+    self.instructionsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, tempView.frame.size.height)];
+    self.instructionsView.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
+    [self.instructionsView addSubview:tempView];
+}
+
+
 -(void)addHeadersAndViewsToAccordionView {
     [self.accordion addHeader:self.headerButton withView:self.headerView];
+    
+    //[self.accordion addHeader:self.ingredientsButton2 withView:self.ingredientsView2];
     [self.accordion addHeader:self.ingredientsButton withView:self.ingredientsView];
+    [self.accordion addHeader:self.instructionsButton withView:self.instructionsView];
+   /* CGRect totalFrameHeight;
+    totalFrameHeight.size.height = self.headerButton.frame.size.height +
+                              self.headerView.frame.size.height +
+                              self.ingredientsButton.frame.size.height +
+                              self.ingredientsView.frame.size.height +
+                              self.ingredientsButton.frame.size.height +
+                              self.ingredientsView.frame.size.height;
+    if (self.accordion.frame.size.height < totalFrameHeight.size.height) {
+        self.accordion.frame = CGRectMake(0,0,[[UIScreen mainScreen] bounds].size.width,totalFrameHeight.size.height);
+    }*/
+    CGRect totalFrameHeight;
+    totalFrameHeight.size.height = self.headerButton.frame.size.height +
+    self.headerView.frame.size.height +
+    self.ingredientsButton.frame.size.height +
+    self.ingredientsView.frame.size.height +
+    self.ingredientsButton.frame.size.height +
+    self.ingredientsView.frame.size.height;
     [self.accordion setNeedsLayout];
     
     // Set this if you want to allow multiple selection

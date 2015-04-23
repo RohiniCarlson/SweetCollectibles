@@ -77,6 +77,18 @@
     return self;
 }
 
+-(float)calculateHeightsOfHeadersAndSections {
+    CGFloat height = 0.0f;
+    UIControl *header;
+    for (int i=0; i<headers.count; i++) {
+        height = height+header.frame.size.height;
+    }
+    for (int i=0; i<views.count; i++) {
+        height = height+[views[i]frame].size.height;
+    }
+    return height;
+}
+
 - (void)addHeader:(UIControl *)aHeader withView:(id)aView {
     NSLog(@"addHeader");
     if ((aHeader != nil) && (aView != nil)) {
@@ -304,6 +316,7 @@
         }
         
         [scrollView setContentOffset:offset animated:YES];
+        
         [self scrollViewDidScroll:scrollView];
     }
 }
