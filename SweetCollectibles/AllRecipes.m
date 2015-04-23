@@ -49,25 +49,17 @@
     recipe.title = @"Best Ever Chocolate and Nutella Layer Cake";
     recipe.picture = cakePicture;
     recipe.category = [self convertEnumToNumber:chocolateLayerCake];
-    NSString *step6 = @"6. Put a dollop of frosting on a 7-inch round cake board (or cake plate) or 8-inch scalloped cake board.";
-    NSString *step7 = @"7. Put your first layer top-up on the cake board or plate, and spread about 1 cup of frosting evenly across layer. Put the second cake layer on top and repeat with another layer of frosting. Put the final cake layer top-down. Cover the cake with plastic wrap and wiggle the layers into place. Refrigerate the cake for about 30 minutes.";
-    NSString *step8 = @"8. Using a turntable, if possible, frost entire outside of cake with a thin layer of frosting to seal in the crumbs. Chill until the frosting begins to firm-up, about 15 minutes. Repeat with another thin layer of frosting, this time working to achieve a smooth finish. Chill for another 15 minutes.";
-    NSString *step9 = @"9. Apply a third coat of frosting to the cake. Holding a tall pastry comb in your dominant hand, press it gently against the side of the cake and keep it steady. Use the other hand to slowly rotate the turntable until you have gone all the way around the cake. Gently press some chocolate sprinkles around the bottom edge of the cake.";
-    NSString *step10 = @"10. Fit a medium pastry bag with a medium-large closed star tip, such as 1M, and fill about 2/3 full with frosting. Pipe a border around the top of the cake. Chill the cake until the frosting border firms up, at least 30 minutes.";
-    NSString *step11 = @"11. Cover the top of the cake (but not the piped border) with chocolate sprinkles. Once frosting softens again, the sprinkles will adhere to top. The cake will keep refrigerated for up to 3 days.";
-    recipe.howToAssemble = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@\n\n%@\n\n%@", step6,step7,step8,step9,step10,step11];
+    NSString *assemble = @"Put a dollop of frosting on a 7-inch round cake board (or cake plate) or 8-inch scalloped cake board.*Put your first layer top-up on the cake board or plate, and spread about 1 cup of frosting evenly across layer. Put the second cake layer on top and repeat with another layer of frosting. Put the final cake layer top-down. Cover the cake with plastic wrap and wiggle the layers into place. Refrigerate the cake for about 30 minutes.*Using a turntable, if possible, frost entire outside of cake with a thin layer of frosting to seal in the crumbs. Chill until the frosting begins to firm-up, about 15 minutes. Repeat with another thin layer of frosting, this time working to achieve a smooth finish. Chill for another 15 minutes.*Apply a third coat of frosting to the cake. Holding a tall pastry comb in your dominant hand, press it gently against the side of the cake and keep it steady. Use the other hand to slowly rotate the turntable until you have gone all the way around the cake. Gently press some chocolate sprinkles around the bottom edge of the cake.*Fit a medium pastry bag with a medium-large closed star tip, such as 1M, and fill about 2/3 full with frosting. Pipe a border around the top of the cake. Chill the cake until the frosting border firms up, at least 30 minutes.*Cover the top of the cake (but not the piped border) with chocolate sprinkles. Once frosting softens again, the sprinkles will adhere to top. The cake will keep refrigerated for up to 3 days.*";
+    recipe.howToAssemble = assemble;
     
     
     // Creating recipe details - cake
     RecipeDetail *cake = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeDetail" inManagedObjectContext:context];
     cake.recipe = recipe;
     cake.subTitle = @"For the Cake:";
-    NSString *step1 = @"1. Preheat oven to 180° C. Prepare three 7-inch round cake pans with nonstick spray and parchment rounds.";
-    NSString *step2 = @"2.In bowl of electric mixer fitted with the whisk attachment, sift all dry ingredients, including sugar. Combine eggs, buttermilk, coffee, oil and vanilla in a measuring cup and beat lightly with a fork.";
-    NSString *step3 = @"3. Add milk mixture to the dry ingredients mix for 1 minute on medium speed (you may need the plastic splash-guard that comes with mixer). Divide batter evenly among prepared pans--each pan should contain about 600 grams of batter.";
-    NSString *step4 = @"4. Bake the first 2 layers for 20 minutes and rotate pans in oven. Continue to bake until toothpick or skewer comes almost clean (a few crumbs), about 5 more minutes. Cool on wire racks for 20 minutes. Repeat with remaining layer, and then gently invert onto racks until completely cool.";
+    NSString *cakeInstructions = @"Preheat oven to 180° C. Prepare three 7-inch round cake pans with nonstick spray and parchment rounds.*In bowl of electric mixer fitted with the whisk attachment, sift all dry ingredients, including sugar. Combine eggs, buttermilk, coffee, oil and vanilla in a measuring cup and beat lightly with a fork.*Add milk mixture to the dry ingredients mix for 1 minute on medium speed (you may need the plastic splash-guard that comes with mixer). Divide batter evenly among prepared pans--each pan should contain about 600 grams of batter.*Bake the first 2 layers for 20 minutes and rotate pans in oven. Continue to bake until toothpick or skewer comes almost clean (a few crumbs), about 5 more minutes. Cool on wire racks for 20 minutes. Repeat with remaining layer, and then gently invert onto racks until completely cool.*";
     
-   cake.instructions = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",step1, step2, step3, step4];
+   cake.instructions = cakeInstructions;
     
     // Creating ingredients for cake
     Ingredient *cakeIngredient1 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
@@ -155,8 +147,8 @@
     RecipeDetail *frosting = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeDetail" inManagedObjectContext:context];
     frosting.recipe = recipe;
     frosting.subTitle = @"For the Chocolate Frosting:";
-    NSString *step5 = @"Put all of the ingredients in a food processor, and pulse until smooth and glossy, about 1 minute. The frosting will be very soft. Refrigerate the frosting until it thickens slightly, about 15 minutes.";
-    frosting.instructions = step5;
+    NSString *frostingInstructions = @"Put all of the ingredients in a food processor, and pulse until smooth and glossy, about 1 minute. The frosting will be very soft. Refrigerate the frosting until it thickens slightly, about 15 minutes.*";
+    frosting.instructions = frostingInstructions;
     
     
     // Creating ingredients for frosting

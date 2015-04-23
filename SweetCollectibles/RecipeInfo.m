@@ -42,6 +42,7 @@
 
 -(void)createAccordionView{
     self.accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+    self.accordion.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
     //[self.view insertSubview:self.accordion atIndex:0];
     [self.view addSubview:self.accordion];
 }
@@ -96,13 +97,6 @@
     recipeLabel.numberOfLines = 5;
     [self.headerView addSubview:recipeLabel];
 }
-
-
--(NSArray*)fetchIngredients:(NSString*)subTitle {
-    NSArray *fetchedIngredients;
-    return fetchedIngredients;
-}
-
 
 
 -(void)createIngredientsView {
@@ -258,10 +252,25 @@
 }
 
 
+/*-(CGFloat)heightForText:(NSString*)text font:(UIFont*)font withinWidth:(CGFloat)width {
+    CGSize size = [text sizeWithAttributes:@{NSFontAttributeName:font}];
+    CGFloat area = size.height * size.width;
+    CGFloat height = roundf(area / width);
+    return ceilf(height / font.lineHeight) * font.lineHeight;
+}*/
+
+
+/*-(NSMutableAttributedString*)createAtrributedStringForInstructions {
+    
+}*/
+
 -(void)createInstructionsView {
     NSArray *details = [self.recipe.recipeDetails allObjects];
     CGSize size, adjustedSize;
     CGRect newFrame;
+    
+    NSDictionary *defaultAttrs = @{NSFontAttributeName : [UIFont systemFontOfSize:11]};
+    NSDictionary *boldAttrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:11]};
     
     UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.screenWidth,0)];
     tempView.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
@@ -286,27 +295,28 @@
         [tempView addSubview:recipeSubTitle];
         
         // Create textview for instructions
+        NSString *instruction = @"";
+        NSString *instructionStep = @"";
+        NSMutableAttributedString *instructionList;
+        NSArray *instructionsArray = [detail.instructions componentsSeparatedByString:@"*"];
+        instructionList = [[NSMutableAttributedString alloc]init];
+        for (int i=0; i<instructionsArray.count-1; i++) {
+            instructionStep = [NSString stringWithFormat: @"Step %d: ",i+1];
+            NSAttributedString *attributedInstructionStep = [[NSAttributedString alloc] initWithString:instructionStep attributes:boldAttrs];
+            
+            instruction = [NSString stringWithFormat: @"%@\n\n",instructionsArray[i]];
+            NSAttributedString *attributedinstruction = [[NSAttributedString alloc] initWithString:instruction attributes:defaultAttrs];
+            
+            [instructionList appendAttributedString:attributedInstructionStep];
+            [instructionList appendAttributedString:attributedinstruction];
+        }
         
-        NSString *instructionsStr = [NSString stringWithFormat:@"%@", detail.instructions];
-        NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:11]};
-        // NSString class method: boundingRectWithSize:options:attributes:context is
-        // available only on ios7.0 sdk.
-        size = [instructionsStr sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11]}];
-        NSLog(@"size(height): %f",size.height);
-        adjustedSize = CGSizeMake(ceilf(size.width), ceilf(size.height));
-        NSLog(@"adjustedSize(height): %f",adjustedSize.height);
-        CGRect rect = [instructionsStr boundingRectWithSize:CGSizeMake(adjustedSize.width, CGFLOAT_MAX)
-                                                  options:NSStringDrawingUsesLineFragmentOrigin
-                                               attributes:attributes
-                                                  context:nil];
-        
-
-        
-        UITextView *instructions =[[UITextView alloc] initWithFrame:CGRectMake(15,tempView.bounds.size.height,self.screenWidth-20.0f,rect.size.height)];
-        NSLog(@"TextView(height): %f",instructions.frame.size.height);
-        [instructions setFont:[UIFont systemFontOfSize:11]];
-        instructions.text = instructionsStr;
-        NSLog(@"instructions %@",detail.instructions);
+        UITextView *instructions =[[UITextView alloc] initWithFrame:CGRectMake(15,tempView.bounds.size.height,self.screenWidth-20.0f,10.0f)];
+        instructions.textContainerInset = UIEdgeInsetsZero;
+        instructions.attributedText = instructionList;
+        CGRect newTextViewFrame = [instructions.attributedText boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.view.frame)-8.0f, 9999.0f) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) context:nil];
+        CGFloat newHeight = ceilf(newTextViewFrame.size.height);
+        instructions.frame = CGRectMake(15,tempView.bounds.size.height,self.screenWidth-20.0f,newHeight);
         [instructions setTextAlignment:NSTextAlignmentLeft];
         instructions.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
         
@@ -316,8 +326,10 @@
         [tempView addSubview:instructions];
     }
     
+    // Add how-to-assemble instructions!!!!!! TO DOOOOOOO!!!!!
+    
     // Create instructions view
-    self.instructionsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, tempView.frame.size.height)];
+    self.instructionsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, tempView.frame.size.height+ 10.0f)];
     self.instructionsView.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(238/255.0) blue:(246/255.0) alpha:1.000];
     [self.instructionsView addSubview:tempView];
 }
@@ -329,23 +341,6 @@
     //[self.accordion addHeader:self.ingredientsButton2 withView:self.ingredientsView2];
     [self.accordion addHeader:self.ingredientsButton withView:self.ingredientsView];
     [self.accordion addHeader:self.instructionsButton withView:self.instructionsView];
-   /* CGRect totalFrameHeight;
-    totalFrameHeight.size.height = self.headerButton.frame.size.height +
-                              self.headerView.frame.size.height +
-                              self.ingredientsButton.frame.size.height +
-                              self.ingredientsView.frame.size.height +
-                              self.ingredientsButton.frame.size.height +
-                              self.ingredientsView.frame.size.height;
-    if (self.accordion.frame.size.height < totalFrameHeight.size.height) {
-        self.accordion.frame = CGRectMake(0,0,[[UIScreen mainScreen] bounds].size.width,totalFrameHeight.size.height);
-    }*/
-    CGRect totalFrameHeight;
-    totalFrameHeight.size.height = self.headerButton.frame.size.height +
-    self.headerView.frame.size.height +
-    self.ingredientsButton.frame.size.height +
-    self.ingredientsView.frame.size.height +
-    self.ingredientsButton.frame.size.height +
-    self.ingredientsView.frame.size.height;
     [self.accordion setNeedsLayout];
     
     // Set this if you want to allow multiple selection
@@ -358,38 +353,6 @@
 -(BOOL)stringIsNullOrEmpty:(NSString*)string {
     return string.length == 0;
 }
-
-
-/*-(void)createIngrdientsView {
-    NSArray *details = [self.recipe.recipeDetails allObjects];
-    RecipeDetail *detail = details[0];
-    NSString *temp = detail.subTitle;
-    
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    
-    // Create the attributes dictionary with the font and paragraph style
-    NSDictionary *attributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14.0],
-                                 NSParagraphStyleAttributeName:paragraphStyle
-                                 };
-    CGRect textRect = [temp boundingRectWithSize:CGSizeMake(100.0f, 999999.0f)
-                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                        attributes:attributes
-                                           context:nil];
-    //CGSize size = textRect.size;
-    
-    [self.ingredientsTextView setFont:[UIFont boldSystemFontOfSize:14.0]];
-    self.ingredientsTextView.text = temp;
-    self.ingredientsTextView.userInteractionEnabled = NO;
-}*/
-/*NSArray *ingredients = [detail.ingredients allObjects];
- NSString *individualIngredient = @"";
- NSString *listIngredients = detail.subTitle;
- for (Ingredient *ingredient in ingredients) {
- individualIngredient = [NSString stringWithFormat:@"%@ %@ %@",ingredient.amount, ingredient.unitOfMeasure, ingredient.ingredientType];
- individualIngredient = [NSString stringWithFormat:@"%@\n", individualIngredient];
- listIngredients = [listIngredients stringByAppendingString:individualIngredient];
- }*/
 
 
 - (void)didReceiveMemoryWarning {
