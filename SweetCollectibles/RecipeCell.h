@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchResultCell : UITableViewCell
-@property (strong, nonatomic) IBOutlet UILabel *searchResultCell;
+@interface RecipeCell : UITableViewCell
 @property (nonatomic) NSString *recipeTitle;
+@property (strong, nonatomic) IBOutlet UILabel *recipeLabel;
+
+
 @end

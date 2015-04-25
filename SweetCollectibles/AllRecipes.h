@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface AllRecipes : UITableViewController <UISearchBarDelegate>
+
 typedef NS_ENUM(NSInteger, recipeCategory) {
     chocolateLayerCake,
     vanillaLayerCake,

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		446B55DC1AE444FB001DBF71 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 446B55DB1AE444FB001DBF71 /* SearchResultCell.m */; };
+		446B55DC1AE444FB001DBF71 /* RecipeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 446B55DB1AE444FB001DBF71 /* RecipeCell.m */; };
 		446B56881AE65927001DBF71 /* AccordionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 446B56871AE65927001DBF71 /* AccordionView.m */; };
 		446B568B1AE778A0001DBF71 /* ResizeDynamically.m in Sources */ = {isa = PBXBuildFile; fileRef = 446B568A1AE778A0001DBF71 /* ResizeDynamically.m */; };
 		447359F91AE392DE00FCF9E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 447359F81AE392DE00FCF9E1 /* main.m */; };
@@ -30,6 +30,9 @@
 		44735A441AE3B5DC00FCF9E1 /* Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 44735A431AE3B5DC00FCF9E1 /* Recipe.m */; };
 		44735A471AE3B5F900FCF9E1 /* RecipeDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 44735A461AE3B5F900FCF9E1 /* RecipeDetail.m */; };
 		44735A4A1AE3B67500FCF9E1 /* Ingredient.m in Sources */ = {isa = PBXBuildFile; fileRef = 44735A491AE3B67500FCF9E1 /* Ingredient.m */; };
+		4491F7981AEAF7EE001CAD67 /* MasterViewControllerTableResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 4491F7971AEAF7EE001CAD67 /* MasterViewControllerTableResults.m */; };
+		4491F79B1AEAF810001CAD67 /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4491F79A1AEAF810001CAD67 /* SearchResultsTableViewController.m */; };
+		4491F79E1AEB8555001CAD67 /* MasterRecipeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4491F79D1AEB8555001CAD67 /* MasterRecipeTableViewController.m */; };
 		CFA234972B135E5EB1664C4B /* libPods-SweetCollectibles.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C5584C9EFFF22C26DD522B /* libPods-SweetCollectibles.a */; };
 /* End PBXBuildFile section */
 
@@ -45,8 +48,8 @@
 
 /* Begin PBXFileReference section */
 		27C5584C9EFFF22C26DD522B /* libPods-SweetCollectibles.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SweetCollectibles.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		446B55DA1AE444FB001DBF71 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultCell.h; sourceTree = "<group>"; };
-		446B55DB1AE444FB001DBF71 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultCell.m; sourceTree = "<group>"; };
+		446B55DA1AE444FB001DBF71 /* RecipeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeCell.h; sourceTree = "<group>"; };
+		446B55DB1AE444FB001DBF71 /* RecipeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeCell.m; sourceTree = "<group>"; };
 		446B56861AE65927001DBF71 /* AccordionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccordionView.h; sourceTree = "<group>"; };
 		446B56871AE65927001DBF71 /* AccordionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccordionView.m; sourceTree = "<group>"; };
 		446B56891AE778A0001DBF71 /* ResizeDynamically.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeDynamically.h; sourceTree = "<group>"; };
@@ -89,6 +92,12 @@
 		44735A461AE3B5F900FCF9E1 /* RecipeDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDetail.m; sourceTree = "<group>"; };
 		44735A481AE3B67500FCF9E1 /* Ingredient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ingredient.h; sourceTree = "<group>"; };
 		44735A491AE3B67500FCF9E1 /* Ingredient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ingredient.m; sourceTree = "<group>"; };
+		4491F7961AEAF7EE001CAD67 /* MasterViewControllerTableResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewControllerTableResults.h; sourceTree = "<group>"; };
+		4491F7971AEAF7EE001CAD67 /* MasterViewControllerTableResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewControllerTableResults.m; sourceTree = "<group>"; };
+		4491F7991AEAF810001CAD67 /* SearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewController.h; sourceTree = "<group>"; };
+		4491F79A1AEAF810001CAD67 /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewController.m; sourceTree = "<group>"; };
+		4491F79C1AEB8555001CAD67 /* MasterRecipeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterRecipeTableViewController.h; sourceTree = "<group>"; };
+		4491F79D1AEB8555001CAD67 /* MasterRecipeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterRecipeTableViewController.m; sourceTree = "<group>"; };
 		B4AFC04E542943CBEFA41DC5 /* Pods-SweetCollectibles.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SweetCollectibles.release.xcconfig"; path = "Pods/Target Support Files/Pods-SweetCollectibles/Pods-SweetCollectibles.release.xcconfig"; sourceTree = "<group>"; };
 		C6B5FFA3C7E33E2CA5AF99C2 /* Pods-SweetCollectibles.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SweetCollectibles.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SweetCollectibles/Pods-SweetCollectibles.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,10 +159,14 @@
 				44735A2E1AE3991B00FCF9E1 /* RecipesHome.h */,
 				44735A2F1AE3991B00FCF9E1 /* RecipesHome.m */,
 				44735A301AE3991B00FCF9E1 /* ShoppingList.h */,
+				4491F7961AEAF7EE001CAD67 /* MasterViewControllerTableResults.h */,
+				4491F7971AEAF7EE001CAD67 /* MasterViewControllerTableResults.m */,
 				44735A311AE3991B00FCF9E1 /* ShoppingList.m */,
 				44735A321AE3991B00FCF9E1 /* ShoppingListRecipes.h */,
 				44735A331AE3991B00FCF9E1 /* ShoppingListRecipes.m */,
 				44735A341AE3991B00FCF9E1 /* VanillaLayerCakes.h */,
+				4491F7991AEAF810001CAD67 /* SearchResultsTableViewController.h */,
+				4491F79A1AEAF810001CAD67 /* SearchResultsTableViewController.m */,
 				44735A351AE3991B00FCF9E1 /* VanillaLayerCakes.m */,
 				447359FA1AE392DE00FCF9E1 /* AppDelegate.h */,
 				447359FB1AE392DE00FCF9E1 /* AppDelegate.m */,
@@ -170,10 +183,12 @@
 				44735A461AE3B5F900FCF9E1 /* RecipeDetail.m */,
 				44735A481AE3B67500FCF9E1 /* Ingredient.h */,
 				44735A491AE3B67500FCF9E1 /* Ingredient.m */,
-				446B55DA1AE444FB001DBF71 /* SearchResultCell.h */,
-				446B55DB1AE444FB001DBF71 /* SearchResultCell.m */,
+				446B55DA1AE444FB001DBF71 /* RecipeCell.h */,
+				446B55DB1AE444FB001DBF71 /* RecipeCell.m */,
 				446B56891AE778A0001DBF71 /* ResizeDynamically.h */,
 				446B568A1AE778A0001DBF71 /* ResizeDynamically.m */,
+				4491F79C1AEB8555001CAD67 /* MasterRecipeTableViewController.h */,
+				4491F79D1AEB8555001CAD67 /* MasterRecipeTableViewController.m */,
 			);
 			path = SweetCollectibles;
 			sourceTree = "<group>";
@@ -361,15 +376,18 @@
 				447359FC1AE392DE00FCF9E1 /* AppDelegate.m in Sources */,
 				44735A441AE3B5DC00FCF9E1 /* Recipe.m in Sources */,
 				44735A371AE3991B00FCF9E1 /* AllRecipes.m in Sources */,
+				4491F79E1AEB8555001CAD67 /* MasterRecipeTableViewController.m in Sources */,
 				44735A211AE3930F00FCF9E1 /* EntityModel.xcdatamodeld in Sources */,
 				44735A3A1AE3991B00FCF9E1 /* FrostingsAndFillings.m in Sources */,
-				446B55DC1AE444FB001DBF71 /* SearchResultCell.m in Sources */,
+				446B55DC1AE444FB001DBF71 /* RecipeCell.m in Sources */,
 				44735A3D1AE3991B00FCF9E1 /* ShoppingListRecipes.m in Sources */,
 				44735A361AE3991B00FCF9E1 /* AddToFavorites.m in Sources */,
+				4491F79B1AEAF810001CAD67 /* SearchResultsTableViewController.m in Sources */,
 				44735A381AE3991B00FCF9E1 /* ChocolateLayerCakes.m in Sources */,
 				44735A391AE3991B00FCF9E1 /* Favorites.m in Sources */,
 				447359F91AE392DE00FCF9E1 /* main.m in Sources */,
 				44735A3E1AE3991B00FCF9E1 /* VanillaLayerCakes.m in Sources */,
+				4491F7981AEAF7EE001CAD67 /* MasterViewControllerTableResults.m in Sources */,
 				44735A471AE3B5F900FCF9E1 /* RecipeDetail.m in Sources */,
 				44735A3B1AE3991B00FCF9E1 /* RecipesHome.m in Sources */,
 				44735A411AE39B4500FCF9E1 /* RecipeInfo.m in Sources */,

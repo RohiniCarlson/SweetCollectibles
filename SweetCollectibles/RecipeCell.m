@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 it-h&#246;gskolan. All rights reserved.
 //
 
-#import "SearchResultCell.h"
+#import "RecipeCell.h"
 
-@implementation SearchResultCell
+@implementation RecipeCell
 
 - (void)awakeFromNib {
     // Initialization code

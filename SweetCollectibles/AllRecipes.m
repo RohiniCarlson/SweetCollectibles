@@ -11,27 +11,42 @@
 #import "Recipe.h"
 #import "RecipeDetail.h"
 #import "Ingredient.h"
-#import "SearchResultCell.h"
+#import "RecipeCell.h"
 #import "RecipeInfo.h"
 
 @interface AllRecipes ()
 @property (nonatomic) NSArray *fetchedObjects;
+@property (nonatomic) NSArray *titlesArray;
 @property (nonatomic) NSMutableArray *sectionRecipeTitles;
 @property (nonatomic) NSArray *recipeIndexTitles;
-@property (nonatomic) NSArray *filteredResult;
+@property (nonatomic) NSMutableArray *filteredResult;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+
 @end
 
 @implementation AllRecipes
 
+- (void)viewWillAppear:(BOOL)animated {
+   // self.searchBar.showsCancelButton = YES;
+    [self.tableView reloadData];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.filteredResult = [[NSMutableArray alloc] init];
     self.sectionRecipeTitles = [[NSMutableArray alloc] init];
     self.recipeIndexTitles = @[@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z"];
     //[self addNewRecipe];
     [self fetchRecipes];
     [self createArrayForSectionRecipeTitles];
-    [self.tableView registerClass: [SearchResultCell class] forCellReuseIdentifier:@"recipeFiltered"];
+    [self.tableView registerClass: [RecipeCell class] forCellReuseIdentifier:@"FilteredCell"];
 }
+
+/*- (void)viewDidUnload
+{
+    [ self.filteredResult removeAllObjects];
+}*/
 
 -(void)addNewRecipe {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
@@ -230,18 +245,12 @@
     self.fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
     self.fetchedObjects = [self.fetchedObjects sortedArrayUsingDescriptors:@[sd]];
+    
 }
 
 -(void)sortFetchedObjects{
-   /* NSArray *data = @[@"Apples", @"Oranges",@"Apricots", @"Avocados"];
-    NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
-    data = [data sortedArrayUsingDescriptors:@[sd]];
-    for(int i=0; i<data.count; i++) {
-        NSLog(data[i]);
-    }*/
     NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
         self.fetchedObjects = [self.fetchedObjects sortedArrayUsingDescriptors:@[sd]];
-    NSLog([NSString stringWithFormat: @"number of fetched objects: %lu", (unsigned long)self.fetchedObjects.count]);
 }
 
 -(void) createArrayForSectionRecipeTitles {
@@ -271,15 +280,33 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+/*- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    searchBar.showsCancelButton = YES;
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
+    searchBar.showsCancelButton = NO;
+    return YES;
+}*/
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.sectionRecipeTitles.count;
+    //return self.sectionRecipeTitles.count + 1;
+    if(self.tableView == tableView) {
+        return self.sectionRecipeTitles.count;
+    } else {
+        return 1;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    if (tableView == self.tableView) {
+    /*if (section == 0) {
+        return 1;
+    }*/
+    if (self.tableView == tableView) {
         NSString *sectionTitle = [self.sectionRecipeTitles objectAtIndex:section];
         NSMutableArray *allRecipes = [[NSMutableArray alloc]init];
         Recipe *recipe;
@@ -302,7 +329,14 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [self.sectionRecipeTitles objectAtIndex:section];
+    NSLog(@"In titleForHeaderInSection()");
+    if (self.tableView == tableView) {
+        NSLog(@"In titleForHeaderInSection() - original tableview");
+        return [self.sectionRecipeTitles objectAtIndex:section];
+    } else {
+        NSLog(@"In titleForHeaderInSection() - filtered tableview");
+        return nil;
+    }
 }
 
 
@@ -311,9 +345,19 @@
     UILabel *recipeNameLabel;
      Recipe *recipe;
     
+    NSString *cellIdentifier = @"";
+    
     if (tableView == self.tableView) {
-        SearchResultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allRecipes" forIndexPath:indexPath];
-        recipeNameLabel = (UILabel*)[cell.contentView viewWithTag:1];
+        cellIdentifier = @"AllRecipes";
+    } else {
+        cellIdentifier = @"FilteredCell";
+    }
+    RecipeCell *cell = (RecipeCell*)[self.tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    recipeNameLabel = (UILabel *)[cell.contentView viewWithTag:1];
+    //SearchResultCell *cell = ( SearchResultCell*)[self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (tableView == self.tableView) {
+        //recipeNameLabel = (UILabel*)[cell.contentView viewWithTag:1];
         NSString *sectionTitle = [self.sectionRecipeTitles objectAtIndex:indexPath.section];
         NSMutableArray *allRecipes = [[NSMutableArray alloc]init];
         NSString *firstLetter;
@@ -325,59 +369,89 @@
             }
         }
         recipe = [allRecipes objectAtIndex:indexPath.row];
-        recipeNameLabel.text = recipe.title;
-        cell.recipeTitle = recipe.title;
-        return cell;
+        //cell.searchResultTitle.text = recipe.title;
     } else {
-        SearchResultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"recipeFiltered" forIndexPath:indexPath];
-        recipeNameLabel = (UILabel*)[cell.contentView viewWithTag:2];
+        //recipeNameLabel = (UILabel*)[cell.contentView viewWithTag:2];
         recipe = self.filteredResult[indexPath.row];
-        recipeNameLabel.text = recipe.title;
-        //cell.searchResultCell.text = recipe.title;
-        cell.recipeTitle = recipe.title;
-        return cell;
+        //cell.filteredCellTitle.text = recipe.title;
     }
+    recipeNameLabel.text = recipe.title;
+    NSLog(@"In deque, recipeNameLabel.text: %@",recipeNameLabel.text);
+    cell.recipeTitle = recipe.title;
+    NSLog(@"In deque, cell.recipeTitle: %@",recipe.title);
+    return cell;
 }
 
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return self.recipeIndexTitles;
+    if (self.tableView == tableView) {
+        return self.recipeIndexTitles;
+    } else {
+        return nil;
+    }
+   // return [[NSArray arrayWithObject:@"{search}"] arrayByAddingObjectsFromArray:self.recipeIndexTitles];
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-    return [self.sectionRecipeTitles indexOfObject:title];
+    if (self.tableView == tableView) {
+        return [self.sectionRecipeTitles indexOfObject:title];
+    } else {
+        return 0;
+    }
 }
+
+
+
+
+
+/*- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    //self.filteredResult = nil;
+    
+    
+    NSLog(@"Previous Search Results were removed.");
+   // [self.filteredResult removeAllObjects];
+    
+    for (Recipe *recipe in self.fetchedObjects)
+    {
+        if ([scope isEqualToString:@"All"] || [recipe.title isEqualToString:scope])
+        {
+            NSComparisonResult result = [recipe.title compare:searchText
+                                                   options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)
+                                                     range:NSMakeRange(0, [searchText length])];
+            if (result == NSOrderedSame)
+            {
+                NSLog(@"Adding recipe.title '%@' to searchResults as it begins with search text '%@'", recipe.title, searchText);
+                [self.filteredResult addObject:recipe];
+            }
+        }
+    }
+}*/
 
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF['title'] contains[c] %@", searchText];
-    //self.filteredResult = [self.fetchedObjects filteredArrayUsingPredicate:predicate];
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    NSManagedObjectContext *context = delegate.managedObjectContext;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Recipe" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
- 
-    NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc]
-    initWithKey:@"title" ascending:YES];
-    NSArray* sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title contains[c] %@", searchText];
-    [fetchRequest setPredicate:predicate];
-    
-    NSError *error;
- 
- NSArray* loadedEntities = [context executeFetchRequest:fetchRequest error:&error];
- self.filteredResult = [[NSMutableArray alloc] initWithArray:loadedEntities];
- 
- [self.tableView reloadData];
+    NSLog(@"In textDidChange()");
+    [self.filteredResult removeAllObjects];
+    for (Recipe *recipe in self.fetchedObjects) {
+        NSComparisonResult result = [recipe.title compare:searchText
+                                                  options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)
+                                                    range:NSMakeRange(0, [searchText length])];
+        if (result == NSOrderedSame)
+        {
+            NSLog(@"Adding recipe.title '%@' to searchResults as it begins with search text '%@'", recipe.title, searchText);
+            [self.filteredResult addObject:recipe];
+            NSLog(@"Number of items in filtered result: %lu",(unsigned long)self.filteredResult.count);
+        }
+    }
+    NSLog(@"Number of items in filtered result: %lu",(unsigned long)self.filteredResult.count);
+    [self.tableView reloadData];
 }
- 
+
+
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -427,15 +501,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     RecipeInfo *recipeInfo = [segue destinationViewController];
-    SearchResultCell *cell = (SearchResultCell*)sender;
+    RecipeCell *cell = (RecipeCell*)sender;
     if ([segue.identifier isEqualToString:@"fromAllRecipes"] ) {
-        NSLog(@"All Recipes");
-        NSLog(cell.recipeTitle);
+        //NSLog(@"All Recipes");
+        //NSLog(cell.recipeTitle);
         recipeInfo.recipe = [self getRecipeObject:cell.recipeTitle];
     } else {
         NSLog(@"You forgot the segue %@",segue);
     }
 }
-
 
 @end
