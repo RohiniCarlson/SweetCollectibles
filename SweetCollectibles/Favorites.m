@@ -17,7 +17,7 @@
 
 @property (strong, nonatomic) AppDelegate *delegate;
 @property (strong, nonatomic) NSManagedObjectContext *context;
-@property (nonatomic) NSArray *fetchedObjects;
+@property (nonatomic) NSMutableArray *fetchedObjects;
 
 @end
 
@@ -65,11 +65,6 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"ShowDetailViewForFavorites" sender:tableView];
-}
-
-
 -(void) fetchFavoriteRecipes {
     
     NSFetchRequest *fetchRequest;
@@ -81,62 +76,31 @@
                                               inManagedObjectContext:self.context];
     [fetchRequest setEntity:recipe];
     [fetchRequest setPredicate:predicate];
-    self.fetchedObjects = [self.context executeFetchRequest:fetchRequest error:&error];
+    self.fetchedObjects = [[self.context executeFetchRequest:fetchRequest error:&error]mutableCopy];
     NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
-    self.fetchedObjects = [self.fetchedObjects sortedArrayUsingDescriptors:@[sd]];    
+    self.fetchedObjects = [[self.fetchedObjects sortedArrayUsingDescriptors:@[sd]]mutableCopy];
 }
 
 
-/*
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSManagedObject *recipeObject;
+    NSError *error = nil;
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        recipeObject = (NSManagedObject *)[self.fetchedObjects objectAtIndex:indexPath.row];
+        [recipeObject setValue:@0 forKey:@"favorite"];
+        if (![recipeObject.managedObjectContext save:&error]) {
+            NSLog(@"Unable to save managed object context.");
+            NSLog(@"%@, %@", error, error.localizedDescription);
+        }
+        [self.fetchedObjects removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
-    if ([segue.identifier isEqualToString:@"ShowDetailViewForFavorites"])
-    {
-        RecipeInfo *recipeInfo = [segue destinationViewController];
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        recipeInfo.recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
-    } else if ([segue.identifier isEqualToString:@"AddToFavorites"]) {
-      //Just go to view
-    } else {
-        NSLog(@"You forgot the segue %@",segue);
     }
 }
-
 
 @end
