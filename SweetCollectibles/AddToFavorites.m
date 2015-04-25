@@ -24,7 +24,11 @@
 @property (strong, nonatomic) NSArray *recipeIndexTitles;
 @end
 
-@implementation AddToFavorites 
+@implementation AddToFavorites
+
+/*-(void) viewWillAppear:(BOOL)animated {
+    
+}*/
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -59,6 +63,13 @@
     
     self.definesPresentationContext = YES;
   }
+
+
+- (void)didChangePreferredContentSize:(NSNotification *)notification
+{
+    [self.tableView reloadData];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -233,6 +244,90 @@
         }
     }
     return 0;
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
+                                                                   message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* addToFavoritesAction = [UIAlertAction actionWithTitle:@"Add to favorites" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              NSManagedObject *recipeObject;
+                                                              NSError *saveError = nil;
+                                                              Recipe *recipe;
+                                                              NSLog(@"Add button tapped!");
+                                                              
+                                                              if (self.searchController.active) {
+                                                                  recipe = [self.filteredList objectAtIndex:indexPath.row];
+                                                                  if (![recipe.favorite isEqual: @1]) {
+                                                                      recipeObject = (NSManagedObject *)[self.filteredList objectAtIndex:indexPath.row];
+                                                                      [recipe setValue:@1 forKey:@"favorite"];
+                                                                      if (![recipeObject.managedObjectContext save:&saveError]) {
+                                                                          NSLog(@"Unable to save managed object context.");
+                                                                          NSLog(@"%@, %@", saveError, saveError.localizedDescription);
+                                                                      }
+                                                                  }
+                                                              } else {
+                                                                  recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
+                                                                  if (![recipe.favorite isEqual: @1]) {
+                                                                      recipeObject = (NSManagedObject *)[self.fetchedObjects objectAtIndex:indexPath.row];
+                                                                      [recipe setValue:@1 forKey:@"favorite"];
+                                                                      if (![recipeObject.managedObjectContext save:&saveError]) {
+                                                                          NSLog(@"Unable to save managed object context.");
+                                                                          NSLog(@"%@, %@", saveError, saveError.localizedDescription);
+                                                                      }
+                                                                  }
+                                                              }
+                                                     [super dismissViewControllerAnimated:YES completion:nil];
+                                                          }];
+    
+    [alert addAction:addToFavoritesAction];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle: @"Cancel"
+                                                          style: UIAlertActionStyleDestructive
+                                                        handler: ^(UIAlertAction *action) {
+                                                            NSLog(@"Cancel button tapped!");
+                                                        }];
+    
+    
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    //[view dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+// Need method to update recipe
+
+//Check if already is a favorite if not make it favorite and update model
+/*-(void)tableView:(UITableView *)tableView addToFavorites:(NSIndexPath *)indexPath {
+    NSManagedObject *recipeObject;
+    Recipe *recipe;
+    if (self.searchController.active) {
+        recipe = [self.filteredList objectAtIndex:indexPath.row];
+        if (![recipe.favorite isEqual: @1]) {
+            recipeObject = (NSManagedObject *)[self.filteredList objectAtIndex:indexPath.row];
+            //[recipe setValue:@1 forKey:@"favorite"];
+            NSLog(@"search controller active: recipe should be updated");
+        } else {
+            NSLog(@"search controller active: recipe should NOT be updated");
+        }
+    } else {
+        recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
+        NSLog(@"Favorite: %@",recipe.favorite);
+        if (![recipe.favorite isEqual: @1]) {
+            recipeObject = (NSManagedObject *)[self.fetchedObjects objectAtIndex:indexPath.row];
+             NSLog(@"search controller NOT active: recipe should be updated");
+        } else {
+            NSLog(@"search controller NOT active: recipe should NOT be updated");
+        }
+    }
+}*/
+
+
+-(void) removeFromFavorites {
+    
 }
 
 

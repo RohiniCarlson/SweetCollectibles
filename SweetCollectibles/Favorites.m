@@ -74,7 +74,7 @@
     
     NSFetchRequest *fetchRequest;
     NSError *error;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favorite = %@", @0];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favorite = %@", @1];
     
     fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *recipe = [NSEntityDescription entityForName:@"Recipe"

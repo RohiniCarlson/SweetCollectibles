@@ -418,7 +418,7 @@
                     <navigationItem key="navigationItem" title="Favorites" id="kTr-Ce-6RH">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Zln-Fa-O7L">
                             <connections>
-                                <segue destination="ecf-Pn-OYQ" kind="presentation" identifier="ShowDetailView" id="Anc-IP-660"/>
+                                <segue destination="ecf-Pn-OYQ" kind="presentation" identifier="AddToFavorites" id="Anc-IP-660"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
