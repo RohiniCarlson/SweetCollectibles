@@ -9,7 +9,6 @@
 #import "RecipeInfo.h"
 #import "RecipeDetail.h"
 #import "Ingredient.h"
-#import "ResizeDynamically.h"
 #import "AccordionView.h" // code included from https://github.com/appsome/AccordionView
 
 @interface RecipeInfo ()
