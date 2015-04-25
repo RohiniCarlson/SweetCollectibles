@@ -8,7 +8,7 @@
 #import "MasterRecipeTableViewController.h"
 #import "AppDelegate.h"
 #import "CustomRecipeCell.h"
-#import "RecipeCell.h"
+//#import "RecipeCell.h"
 #import "Recipe.h"
 #import "RecipeInfo.h"
 
@@ -72,6 +72,7 @@
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
+    [self.filteredList removeAllObjects];
 }
 
 
