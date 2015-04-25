@@ -5,7 +5,7 @@
 //  Created by it-högskolan on 2015-04-16.
 //  Copyright (c) 2015 it-högskolan. All rights reserved.
 //
-
+#import "CustomRecipeCell.h"
 #import "AddToFavorites.h"
 
 @interface AddToFavorites ()
@@ -16,20 +16,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    /*NSInteger tbHeight = 50;
-    tb = [[UIToolbar alloc] initWithFrame:CGRectMake(0, (self.view.frame.size.height - tbHeight), self.view.frame.size.width, tbHeight)];
-    tb.translucent = YES;
-    emailButton = [[UIBarButtonItem alloc] initWithTitle:@"Email Results" style:UIBarButtonItemStyleBordered target:tvController action:@selector(actionSheet:)];
-    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButtonPressed:)];
+    UINib *recipeNib = [UINib nibWithNibName:@"CustomRecipeCell" bundle:nil];
+    [self.tableView registerNib:recipeNib
+         forCellReuseIdentifier:@"RecipeCell"];
     
-    NSArray *barButton  =   [[NSArray alloc] initWithObjects:emailButton,flexibleSpace,doneButton,nil];
-    [tb setItems:barButton];
-    
-    
-    [self.view addSubview:tb];
-    
-    barButton = nil;*/
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -41,6 +31,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (IBAction)onCancel:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table view data source

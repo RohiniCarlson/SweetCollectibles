@@ -7,6 +7,7 @@
 //
 #import "MasterRecipeTableViewController.h"
 #import "AppDelegate.h"
+#import "CustomRecipeCell.h"
 #import "RecipeCell.h"
 #import "Recipe.h"
 #import "RecipeInfo.h"
@@ -29,6 +30,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    UINib *recipeNib = [UINib nibWithNibName:@"CustomRecipeCell" bundle:nil];
+    [self.tableView registerNib:recipeNib
+         forCellReuseIdentifier:@"RecipeCell"];
     self.delegate = [UIApplication sharedApplication].delegate;
     self.context = self.delegate.managedObjectContext;
     self.filteredList = [[NSMutableArray alloc] init];
@@ -36,7 +40,6 @@
     self.recipeIndexTitles = @[@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z"];
     [self fetchRecipes];
     [self createArrayForSectionRecipeTitles];
-    NSLog(@"Recipe count: %lu", (unsigned long)self.fetchedObjects.count);
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didChangePreferredContentSize:)
@@ -169,7 +172,6 @@
                 if ([sectionTitle isEqualToString:firstLetter]) {
                     [allRecipes addObject:recipe];
                 } else {
-                    NSLog(@"Number of rows in section: %lu",(unsigned long)allRecipes.count );
                     return allRecipes.count;
                 }
             }
@@ -181,8 +183,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"In cellForRowAtIndexPath");
-     RecipeCell *cell = [self.tableView dequeueReusableCellWithIdentifier: @"RecipeCell" forIndexPath:indexPath];
+    CustomRecipeCell *cell = [self.tableView dequeueReusableCellWithIdentifier: @"RecipeCell" forIndexPath:indexPath];
     
     Recipe *recipe = nil;
     if (self.searchController.active)
@@ -193,7 +194,10 @@
         recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
     }
     cell.recipeLabel.text = recipe.title;
-    NSLog(@"recipe label: %@",cell.recipeLabel.text);
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    cell.textLabel.numberOfLines = 1;
+    
     return cell;
 }
 
@@ -235,6 +239,11 @@
         }
     }
     return 0;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"ShowDetailView" sender:tableView];
 }
 
 

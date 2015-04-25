@@ -7,47 +7,85 @@
 //
 
 #import "Favorites.h"
+#import "AppDelegate.h"
+#import "CustomRecipeCell.h"
+#import "AddToFavorites.h"
+#import "Recipe.h"
+#import "RecipeInfo.h"
 
 @interface Favorites ()
+
+@property (strong, nonatomic) AppDelegate *delegate;
+@property (strong, nonatomic) NSManagedObjectContext *context;
+@property (nonatomic) NSArray *fetchedObjects;
 
 @end
 
 @implementation Favorites
 
+-(void) viewWillAppear:(BOOL)animated {
+    self.delegate = [UIApplication sharedApplication].delegate;
+    self.context = self.delegate.managedObjectContext;
+    [self fetchFavoriteRecipes];
+    [self.tableView reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UINib *recipeNib = [UINib nibWithNibName:@"CustomRecipeCell" bundle:nil];
+    [self.tableView registerNib:recipeNib
+         forCellReuseIdentifier:@"RecipeCell"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return self.fetchedObjects.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    CustomRecipeCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"RecipeCell" forIndexPath:indexPath];
+    Recipe *recipe = nil;
+    recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.recipeLabel.text = recipe.title;
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    cell.textLabel.numberOfLines = 1;
     return cell;
 }
-*/
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"ShowDetailViewForFavorites" sender:tableView];
+}
+
+
+-(void) fetchFavoriteRecipes {
+    
+    NSFetchRequest *fetchRequest;
+    NSError *error;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favorite = %@", @0];
+    
+    fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *recipe = [NSEntityDescription entityForName:@"Recipe"
+                                              inManagedObjectContext:self.context];
+    [fetchRequest setEntity:recipe];
+    [fetchRequest setPredicate:predicate];
+    self.fetchedObjects = [self.context executeFetchRequest:fetchRequest error:&error];
+    NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    self.fetchedObjects = [self.fetchedObjects sortedArrayUsingDescriptors:@[sd]];    
+}
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -83,14 +121,22 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+    if ([segue.identifier isEqualToString:@"ShowDetailViewForFavorites"])
+    {
+        RecipeInfo *recipeInfo = [segue destinationViewController];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        recipeInfo.recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
+    } else if ([segue.identifier isEqualToString:@"AddToFavorites"]) {
+      //Just go to view
+    } else {
+        NSLog(@"You forgot the segue %@",segue);
+    }
 }
-*/
+
 
 @end
