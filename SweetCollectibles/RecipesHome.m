@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     CreateRecipes *addRecipiesToCoreData;
-    [addRecipiesToCoreData addRecipes];
+    //[addRecipiesToCoreData addRecipes];
 }
 
 - (void)didReceiveMemoryWarning {

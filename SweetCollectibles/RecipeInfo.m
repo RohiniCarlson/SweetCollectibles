@@ -176,7 +176,7 @@
     NSDictionary *defaultAttrs = @{NSFontAttributeName : [UIFont systemFontOfSize:11]};
     NSDictionary *boldAttrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:11]};
     
-    for (int i=0; i<instructions.count-1; i++) {
+    for (int i=0; i<instructions.count; i++) {
         instructionStep = [NSString stringWithFormat: @"Step %d: ",i+1];
         NSAttributedString *attributedInstructionStep = [[NSAttributedString alloc] initWithString:instructionStep attributes:boldAttrs];
         
