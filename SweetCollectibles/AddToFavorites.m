@@ -191,8 +191,7 @@
     if (self.searchController.active)
     {
         recipe = [self.filteredList objectAtIndex:indexPath.row];
-    } else
-    {
+    } else {
         recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
     }
     cell.recipeLabel.text = recipe.title;

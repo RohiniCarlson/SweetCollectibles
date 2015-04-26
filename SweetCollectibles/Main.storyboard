@@ -234,7 +234,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="vCh-Fk-iAE" kind="show" id="ffk-hi-ued"/>
+                                    <segue destination="vCh-Fk-iAE" kind="show" identifier="ShowDetailView" id="ffk-hi-ued"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -283,7 +283,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="vCh-Fk-iAE" kind="show" id="Xq1-ul-vcP"/>
+                                    <segue destination="vCh-Fk-iAE" kind="show" identifier="ShowDetailView" id="Xq1-ul-vcP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -512,6 +512,6 @@
         <image name="shoppinglist" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dto-wQ-PL5"/>
+        <segue reference="ffk-hi-ued"/>
     </inferredMetricsTieBreakers>
 </document>
