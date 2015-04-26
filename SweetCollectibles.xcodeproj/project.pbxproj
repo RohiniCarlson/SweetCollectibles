@@ -31,6 +31,7 @@
 		4491F79E1AEB8555001CAD67 /* MasterRecipeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4491F79D1AEB8555001CAD67 /* MasterRecipeTableViewController.m */; };
 		4491F7A21AEBF214001CAD67 /* CustomRecipeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4491F7A01AEBF214001CAD67 /* CustomRecipeCell.m */; };
 		4491F7A31AEBF214001CAD67 /* CustomRecipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4491F7A11AEBF214001CAD67 /* CustomRecipeCell.xib */; };
+		4491F7A81AECEE02001CAD67 /* CreateRecipes.m in Sources */ = {isa = PBXBuildFile; fileRef = 4491F7A71AECEE02001CAD67 /* CreateRecipes.m */; };
 		CFA234972B135E5EB1664C4B /* libPods-SweetCollectibles.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C5584C9EFFF22C26DD522B /* libPods-SweetCollectibles.a */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,8 @@
 		4491F79F1AEBF214001CAD67 /* CustomRecipeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomRecipeCell.h; sourceTree = "<group>"; };
 		4491F7A01AEBF214001CAD67 /* CustomRecipeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomRecipeCell.m; sourceTree = "<group>"; };
 		4491F7A11AEBF214001CAD67 /* CustomRecipeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomRecipeCell.xib; sourceTree = "<group>"; };
+		4491F7A61AECEE02001CAD67 /* CreateRecipes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateRecipes.h; sourceTree = "<group>"; };
+		4491F7A71AECEE02001CAD67 /* CreateRecipes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateRecipes.m; sourceTree = "<group>"; };
 		B4AFC04E542943CBEFA41DC5 /* Pods-SweetCollectibles.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SweetCollectibles.release.xcconfig"; path = "Pods/Target Support Files/Pods-SweetCollectibles/Pods-SweetCollectibles.release.xcconfig"; sourceTree = "<group>"; };
 		C6B5FFA3C7E33E2CA5AF99C2 /* Pods-SweetCollectibles.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SweetCollectibles.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SweetCollectibles/Pods-SweetCollectibles.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,6 +180,8 @@
 				446B55DB1AE444FB001DBF71 /* RecipeCell.m */,
 				4491F79C1AEB8555001CAD67 /* MasterRecipeTableViewController.h */,
 				4491F79D1AEB8555001CAD67 /* MasterRecipeTableViewController.m */,
+				4491F7A61AECEE02001CAD67 /* CreateRecipes.h */,
+				4491F7A71AECEE02001CAD67 /* CreateRecipes.m */,
 			);
 			path = SweetCollectibles;
 			sourceTree = "<group>";
@@ -369,6 +374,7 @@
 				446B55DC1AE444FB001DBF71 /* RecipeCell.m in Sources */,
 				44735A3D1AE3991B00FCF9E1 /* ShoppingListRecipes.m in Sources */,
 				44735A361AE3991B00FCF9E1 /* AddToFavorites.m in Sources */,
+				4491F7A81AECEE02001CAD67 /* CreateRecipes.m in Sources */,
 				44735A381AE3991B00FCF9E1 /* ChocolateLayerCakes.m in Sources */,
 				44735A391AE3991B00FCF9E1 /* Favorites.m in Sources */,
 				4491F7A21AEBF214001CAD67 /* CustomRecipeCell.m in Sources */,

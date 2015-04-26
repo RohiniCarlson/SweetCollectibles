@@ -9,11 +9,9 @@
 #import "RecipesHome.h"
 #import "AppDelegate.h"
 #import "ShoppingListRecipes.h"
+#import "CreateRecipes.h"
 
 @interface RecipesHome ()
-
-
-
 
 @end
 
@@ -21,15 +19,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-       
-    
-    //[self.navigationItem setHidesBackButton:YES animated:YES];
-    // Do any additional setup after loading the view, typically from a nib.
+    CreateRecipes *addRecipiesToCoreData;
+    [addRecipiesToCoreData addRecipes];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

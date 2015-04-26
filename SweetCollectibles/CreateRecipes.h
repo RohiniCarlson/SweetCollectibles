@@ -10,4 +10,11 @@
 
 @interface CreateRecipes : NSObject
 
+typedef NS_ENUM(NSInteger, recipeCategory) {
+    chocolateLayerCake,
+    vanillaLayerCake,
+};
+
+-(void)addRecipes;
+
 @end
