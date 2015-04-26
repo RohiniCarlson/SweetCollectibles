@@ -891,6 +891,225 @@
     NSString *assemble = @"Trim any doming from the tops of your cake layers with a sharp, serrated knife and place first layer, face up, on your cake board, pedestal, or plate.*Using a small offset palette knife, spread approximately 3/4 cup of the caramel buttercream evenly on the top.*Repeat step 1-2 until you come to the final layer, which you will place face down on the top of the cake.*Place cake on a turntable (if possible), and using a small offset palette knife for the top of the cake, and medium straight palette knife for the sides, cover the cake in a thin layer of chocolate frosting (or chocolate buttercream, if using) to mask (seal in crumbs). Refrigerate for 30 minutes (or more). (Note: This does not need to be perfect, as that will become the top 'coat' of buttercream.*Repeat step 4, and, for best results, use bench scraper held at 90° against the side of the cake, slowly turning the turntable and keeping your hand steady–let the turntable do the work. Clean up edges with your small offset palette knife.*Chill cake to set. Bring to room temperature before serving–about 2+ hours. Never serve Swiss Meringue Buttercream until it is soft and room temperature, as cold buttercream is, well, kind of yucky!*Sprinkle with Fleur de Sel.*Place any remaining buttercream/frosting in airtight containers and refrigerate up to a week, or freeze for up to 2 months, bringing back to room temperature before rewhipping to smooth consistency.*Serve at room temperature, and slice with a long, thin-bladed, sharp knife. Rinse knife with hot water and dry before each new slice, for best results.";
     recipe.howToAssemble = assemble;
     
+    // Creating recipe details - cake
+    RecipeDetail *cake = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeDetail" inManagedObjectContext:context];
+    cake.recipe = recipe;
+    cake.subTitle = @"For the Cake:";
+    NSString *cakeInstructions = @"Preheat oven to 350° F (180°C). Prepare three 6-inch round cake pans with butter, parchment paper rounds and cocoa powder. Tap out excess.*In bowl of electric mixer, sift all dry ingredients and add all remaining ingredients to bowl with the dry ingredients and with paddle attachment on mixer, mix for 2 minutes on medium speed (you may need the plastic splash-guard that comes with mixer) and pour into prepared pans. If possible, use a digital kitchen scale and weigh divided batter in pans for even layers. Batter will be liquidy.*Bake for 20 minutes and rotate pans in oven. Cakes are done when toothpick or skewer comes clean–approximately 30 minutes. Try not to over bake.*Cool on wire racks for 20 minutes, then loosen edges with a small palette knife and gently invert onto racks until completely cool.";
+    cake.instructions = cakeInstructions;
+    
+    // Creating ingredients for cake
+    Ingredient *cakeIngredient1 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient1.ingredientType = @"(1-1/2 cups) all-purpose flour";
+    cakeIngredient1.amount = @180;
+    cakeIngredient1.unitOfMeasure = @"g";
+    cakeIngredient1.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient1];
+    
+    Ingredient *cakeIngredient2 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient2.ingredientType = @"(1-1/2 cups) sugar";
+    cakeIngredient2.amount = @300;
+    cakeIngredient2.unitOfMeasure = @"g";
+    cakeIngredient2.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient2];
+
+    Ingredient *cakeIngredient3 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient3.ingredientType = @"(3/4 cup) dark unsweetened cocoa powder";
+    cakeIngredient3.amount = @90;
+    cakeIngredient3.unitOfMeasure = @"g";
+    cakeIngredient3.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient3];
+    
+    Ingredient *cakeIngredient4 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient4.ingredientType = @"(1 1/2 teaspoons) baking soda";
+    cakeIngredient4.amount = @6;
+    cakeIngredient4.unitOfMeasure = @"g";
+    cakeIngredient4.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient4];
+    
+    Ingredient *cakeIngredient5 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient5.ingredientType = @"(1 teaspoon) baking powder";
+    cakeIngredient5.amount = @4;
+    cakeIngredient5.unitOfMeasure = @"g";
+    cakeIngredient5.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient5];
+    
+    Ingredient *cakeIngredient6 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient6.ingredientType = @"(1 teaspoon) salt";
+    cakeIngredient6.amount = @5;
+    cakeIngredient6.unitOfMeasure = @"g";
+    cakeIngredient6.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient6];
+    
+    Ingredient *cakeIngredient7 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient7.ingredientType = @"(1/4 cup) vegetable oil";
+    cakeIngredient7.amount = @60;
+    cakeIngredient7.unitOfMeasure = @"ml";
+    cakeIngredient7.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient7];
+    
+    Ingredient *cakeIngredient8 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient8.ingredientType = @"(3/4 cup) buttermilk";
+    cakeIngredient8.amount = @190;
+    cakeIngredient8.unitOfMeasure = @"ml";
+    cakeIngredient8.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient8];
+    
+    Ingredient *cakeIngredient9 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient9.ingredientType = @"(3/4 cup) brewed coffee, hot";
+    cakeIngredient9.amount = @190;
+    cakeIngredient9.unitOfMeasure = @"ml";
+    cakeIngredient9.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient9];
+    
+    Ingredient *cakeIngredient10 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient10.ingredientType = @"eggs, room temperature, lightly beaten";
+    cakeIngredient10.amount = @2;
+    //cakeIngredient10.unitOfMeasure = @"ml";
+    cakeIngredient10.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient10];
+    
+    Ingredient *cakeIngredient11 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient11.ingredientType = @"( 2 teaspoons) pure vanilla extract";
+    cakeIngredient11.amount = @10;
+    cakeIngredient11.unitOfMeasure = @"ml";
+    cakeIngredient11.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient11];
+    
+    // Add details of cake to recipe
+    [recipe addRecipeDetailsObject:cake];
+    
+    // Creating recipe details - frosting
+    RecipeDetail *frosting = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeDetail" inManagedObjectContext:context];
+    frosting.recipe = recipe;
+    frosting.subTitle = @"Salted Caramel Swiss Buttercream Filling:";
+    NSString *frostingInstructions = @"Place 130 grams (5 ounces or 1/2 cup + 2 tablespoons) of the sugar and the water in a medium saucepan to a boil over medium heat. Brush down the sides of the pot with a dampened pastry brush to prevent sugar crystals from forming. Stop stirring and cook until caramel is dark amber, gently swirling from time to time. Remove from heat, and slowly add cream, whisking by hand until smooth. It will be splatter, so be careful. Whisk in sea salt and vanilla. Let cool.*Place butter in an electric mixer fitted with the paddle attachment (flat beater) and beat on medium speed (I use #4 on my mixer), until pale and fluffy, about 3-5 minutes. Transfer to a large bowl and set aside.*Wipe the bowl of an electric mixer clean with lemon juice, and place egg whites and remaining sugar into bowl over a pot of simmering water (not boiling–you don’t want to cook the eggs). Whisk occasionally and gently until sugar dissolves and mixture registers 160° on a candy thermometer.* Remove the bowl from heat, and place back onto the mixer fitted with the whisk attachment. Whisk on medium speed for 5 minutes. Increase speed to medium-high, and whisk until stiff, glossy peaks form (about 5-6 minutes). Once the bottom of the bowl is neutral and no longer warm to the touch, reduce speed to medium-low, and add beaten butter, one cup at a time, whisking well after each addition.*Switch to paddle attachment. With mixer on low speed, add cooled caramel, and beat until smooth (about 3-5 minutes).*Prepare to taste the most incredible buttercream you will ever encounter.";
+    frosting.instructions = frostingInstructions;
+    
+    // Creating ingredients for frosting
+    Ingredient *frostingIngredient1 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient1.ingredientType = @"(1 cup) sugar";
+    frostingIngredient1.amount = @200;
+    frostingIngredient1.unitOfMeasure = @"g";
+    frostingIngredient1.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient1];
+    
+    Ingredient *frostingIngredient2 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient2.ingredientType = @"(1/4 cup) water";
+    frostingIngredient2.amount = @60;
+    frostingIngredient2.unitOfMeasure = @"ml";
+    frostingIngredient2.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient2];
+    
+    Ingredient *frostingIngredient3 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient3.ingredientType = @"(1/4 cup) heavy cream";
+    frostingIngredient3.amount = @60;
+    frostingIngredient3.unitOfMeasure = @"ml";
+    frostingIngredient3.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient3];
+    
+    Ingredient *frostingIngredient4 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient4.ingredientType = @"generous pinch of sea salt plus more for sprinkling";
+    //frostingIngredient4.amount = @60;
+    //frostingIngredient4.unitOfMeasure = @"ml";
+    frostingIngredient4.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient4];
+
+    Ingredient *frostingIngredient5 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient5.ingredientType = @"generous pinch of sea salt plus more for sprinkling";
+    //frostingIngredient5.amount = @60;
+    //frostingIngredient5.unitOfMeasure = @"ml";
+    frostingIngredient5.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient5];
+    
+    Ingredient *frostingIngredient6 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient6.ingredientType = @"(1 1/2 cups) unsalted butter, at room temperature";
+    frostingIngredient6.amount = @340;
+    frostingIngredient6.unitOfMeasure = @"g";
+    frostingIngredient6.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient6];
+    
+    Ingredient *frostingIngredient7 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient7.ingredientType = @"(120 g) large egg whites";
+    frostingIngredient7.amount = @34;
+    //frostingIngredient7.unitOfMeasure = @"g";
+    frostingIngredient7.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient7];
+    
+    Ingredient *frostingIngredient8 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient8.ingredientType = @"(1 teaspoon) pure vanilla extract";
+    frostingIngredient8.amount = @15;
+    frostingIngredient8.unitOfMeasure = @"ml";
+    frostingIngredient8.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient8];
+
+    [recipe addRecipeDetailsObject:frosting];
+    
+    // Creating recipe details - dark frosting
+    RecipeDetail *darkFrosting = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeDetail" inManagedObjectContext:context];
+    darkFrosting.recipe = recipe;
+    darkFrosting.subTitle = @"For the Dark Chocolate Fudge Frosting:";
+    NSString *darkFrostingInstructions = @"Combine cocoa powder and the boiling water in a small bowl or glass measuring cup, and stir until it cocoa has dissolved.*In an electric mixer fitted with the paddle attachment (flat beater), beat the butter, the icing sugar, and salt on medium-high speed until it is pale and fluffy–about 5 minutes.*Reduce mixer speed to low, and add melted chocolate (cooled), beating until combined and scraping down the sides of the bowl as needed.*Beat in the cocoa mixture until well incorporated.";
+    darkFrosting.instructions = darkFrostingInstructions;
+    
+    // Creating ingredients for the dark frosting
+    Ingredient *darkFrostingIngredient1 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    darkFrostingIngredient1.ingredientType = @"(1/4 cup + 2 tablespoons) unsweetened Dutch-process cocoa powder";
+    darkFrostingIngredient1.amount = @45;
+    darkFrostingIngredient1.unitOfMeasure = @"g";
+    darkFrostingIngredient1.recipeDetail = frosting;
+    [darkFrosting addIngredientsObject:darkFrostingIngredient1];
+    
+    Ingredient *darkFrostingIngredient2 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    darkFrostingIngredient2.ingredientType = @"(1/4 cup + 2 tablespoons) boiling water";
+    darkFrostingIngredient2.amount = @90;
+    darkFrostingIngredient2.unitOfMeasure = @"ml";
+    darkFrostingIngredient2.recipeDetail = frosting;
+    [darkFrosting addIngredientsObject:darkFrostingIngredient2];
+    
+    Ingredient *darkFrostingIngredient3 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    darkFrostingIngredient3.ingredientType = @"(1 1/2 cups) unsalted butter, at room temperature";
+    darkFrostingIngredient3.amount = @341;
+    darkFrostingIngredient3.unitOfMeasure = @"g";
+    darkFrostingIngredient3.recipeDetail = frosting;
+    [darkFrosting addIngredientsObject:darkFrostingIngredient3];
+    
+    Ingredient *darkFrostingIngredient4 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    darkFrostingIngredient4.ingredientType = @"(1 1/2 cups) unsalted butter, at room temperature";
+    darkFrostingIngredient4.amount = @341;
+    darkFrostingIngredient4.unitOfMeasure = @"g";
+    darkFrostingIngredient4.recipeDetail = frosting;
+    [darkFrosting addIngredientsObject:darkFrostingIngredient4];
+    
+    Ingredient *darkFrostingIngredient5 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    darkFrostingIngredient5.ingredientType = @"(1/2 cup) confectioners’ sugar";
+    darkFrostingIngredient5.amount = @63;
+    darkFrostingIngredient5.unitOfMeasure = @"g";
+    darkFrostingIngredient5.recipeDetail = frosting;
+    [darkFrosting addIngredientsObject:darkFrostingIngredient5];
+    
+    Ingredient *darkFrostingIngredient6 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    darkFrostingIngredient6.ingredientType = @"pinch of salt";
+    //darkFrostingIngredient6.amount = @63;
+    //darkFrostingIngredient6.unitOfMeasure = @"g";
+    darkFrostingIngredient6.recipeDetail = frosting;
+    [darkFrosting addIngredientsObject:darkFrostingIngredient6];
+    
+    Ingredient *darkFrostingIngredient7 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    darkFrostingIngredient7.ingredientType = @"(1 pound) good-quality semi-sweet chocolate, melted and cooled";
+    darkFrostingIngredient7.amount = @454;
+    darkFrostingIngredient7.unitOfMeasure = @"g";
+    darkFrostingIngredient7.recipeDetail = frosting;
+    [darkFrosting addIngredientsObject:darkFrostingIngredient7];
+    
+    [recipe addRecipeDetailsObject:darkFrosting];
+    
+    NSError *error;
+    if (![context save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    } else {
+        NSLog(@"Recipe for : %@ saved!",recipe.title);
+    }
 }
 
 @end
