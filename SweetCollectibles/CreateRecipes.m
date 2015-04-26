@@ -531,7 +531,7 @@
 -(void) addRecipe4 {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context = delegate.managedObjectContext;
-    UIImage *picture =[UIImage imageNamed: @"buttermilk"];
+    UIImage *picture =[UIImage imageNamed: @"lattecake"];
     NSData *cakePicture = UIImageJPEGRepresentation(picture, 1.0f);
     
     // Creating a recipe
@@ -558,32 +558,140 @@
     [cake addIngredientsObject:cakeIngredient1];
     
     Ingredient *cakeIngredient2 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
-    cakeIngredient2.ingredientType = @"(2-2/3 cups) ugranulated sugar";
+    cakeIngredient2.ingredientType = @"(2-2/3 cups) granulated sugar";
     cakeIngredient2.amount = @540;
     cakeIngredient2.unitOfMeasure = @"g";
     cakeIngredient2.recipeDetail = cake;
     [cake addIngredientsObject:cakeIngredient2];
     
     Ingredient *cakeIngredient3 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
-    cakeIngredient3.ingredientType = @"(2-2/3 cups) ugranulated sugar";
-    cakeIngredient3.amount = @540;
-    cakeIngredient3.unitOfMeasure = @"g";
+    cakeIngredient3.ingredientType = @"(275 g) egg whites, at room temperature";
+    cakeIngredient3.amount = @9;
+    //cakeIngredient3.unitOfMeasure = @"g";
     cakeIngredient3.recipeDetail = cake;
     [cake addIngredientsObject:cakeIngredient3];
     
+    Ingredient *cakeIngredient4 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient4.ingredientType = @"(4-1/2 cups) all-purpose flour";
+    cakeIngredient4.amount = @570;
+    cakeIngredient4.unitOfMeasure = @"g";
+    cakeIngredient4.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient4];
     
-    /*
-     9 (275 g) egg whites, at room temperature
-     4-1/2 cups (570 g) all-purpose flour
-     2 tablespoons (22 g) baking powder
-     1 teaspoon (6 g) salt
-     2 cups (480 ml) buttermilk, at room temperature
-     1 tablespoon (15 ml) vanilla bean paste or 1 vanilla bean, split & scraped
-     1 teaspoon (5 ml) pure vanilla extract
-     */
+    Ingredient *cakeIngredient5 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient5.ingredientType = @"(2 tablespoons) baking powder";
+    cakeIngredient5.amount = @22;
+    cakeIngredient5.unitOfMeasure = @"g";
+    cakeIngredient5.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient5];
     
+    Ingredient *cakeIngredient6 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient6.ingredientType = @"(1 teaspoon) salt";
+    cakeIngredient6.amount = @6;
+    cakeIngredient6.unitOfMeasure = @"g";
+    cakeIngredient6.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient6];
+    
+    Ingredient *cakeIngredient7 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient7.ingredientType = @"(2 cups) buttermilk, at room temperature";
+    cakeIngredient7.amount = @480;
+    cakeIngredient7.unitOfMeasure = @"ml";
+    cakeIngredient7.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient7];
+    
+    Ingredient *cakeIngredient8 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient8.ingredientType = @"(1 tablespoon) vanilla bean paste or 1 vanilla bean, split & scraped";
+    cakeIngredient8.amount = @15;
+    cakeIngredient8.unitOfMeasure = @"ml";
+    cakeIngredient8.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient8];
+    
+    Ingredient *cakeIngredient9 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient9.ingredientType = @"(1 teaspoon) pure vanilla extract";
+    cakeIngredient9.amount = @5;
+    cakeIngredient9.unitOfMeasure = @"ml";
+    cakeIngredient9.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient9];
+
     // Add details of cake to recipe
     [recipe addRecipeDetailsObject:cake];
+    
+    // Creating recipe details - frosting
+    RecipeDetail *frosting = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeDetail" inManagedObjectContext:context];
+    frosting.recipe = recipe;
+    frosting.subTitle = @"For the Buttercream:";
+    NSString *frostingInstructions = @"Wipe the bowl of an electric mixer with paper towel and lemon juice, to remove any trace of grease. Add egg whites and sugar, and simmer over a pot of water (not boiling), whisking constantly but gently, until temperature reaches 160°F (71°C), or if you don't have a candy thermometer, until the sugar has completely dissolved and the egg whites are hot.*With whisk attachment of mixer, begin to whip until the meringue is thick, glossy, and the bottom of the bowl feels neutral to the touch (this can take up to 10 minutes or so). *Don't begin adding butter until the bottom of the bowl feels neutral, and not warm.*Switch over to paddle attachment and, with mixer on low speed, add butter cubes, one at a time, until incorporated, and mix until it has reached a silky smooth texture (if curdles, keep mixing and it will come back to smooth). *If mixture is too runny, refrigerate for about 15 minutes and continue mixing with paddle attachment until it comes together. Mix espresso powder with 1 teaspoon (5 ml) boiling water. Add espresso mixture, vanilla, cinnamon and salt, continuing to beat on low speed until well combined. (Note: you can replace the vanilla bean paste wtih 1 vanilla bean, split & scraped).";
+    frosting.instructions = frostingInstructions;
+    
+    // Creating ingredients for frosting
+    Ingredient *frostingIngredient1 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient1.ingredientType = @"(180 g) large egg whites";
+    frostingIngredient1.amount = @6;
+    //frostingIngredient1.unitOfMeasure = @"g";
+    frostingIngredient1.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient1];
+    
+    Ingredient *frostingIngredient2 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient2.ingredientType = @"(1 cup) granulated sugar";
+    frostingIngredient2.amount = @200;
+    frostingIngredient2.unitOfMeasure = @"g";
+    frostingIngredient2.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient2];
+    
+    Ingredient *frostingIngredient3 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient3.ingredientType = @"(1-1/2 cups) unsalted butter, softened but cool, cut into cubes";
+    frostingIngredient3.amount = @340;
+    frostingIngredient3.unitOfMeasure = @"g";
+    frostingIngredient3.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient3];
+    
+    Ingredient *frostingIngredient4 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient4.ingredientType = @"(1 teaspoon) pure vanilla extract";
+    frostingIngredient4.amount = @5;
+    frostingIngredient4.unitOfMeasure = @"ml";
+    frostingIngredient4.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient4];
+    
+    Ingredient *frostingIngredient5 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient5.ingredientType = @"(1 tablespoon) vanilla bean paste";
+    frostingIngredient5.amount = @15;
+    frostingIngredient5.unitOfMeasure = @"ml";
+    frostingIngredient5.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient5];
+    
+    Ingredient *frostingIngredient6 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient6.ingredientType = @"(1 tablespoon) instant espresso powder";
+    frostingIngredient6.amount = @15;
+    frostingIngredient6.unitOfMeasure = @"g";
+    frostingIngredient6.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient6];
+    
+    Ingredient *frostingIngredient7 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient7.ingredientType = @"(1/4 teaspoon) cinnamonpowder";
+    frostingIngredient7.amount = @1.5;
+    frostingIngredient7.unitOfMeasure = @"g";
+    frostingIngredient7.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient7];
+    
+    Ingredient *frostingIngredient8 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    frostingIngredient8.ingredientType = @"Pinch of salt";
+    //frostingIngredient8.amount = @1.5;
+    //frostingIngredient8.unitOfMeasure = @"g";
+    frostingIngredient8.recipeDetail = frosting;
+    [frosting addIngredientsObject:frostingIngredient8];
+    
+    [recipe addRecipeDetailsObject:frosting];
+    
+    NSError *error;
+    if (![context save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    } else {
+        NSLog(@"Recipe for : %@ saved!",recipe.title);
+    }
+}
+
+-(void) addRecipe5 {
+    
 }
 
 @end
