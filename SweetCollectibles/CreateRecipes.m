@@ -35,6 +35,10 @@
     if (fetchedObjects.count == 0) {
         [self addRecipe1];
         [self addRecipe2];
+        [self addRecipe3];
+        [self addRecipe4];
+        [self addRecipe5];
+        [self addRecipe6];
     }
 }
 
