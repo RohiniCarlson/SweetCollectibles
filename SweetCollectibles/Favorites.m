@@ -103,4 +103,28 @@
     }
 }
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"ShowDetailView" sender:tableView];
+}
+
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ShowDetailView"])
+    {
+        RecipeInfo *recipeInfo = [segue destinationViewController];
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        
+        recipeInfo.recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
+        
+    } else {
+        
+        NSLog(@"You forgot the segue %@",segue);
+    }
+}
+
 @end

@@ -68,6 +68,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    [self.filteredList removeAllObjects];
 }
 
 

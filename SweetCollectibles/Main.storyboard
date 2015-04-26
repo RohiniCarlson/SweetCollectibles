@@ -353,7 +353,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="vCh-Fk-iAE" kind="show" identifier="ShowDetailViewForFavorites" id="dto-wQ-PL5"/>
+                                    <segue destination="vCh-Fk-iAE" kind="show" identifier="ShowDetailView" id="dto-wQ-PL5"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -512,6 +512,6 @@
         <image name="shoppinglist" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ffk-hi-ued"/>
+        <segue reference="dto-wQ-PL5"/>
     </inferredMetricsTieBreakers>
 </document>
