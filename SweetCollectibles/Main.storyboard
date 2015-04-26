@@ -148,26 +148,9 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="plj-hZ-70C" kind="show" id="ZT2-8A-kBo"/>
+                                    <segue destination="plj-hZ-70C" kind="show" identifier="ShowVanillaLayerCakes" id="ZT2-8A-kBo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bl8-Ey-m4R">
-                                <rect key="frame" x="16" y="258" width="282" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Frostings &amp; Fillings                          >">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="SwZ-eS-eSM" kind="show" id="oHe-6v-PHs"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="060-by-vyr">
-                                <rect key="frame" x="20" y="335" width="282" height="2"/>
-                                <color key="backgroundColor" red="0.72068319520000002" green="0.72068319520000002" blue="0.72068319520000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vld-eC-bEi">
                                 <rect key="frame" x="20" y="248" width="282" height="2"/>
                                 <color key="backgroundColor" red="0.72068319520000002" green="0.72068319520000002" blue="0.72068319520000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -187,12 +170,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Frostings and filling recipes in alphabetical order" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gK-Gy-Tz9">
-                                <rect key="frame" x="20" y="282" width="261" height="40"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vco-dM-ZVE">
                                 <rect key="frame" x="16" y="166" width="282" height="2"/>
                                 <color key="backgroundColor" red="0.72068319520000002" green="0.72068319520000002" blue="0.72068319520000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -207,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GRC-jg-9Wb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2282" y="115"/>
+            <point key="canvasLocation" x="1726" y="-320"/>
         </scene>
         <!--All Recipes-->
         <scene sceneID="9Yo-hg-v63">
@@ -242,36 +219,6 @@
             </objects>
             <point key="canvasLocation" x="1889" y="532"/>
         </scene>
-        <!--Frostings & Fillings-->
-        <scene sceneID="7aZ-j9-uxM">
-            <objects>
-                <tableViewController id="SwZ-eS-eSM" customClass="FrostingsAndFillings" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="V0A-RU-sBD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ca4-qa-lvM">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ca4-qa-lvM" id="tMi-aZ-jNU">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="vCh-Fk-iAE" kind="show" id="Bgf-CD-dER"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="SwZ-eS-eSM" id="7kp-xW-V24"/>
-                            <outlet property="delegate" destination="SwZ-eS-eSM" id="Tld-R4-9se"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Frostings &amp; Fillings" id="TcQ-A1-QEW"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7uA-Ok-c56" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2670" y="745"/>
-        </scene>
         <!--Vanilla Layer Cakes-->
         <scene sceneID="Udo-kq-Z8V">
             <objects>
@@ -281,7 +228,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="r7m-Lt-SfH">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="r7m-Lt-SfH">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r7m-Lt-SfH" id="CLL-1o-wHh">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -300,7 +247,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mTt-4f-e0f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3408" y="547"/>
+            <point key="canvasLocation" x="2630" y="299"/>
         </scene>
         <!--Recipe Info-->
         <scene sceneID="B6d-6X-SvP">
@@ -319,7 +266,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybq-nJ-PJP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2151" y="-308"/>
+            <point key="canvasLocation" x="3059" y="-963"/>
         </scene>
         <!--Chocolate Layer Cakes-->
         <scene sceneID="vDD-yO-CWI">
@@ -330,7 +277,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="QEx-8l-jGD">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="QEx-8l-jGD">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QEx-8l-jGD" id="pgO-Yf-pf5">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -349,7 +296,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zN0-rC-Von" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2732" y="-983"/>
+            <point key="canvasLocation" x="2154" y="-963"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -565,6 +512,6 @@
         <image name="shoppinglist" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dto-wQ-PL5"/>
+        <segue reference="ffk-hi-ued"/>
     </inferredMetricsTieBreakers>
 </document>

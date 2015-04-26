@@ -20,7 +20,6 @@
 		44735A371AE3991B00FCF9E1 /* AllRecipes.m in Sources */ = {isa = PBXBuildFile; fileRef = 44735A271AE3991B00FCF9E1 /* AllRecipes.m */; };
 		44735A381AE3991B00FCF9E1 /* ChocolateLayerCakes.m in Sources */ = {isa = PBXBuildFile; fileRef = 44735A291AE3991B00FCF9E1 /* ChocolateLayerCakes.m */; };
 		44735A391AE3991B00FCF9E1 /* Favorites.m in Sources */ = {isa = PBXBuildFile; fileRef = 44735A2B1AE3991B00FCF9E1 /* Favorites.m */; };
-		44735A3A1AE3991B00FCF9E1 /* FrostingsAndFillings.m in Sources */ = {isa = PBXBuildFile; fileRef = 44735A2D1AE3991B00FCF9E1 /* FrostingsAndFillings.m */; };
 		44735A3B1AE3991B00FCF9E1 /* RecipesHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 44735A2F1AE3991B00FCF9E1 /* RecipesHome.m */; };
 		44735A3C1AE3991B00FCF9E1 /* ShoppingList.m in Sources */ = {isa = PBXBuildFile; fileRef = 44735A311AE3991B00FCF9E1 /* ShoppingList.m */; };
 		44735A3D1AE3991B00FCF9E1 /* ShoppingListRecipes.m in Sources */ = {isa = PBXBuildFile; fileRef = 44735A331AE3991B00FCF9E1 /* ShoppingListRecipes.m */; };
@@ -71,8 +70,6 @@
 		44735A291AE3991B00FCF9E1 /* ChocolateLayerCakes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChocolateLayerCakes.m; sourceTree = "<group>"; };
 		44735A2A1AE3991B00FCF9E1 /* Favorites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favorites.h; sourceTree = "<group>"; };
 		44735A2B1AE3991B00FCF9E1 /* Favorites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favorites.m; sourceTree = "<group>"; };
-		44735A2C1AE3991B00FCF9E1 /* FrostingsAndFillings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrostingsAndFillings.h; sourceTree = "<group>"; };
-		44735A2D1AE3991B00FCF9E1 /* FrostingsAndFillings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrostingsAndFillings.m; sourceTree = "<group>"; };
 		44735A2E1AE3991B00FCF9E1 /* RecipesHome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipesHome.h; sourceTree = "<group>"; };
 		44735A2F1AE3991B00FCF9E1 /* RecipesHome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipesHome.m; sourceTree = "<group>"; };
 		44735A301AE3991B00FCF9E1 /* ShoppingList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingList.h; sourceTree = "<group>"; };
@@ -150,8 +147,6 @@
 				44735A291AE3991B00FCF9E1 /* ChocolateLayerCakes.m */,
 				44735A2A1AE3991B00FCF9E1 /* Favorites.h */,
 				44735A2B1AE3991B00FCF9E1 /* Favorites.m */,
-				44735A2C1AE3991B00FCF9E1 /* FrostingsAndFillings.h */,
-				44735A2D1AE3991B00FCF9E1 /* FrostingsAndFillings.m */,
 				44735A2E1AE3991B00FCF9E1 /* RecipesHome.h */,
 				44735A2F1AE3991B00FCF9E1 /* RecipesHome.m */,
 				44735A301AE3991B00FCF9E1 /* ShoppingList.h */,
@@ -371,7 +366,6 @@
 				44735A371AE3991B00FCF9E1 /* AllRecipes.m in Sources */,
 				4491F79E1AEB8555001CAD67 /* MasterRecipeTableViewController.m in Sources */,
 				44735A211AE3930F00FCF9E1 /* EntityModel.xcdatamodeld in Sources */,
-				44735A3A1AE3991B00FCF9E1 /* FrostingsAndFillings.m in Sources */,
 				446B55DC1AE444FB001DBF71 /* RecipeCell.m in Sources */,
 				44735A3D1AE3991B00FCF9E1 /* ShoppingListRecipes.m in Sources */,
 				44735A361AE3991B00FCF9E1 /* AddToFavorites.m in Sources */,

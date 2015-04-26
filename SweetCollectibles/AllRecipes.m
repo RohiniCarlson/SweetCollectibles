@@ -403,35 +403,6 @@
     }
 }
 
-
-
-
-
-/*- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
-{
-    //self.filteredResult = nil;
-    
-    
-    NSLog(@"Previous Search Results were removed.");
-   // [self.filteredResult removeAllObjects];
-    
-    for (Recipe *recipe in self.fetchedObjects)
-    {
-        if ([scope isEqualToString:@"All"] || [recipe.title isEqualToString:scope])
-        {
-            NSComparisonResult result = [recipe.title compare:searchText
-                                                   options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)
-                                                     range:NSMakeRange(0, [searchText length])];
-            if (result == NSOrderedSame)
-            {
-                NSLog(@"Adding recipe.title '%@' to searchResults as it begins with search text '%@'", recipe.title, searchText);
-                [self.filteredResult addObject:recipe];
-            }
-        }
-    }
-}*/
-
-
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     NSLog(@"In textDidChange()");
     [self.filteredResult removeAllObjects];
