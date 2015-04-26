@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 it-högskolan. All rights reserved.
 //
 #import "AddToFavorites.h"
-#import "CustomRecipeCell.h"
 #import "AppDelegate.h"
 #import "CustomRecipeCell.h"
 #import "Recipe.h"
@@ -25,10 +24,6 @@
 @end
 
 @implementation AddToFavorites
-
-/*-(void) viewWillAppear:(BOOL)animated {
-    
-}*/
 
 - (void)viewDidLoad {
     [super viewDidLoad];

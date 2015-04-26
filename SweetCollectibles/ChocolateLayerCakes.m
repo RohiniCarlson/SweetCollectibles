@@ -7,8 +7,22 @@
 //
 
 #import "ChocolateLayerCakes.h"
+#import "AppDelegate.h"
+#import "CustomRecipeCell.h"
+#import "AddToFavorites.h"
+#import "Recipe.h"
+#import "RecipeInfo.h"
 
-@interface ChocolateLayerCakes ()
+@interface ChocolateLayerCakes ()<UISearchBarDelegate, UISearchResultsUpdating>
+@property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) NSManagedObjectContext *context;
+@property (strong, nonatomic) NSFetchRequest *fetchRequest;
+@property (strong, nonatomic) AppDelegate *delegate;
+@property (strong, nonatomic) NSArray *fetchedObjects;
+@property (strong, nonatomic) NSMutableArray *filteredList;
+@property (strong, nonatomic) NSArray *titlesArray;
+@property (strong, nonatomic) NSMutableArray *sectionRecipeTitles;
+@property (strong, nonatomic) NSArray *recipeIndexTitles;
 
 @end
 
