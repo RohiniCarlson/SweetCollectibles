@@ -8,7 +8,6 @@
 #import "MasterRecipeTableViewController.h"
 #import "AppDelegate.h"
 #import "CustomRecipeCell.h"
-//#import "RecipeCell.h"
 #import "Recipe.h"
 #import "RecipeInfo.h"
 

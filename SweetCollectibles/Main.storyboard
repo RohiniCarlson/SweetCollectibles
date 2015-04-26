@@ -83,7 +83,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="50" id="fxo-68-tzf" customClass="CustomRecipeCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="50" id="fxo-68-tzf" customClass="CustomRecipeCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fxo-68-tzf" id="ZZo-dZ-56t">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -195,7 +195,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" id="SDT-iU-bOl">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="50" id="SDT-iU-bOl">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SDT-iU-bOl" id="0UI-OI-sK1">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -401,19 +401,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="XTK-26-tOt">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="n28-4A-tx9">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="n28-4A-tx9">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n28-4A-tx9" id="q1j-ic-t1s">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="wwP-kf-RMt" kind="show" id="HAp-08-o02"/>
+                                    <segue destination="wwP-kf-RMt" kind="show" identifier="ShowShoppingList" id="HAp-08-o02"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -423,8 +418,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="All Recipes" id="2kI-Wj-dME">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="Wrn-c2-MfE"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="Wrn-c2-MfE">
+                            <connections>
+                                <action selector="onDone:" destination="Y0q-dM-PIJ" id="2N6-Ua-310"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="doneButton" destination="Wrn-c2-MfE" id="Npz-sO-gBR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XiQ-ct-2dd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -512,6 +514,6 @@
         <image name="shoppinglist" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ffk-hi-ued"/>
+        <segue reference="dto-wQ-PL5"/>
     </inferredMetricsTieBreakers>
 </document>

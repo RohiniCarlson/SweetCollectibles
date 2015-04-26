@@ -7,6 +7,7 @@
 //
 
 #import "ShoppingList.h"
+#import "Recipe.h"
 
 @interface ShoppingList ()
 
@@ -16,7 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    Recipe *recipe;
+    for (int i=0; i< self.recipeList.count; i++) {
+        recipe = self.recipeList[i];
+        NSLog(@"Title: %@", recipe.title);
+    }
 }
 
 - (void)didReceiveMemoryWarning {
