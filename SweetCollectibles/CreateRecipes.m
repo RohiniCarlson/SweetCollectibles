@@ -16,7 +16,26 @@
 
 
 -(void)addRecipes {
-    //[self addRecipe1];
+    // Do a fetch to check if there are records before inserting.
+    NSError *error;
+    NSFetchRequest *fetchRequest;
+    NSManagedObjectContext *context;
+    AppDelegate *delegate;
+    NSArray *fetchedObjects;
+    delegate = [UIApplication sharedApplication].delegate;
+    context = delegate.managedObjectContext;
+    
+    fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *recipe = [NSEntityDescription entityForName:@"Recipe"
+                                              inManagedObjectContext:context];
+    [fetchRequest setEntity:recipe];
+    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    fetchedObjects = [fetchedObjects sortedArrayUsingDescriptors:@[sd]];
+    if (fetchedObjects.count == 0) {
+        [self addRecipe1];
+        [self addRecipe2];
+    }
 }
 
 -(NSNumber*)convertEnumToNumber:(NSInteger) category {
@@ -207,7 +226,7 @@
     
     // Creating a recipe
     Recipe *recipe = [NSEntityDescription insertNewObjectForEntityForName:@"Recipe" inManagedObjectContext:context];
-    recipe.title = @"Best Ever Chocolate and Nutella Layer Cake";
+    recipe.title = @"Perfectly Delightful Vanilla Birthday Cake";
     recipe.picture = cakePicture;
     recipe.category = [self convertEnumToNumber:chocolateLayerCake];
     NSString *assemble = @"Trim any doming or top crust from cake layers using a very sharp serrated knife.*Use a cake turntable for filling, frosting and decorating, if a possible. Place a small dollop of frosting in the center of a cake plate or 8″ round thin foil-covered cake board, and place the bottom cake layer on top, face-up.*Place ~1 cup of frosting on top of the cake layer, and spread evenly with a small offset palette knife. Gently place 2nd cake layer, face up, on top. Repeat until you come to your 4th layer, which you will place face down.*Put a generous scoop of frosting on top, spreading evenly with a small offset palette knife and working your way down the sides until you have a thin layer of frosting over the entire cake. Chill until set, about 30 minutes.*Remove from refrigerator and apply another 'coat' of frosting.*For the top of the cake border, place a large star decorating tip in a large Decorating Bag filled no more than 1/2 full with pink frosting.*Hold pastry bag in one hand (your dominant hand) and slowly rotate the turntable with the other. Holding frosting-filled bag at a directly above the top of the cake (90° angle), squeeze a small bit of frosting and turn the table a bit at the same time, releasing pressure slowly then stop (this will create a tapered decoration). Repeat all the way around the cake, overlapping slightly each time you pipe a new 'shell.'*For bottom border, you will want to have the cake on the plate or pedestal which you plan to serve it upon. Fill another pastry bag the same way, and this time use tip 1M. You will pipe at about a 45° angle this time (give or take). Sprinkle with your favourite sugar pearls or sprinkles atop the top border. For some kitschy charm, add a few Vintage Ballerina Cupcake Toppers to your cake!*Store, covered in a cake dome, at room temperature for up to 2 days, or in refrigerator for up to 5 days. Best enjoyed day 1 or 2 at room temperature.";
@@ -365,5 +384,94 @@
     }
 }
 
+-(void) addRecipe3{
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context = delegate.managedObjectContext;
+    UIImage *picture =[UIImage imageNamed: @"buttermilk"];
+    NSData *cakePicture = UIImageJPEGRepresentation(picture, 1.0f);
+    
+    // Creating a recipe
+    Recipe *recipe = [NSEntityDescription insertNewObjectForEntityForName:@"Recipe" inManagedObjectContext:context];
+    recipe.title = @"Vanilla Buttermilk Cake with Instant Fudge Frosting";
+    recipe.picture = cakePicture;
+    recipe.category = [self convertEnumToNumber:chocolateLayerCake];
+    NSString *assemble = @"Place one layer, face-up on a cake stand or plate. Spread 3/4 cup of the frosting over the layer right to the edge using a small offset palette knife. Repeat with the next layer.*Place the last layer on top and use all but 3/4 cup of the frosting to cover the top and sides of the cake. With an offset palette knife or spatula, smooth out the frosting all over. Place the remaining 3/4 cup frosting in a pastry bag fitted with a medium star tube and pipe a shell border around the top and bottom edges of the cake.";
+    recipe.howToAssemble = assemble;
+    
+    
+    // Creating recipe details - cake
+    RecipeDetail *cake = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeDetail" inManagedObjectContext:context];
+    cake.recipe = recipe;
+    cake.subTitle = @"For the Cake:";
+    NSString *cakeInstructions = @"Preheat the oven to 350° F (180°C). Butter the bottoms and sides of three 8-inch round cake pans, line bottoms with parchment round, butter the rounds and dust with flour.*Put the eggs and yolks in a medium mixing mixing bowl, add 1/4 cup of the buttermilk and the vanilla. Whisk to blend well.*Combine the flour, sugar, baking powder and salt in a large mixer bowl; whisk to blend. Add the butter and the remaining 1 cup buttermilk to these dry ingredients and with the mixer on low, blend together. Raise the mixer speed to medium and beat until light and fluffy, about 2 minutes.*Add the egg mixture in 3 additions, scraping down the side of the bowl and mixing only until thoroughly incorporated.*Divide batter evenly among the 3 prepared pan (use a kitchen scale to ensure 3 even layers). Bake the cake layers for 28-32 minutes, or until a cake tester or wooden toothpick inserted into the center comes clean and the cake begins to pull away from the sides of the pan. Let the layers cool in the pans for 10 minutes, then carefully turn out onto wire racks, peel of the paper liners, and let cool completely.";
+    cake.instructions = cakeInstructions;
+    
+    // Creating ingredients for cake
+    Ingredient *cakeIngredient1 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient1.ingredientType = @"whole eggs, at room temperature";
+    cakeIngredient1.amount = @4;
+    //cakeIngredient1.unitOfMeasure = @"ml";
+    cakeIngredient1.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient1];
+    
+    Ingredient *cakeIngredient2 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient2.ingredientType = @"egg yolks, at room temperature";
+    cakeIngredient2.amount = @2;
+    //cakeIngredient2.unitOfMeasure = @"ml";
+    cakeIngredient2.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient2];
+
+    Ingredient *cakeIngredient3 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient3.ingredientType = @"(1-1/4 cups) buttermilk, at room temperature";
+    cakeIngredient3.amount = @297;
+    cakeIngredient3.unitOfMeasure = @"ml";
+    cakeIngredient3.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient3];
+    
+    Ingredient *cakeIngredient4 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient4.ingredientType = @"(2 teaspoons) pure vanilla extract";
+    cakeIngredient4.amount = @10;
+    cakeIngredient4.unitOfMeasure = @"ml";
+    cakeIngredient4.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient4];
+    
+    Ingredient *cakeIngredient5 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient5.ingredientType = @"(3 cups) cake flour, sifted";
+    cakeIngredient5.amount = @360;
+    cakeIngredient5.unitOfMeasure = @"g";
+    cakeIngredient5.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient5];
+    
+    Ingredient *cakeIngredient6 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient6.ingredientType = @"(2 cups) sugar";
+    cakeIngredient6.amount = @400;
+    cakeIngredient6.unitOfMeasure = @"g";
+    cakeIngredient6.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient6];
+
+    Ingredient *cakeIngredient7 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient7.ingredientType = @"(1 tablespoon plus 1/2 teaspoon) baking powder";
+    cakeIngredient7.amount = @17;
+    cakeIngredient7.unitOfMeasure = @"g";
+    cakeIngredient7.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient7];
+    
+    Ingredient *cakeIngredient8 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
+    cakeIngredient8.ingredientType = @"(1 tablespoon plus 1/2 teaspoon) baking powder";
+    cakeIngredient8.amount = @17;
+    cakeIngredient8.unitOfMeasure = @"g";
+    cakeIngredient8.recipeDetail = cake;
+    [cake addIngredientsObject:cakeIngredient8];
+
+    
+    
+    
+    /*
+
+
+     1/2 teaspoon (4 g) salt
+     1 cup (2 sticks)(227 g) unsalted butter, at room temperature
+     */
+}
 
 @end
