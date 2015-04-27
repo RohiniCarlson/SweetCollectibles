@@ -83,7 +83,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="50" id="fxo-68-tzf" customClass="CustomRecipeCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomRecipeCell" rowHeight="50" id="fxo-68-tzf" customClass="RecipeCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fxo-68-tzf" id="ZZo-dZ-56t">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -98,7 +98,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="recipeLabel" destination="hg3-Kc-SES" id="dEp-iz-30W"/>
-                                    <segue destination="vCh-Fk-iAE" kind="show" identifier="ShowDetailView" id="u0J-z8-eDt"/>
+                                    <segue destination="vCh-Fk-iAE" kind="show" identifier="ShowDetailView" id="YPE-dd-xaz"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -233,9 +233,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r7m-Lt-SfH" id="CLL-1o-wHh">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="vCh-Fk-iAE" kind="show" identifier="ShowDetailView" id="ffk-hi-ued"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -263,10 +260,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Recipe Info" id="cHq-cY-5nS"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybq-nJ-PJP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3059" y="-963"/>
+            <point key="canvasLocation" x="1889" y="-709"/>
         </scene>
         <!--Chocolate Layer Cakes-->
         <scene sceneID="vDD-yO-CWI">
@@ -282,9 +280,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QEx-8l-jGD" id="pgO-Yf-pf5">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="vCh-Fk-iAE" kind="show" identifier="ShowDetailView" id="Xq1-ul-vcP"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -352,9 +347,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PPH-ek-iz2" id="2dU-Tn-MKo">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="vCh-Fk-iAE" kind="show" identifier="ShowDetailView" id="dto-wQ-PL5"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -513,7 +505,4 @@
         <image name="recipes" width="60" height="60"/>
         <image name="shoppinglist" width="60" height="60"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="u0J-z8-eDt"/>
-    </inferredMetricsTieBreakers>
 </document>

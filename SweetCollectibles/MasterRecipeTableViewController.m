@@ -7,7 +7,8 @@
 //
 #import "MasterRecipeTableViewController.h"
 #import "AppDelegate.h"
-#import "CustomRecipeCell.h"
+//#import "CustomRecipeCell.h"
+#import "RecipeCell.h"
 #import "Recipe.h"
 #import "Recipe+RecipeCategory.h"
 #import "RecipeInfo.h"
@@ -17,7 +18,6 @@
 @property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) NSFetchRequest *searchFetchRequest;
 @property (strong, nonatomic) NSManagedObjectContext *context;
-//@property (strong, nonatomic) NSFetchRequest *fetchRequest;
 @property (strong, nonatomic) AppDelegate *delegate;
 @property (strong, nonatomic) NSArray *fetchedObjects;
 @property (strong, nonatomic) NSArray *filteredList;
@@ -32,20 +32,12 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    UINib *recipeNib = [UINib nibWithNibName:@"CustomRecipeCell" bundle:nil];
-    [self.tableView registerNib:recipeNib
-         forCellReuseIdentifier:@"RecipeCell"];
     self.delegate = [UIApplication sharedApplication].delegate;
     self.context = self.delegate.managedObjectContext;
     self.filteredList = [[NSMutableArray alloc] init];
     self.sectionRecipeTitles = [[NSMutableArray alloc] init];
     self.recipeIndexTitles = @[@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z"];
-    //[self fetchRecipes];
-    //[self createArrayForSectionRecipeTitles];
     
-   /* [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didChangePreferredContentSize:)
-                                                 name:UIContentSizeCategoryDidChangeNotification object:nil];*/
     self.tableView.estimatedRowHeight = 50.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
@@ -75,7 +67,7 @@
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
-    //self.searchFetchRequest = nil;
+    self.searchFetchRequest = nil;
 }
 
 #pragma mark - Navigation
@@ -83,18 +75,16 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
-    if ([segue.identifier isEqualToString:@"ShowDetailView"])
-    {
+    if ([segue.identifier isEqualToString:@"ShowDetailView"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-
-        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
-        NSLog(@"sectionInfo: %lu",(unsigned long)[sectionInfo numberOfObjects]);
+        NSLog(@"Section: %ld",(long)indexPath.section);
+        NSLog(@"Row: %ld",(long)indexPath.row);
         Recipe *recipe = nil;
         recipe = [self.fetchedResultsController objectAtIndexPath:
                   indexPath];
         NSLog(@"Before if section: %ld", (long)indexPath.section);
         NSLog(@"Before if row: %ld", (long)indexPath.row);
-        RecipeInfo *recipeInfo = [segue destinationViewController];
+        
         if (self.searchController.isActive)
         {
             recipe = [self.filteredList objectAtIndex:indexPath.row];
@@ -103,15 +93,14 @@
                       indexPath];
             NSLog(@"searchcontroller not active and recipe title is: %@",recipe.title);
         }
-        
+        RecipeInfo *recipeInfo = [segue destinationViewController];
         recipeInfo.recipe = recipe;
-        NSLog(@"RecipeTitle: %@", recipeInfo.title);
-        
-    } else {
+        } else {
         
         NSLog(@"You forgot the segue %@",segue);
     }
 }
+
 
 - (NSFetchRequest *)searchFetchRequest
 {
@@ -131,21 +120,8 @@
     return _searchFetchRequest;
 }
 
-/*-(void)fetchRecipes{
-    
-    NSError *error;
-    
-    self.fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *recipe = [NSEntityDescription entityForName:@"Recipe"
-                                              inManagedObjectContext:self.context];
-    [self.fetchRequest setEntity:recipe];
-    self.fetchedObjects = [self.context executeFetchRequest:self.fetchRequest error:&error];
-    NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
-    self.fetchedObjects = [self.fetchedObjects sortedArrayUsingDescriptors:@[sd]];
-}*/
 
-
--(void) createArrayForSectionRecipeTitles {
+/*-(void) createArrayForSectionRecipeTitles {
     
     Recipe *recipe;
     NSString *firstLetter;
@@ -158,9 +134,6 @@
     }
     NSArray *temp = [self.sectionRecipeTitles sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     self.sectionRecipeTitles = [[NSMutableArray alloc] initWithArray:temp];
-   /* for (int i=0; i<self.sectionRecipeTitles.count; i++) {
-        NSLog(self.sectionRecipeTitles[i]);
-    }*/
 }
 
 
@@ -172,7 +145,7 @@
         }
     }
     return NO;
-}
+}*/
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
@@ -208,6 +181,7 @@
     return _fetchedResultsController;
 }
 
+
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.tableView reloadData];
@@ -228,18 +202,6 @@
     
     self.filteredList = nil; // First clear the filtered array.
     
-    // Search the main list for recipes where title matches recipeName and
-    // items that match to the filtered array.
-
-    /*for (Recipe *recipe in self.fetchedObjects) {
-        NSUInteger searchOptions = NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch;
-        NSRange recipeNameRange = NSMakeRange(0, recipe.title.length);
-        NSRange foundRange = [recipe.title rangeOfString:recipeName options:searchOptions range:recipeNameRange];
-        if (foundRange.length > 0) {
-            [self.filteredList addObject:recipe];
-        }
-    }*/
-    
     if (self.context)
     {
         NSString *predicateFormat = @"%K BEGINSWITH[cd] %@";
@@ -256,11 +218,6 @@
         {
             NSLog(@"searchFetchRequest failed: %@",[error localizedDescription]);
         }
-        /*self.filteredList = [self.context executeFetchRequest:self.searchFetchRequest error:&error];
-        if (error)
-        {
-            NSLog(@"searchFetchRequest failed: %@",[error localizedDescription]);
-        }*/
     }
 }
 
@@ -294,27 +251,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    CustomRecipeCell *cell = [self.tableView dequeueReusableCellWithIdentifier: @"RecipeCell" forIndexPath:indexPath];
+    RecipeCell *cell = (RecipeCell*)[self.tableView dequeueReusableCellWithIdentifier: @"CustomRecipeCell" forIndexPath:indexPath];
     
     Recipe *recipe = nil;
     if (self.searchController.active)
     {
         recipe = [self.filteredList objectAtIndex:indexPath.row];
     } else {
-        /*NSString *sectionTitle = [self.sectionRecipeTitles objectAtIndex:indexPath.section];
-        NSMutableArray *allRecipes = [[NSMutableArray alloc]init];
-        NSString *firstLetter;
-        for (int i=0; i<self.fetchedObjects.count; i++) {
-            recipe = self.fetchedObjects[i];
-            firstLetter = [recipe.title substringToIndex:1];
-            if ([sectionTitle isEqualToString:firstLetter]) {
-                [allRecipes addObject:recipe];
-            }
-        }
-        NSArray *sortedArray = [allRecipes sortedArrayUsingComparator:^(Recipe *a, Recipe *b) {
-            return [a.title caseInsensitiveCompare:b.title];
-        }];
-        recipe = [sortedArray objectAtIndex:indexPath.row];*/
         recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
     }
     cell.recipeLabel.text = recipe.title;
@@ -368,13 +311,5 @@
     }
     return 0;
 }
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"ShowDetailView" sender:tableView];
-}
-
-
-
 
 @end
