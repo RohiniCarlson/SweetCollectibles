@@ -19,7 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CreateRecipes *addRecipiesToCoreData;
+    CreateRecipes *addRecipiesToCoreData = [[CreateRecipes alloc] init];
+    NSLog(@"in RecipesHome");
     [addRecipiesToCoreData addRecipes];
 }
 
