@@ -8,20 +8,17 @@
 
 #import "ChocolateLayerCakes.h"
 #import "AppDelegate.h"
-#import "CustomRecipeCell.h"
-#import "AddToFavorites.h"
 #import "Recipe.h"
+#import "Recipe+RecipeCategory.h"
 #import "RecipeInfo.h"
 
-@interface ChocolateLayerCakes ()<UISearchBarDelegate, UISearchResultsUpdating>
+@interface ChocolateLayerCakes ()<UISearchBarDelegate, UISearchResultsUpdating, NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *context;
-@property (strong, nonatomic) NSFetchRequest *fetchRequest;
+@property (strong, nonatomic) NSFetchRequest *searchFetchRequest;
 @property (strong, nonatomic) AppDelegate *delegate;
-@property (strong, nonatomic) NSArray *fetchedObjects;
-@property (strong, nonatomic) NSMutableArray *filteredList;
-@property (strong, nonatomic) NSArray *titlesArray;
-@property (strong, nonatomic) NSMutableArray *sectionRecipeTitles;
+@property (strong, nonatomic) NSArray *filteredList;
 @property (strong, nonatomic) NSArray *recipeIndexTitles;
 
 @end
@@ -30,22 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UINib *recipeNib = [UINib nibWithNibName:@"CustomRecipeCell" bundle:nil];
-    [self.tableView registerNib:recipeNib
-         forCellReuseIdentifier:@"RecipeCell"];
     self.delegate = [UIApplication sharedApplication].delegate;
     self.context = self.delegate.managedObjectContext;
-    self.filteredList = [[NSMutableArray alloc] init];
-    self.sectionRecipeTitles = [[NSMutableArray alloc] init];
     self.recipeIndexTitles = @[@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z"];
-    [self fetchRecipes];
-    [self createArrayForSectionRecipeTitles];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didChangePreferredContentSize:)
-                                                 name:UIContentSizeCategoryDidChangeNotification object:nil];
-    self.tableView.estimatedRowHeight = 50.0;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     // Search results shown in same view so initialised with nil searchresutscontroller
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -63,56 +47,78 @@
 }
 
 
-- (void)didChangePreferredContentSize:(NSNotification *)notification
-{
-    [self.tableView reloadData];
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [self.filteredList removeAllObjects];
+    self.filteredList = nil;
 }
 
 
--(void)fetchRecipes{
-    
-    NSError *error;
+#pragma mark - NSFetchRequest setup
+
+- (NSFetchRequest *)searchFetchRequest
+{
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %@", @0];
     
-    self.fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *recipe = [NSEntityDescription entityForName:@"Recipe"
-                                              inManagedObjectContext:self.context];
-    [self.fetchRequest setEntity:recipe];
-    [self.fetchRequest setPredicate:predicate];
-    self.fetchedObjects = [self.context executeFetchRequest:self.fetchRequest error:&error];
-    NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
-    self.fetchedObjects = [self.fetchedObjects sortedArrayUsingDescriptors:@[sd]];
+    if (_searchFetchRequest != nil)
+    {
+        return _searchFetchRequest;
+    }
+    
+    _searchFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Recipe" inManagedObjectContext:self.context];
+    [_searchFetchRequest setEntity:entity];
+    [_searchFetchRequest setPredicate:predicate];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
+    [_searchFetchRequest setSortDescriptors:sortDescriptors];
+    
+    return _searchFetchRequest;
+}
+
+#pragma mark - NSFetchedResultsController setup
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %@", @0];
+    
+    if (_fetchedResultsController != nil)
+    {
+        return _fetchedResultsController;
+    }
+    
+    if (self.context)
+    {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Recipe" inManagedObjectContext:self.context];
+        [fetchRequest setEntity:entity];
+        [fetchRequest setPredicate:predicate];
+        
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+        NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
+        [fetchRequest setSortDescriptors:sortDescriptors];
+        
+        NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                              managedObjectContext:self.context
+                                                                                sectionNameKeyPath:@"sectionTitle"
+                                                                                         cacheName:nil];
+        frc.delegate = self;
+        self.fetchedResultsController = frc;
+        
+        NSError *error = nil;
+        if (![self.fetchedResultsController performFetch:&error])
+        {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
+    
+    return _fetchedResultsController;
 }
 
 
--(void) createArrayForSectionRecipeTitles {
-    
-    Recipe *recipe;
-    NSString *firstLetter;
-    for(int i=0; i<self.fetchedObjects.count; i++) {
-        recipe = self.fetchedObjects[i];
-        firstLetter = [recipe.title substringToIndex:1];
-        if(![self isLetterExists:firstLetter]) {
-            [self.sectionRecipeTitles addObject:firstLetter];
-        }
-    }
-}
-
-
--(BOOL) isLetterExists:(NSString*)letter {
-    
-    for(int i=0; i<self.sectionRecipeTitles.count; i++) {
-        if([self.sectionRecipeTitles[i] isEqualToString:letter]){
-            return YES;
-        }
-    }
-    return NO;
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView reloadData];
 }
 
 
@@ -126,19 +132,25 @@
 }
 
 
--(void)searchForText:(NSString *)recipeName {
+-(void)searchForText:(NSString *)searchText {
     
-    [self.filteredList removeAllObjects]; // First clear the filtered array.
+    self.filteredList = nil; // First clear the filtered array.
     
-    // Search the main list for recipes where title matches recipeName and
-    // items that match to the filtered array.
-    
-    for (Recipe *recipe in self.fetchedObjects) {
-        NSUInteger searchOptions = NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch;
-        NSRange recipeNameRange = NSMakeRange(0, recipe.title.length);
-        NSRange foundRange = [recipe.title rangeOfString:recipeName options:searchOptions range:recipeNameRange];
-        if (foundRange.length > 0) {
-            [self.filteredList addObject:recipe];
+    if (self.context)
+    {
+        NSString *predicateFormat = @"%K BEGINSWITH[cd] %@";
+        NSString *searchAttribute = @"title";
+        
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat, searchAttribute, searchText];
+        [self.searchFetchRequest setPredicate:predicate];
+        
+        NSError *error = nil;
+        
+        self.filteredList = [self.context executeFetchRequest:self.searchFetchRequest error:&error];
+        if (error)
+        {
+            NSLog(@"searchFetchRequest failed: %@",[error localizedDescription]);
         }
     }
 }
@@ -150,7 +162,7 @@
     {
         return 1;
     } else {
-        return self.sectionRecipeTitles.count;
+        return [[self.fetchedResultsController sections] count];
     }
 }
 
@@ -161,35 +173,24 @@
         return [self.filteredList count];
     }
     else {
-        NSString *sectionTitle = [self.sectionRecipeTitles objectAtIndex:section];
-        NSMutableArray *allRecipes = [[NSMutableArray alloc]init];
-        Recipe *recipe;
-        NSString *firstLetter;
-        for (int i=0; i<self.fetchedObjects.count; i++) {
-            recipe = self.fetchedObjects[i];
-            firstLetter = [recipe.title substringToIndex:1];
-            if ([sectionTitle isEqualToString:firstLetter]) {
-                [allRecipes addObject:recipe];
-            } else {
-                return allRecipes.count;
-            }
-        }
-        return allRecipes.count;
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        return [sectionInfo numberOfObjects];
     }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    CustomRecipeCell *cell = [self.tableView dequeueReusableCellWithIdentifier: @"RecipeCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier: @"RecipeCell" forIndexPath:indexPath];
     Recipe *recipe = nil;
     if (self.searchController.active)
     {
         recipe = [self.filteredList objectAtIndex:indexPath.row];
     } else {
-        recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
+        recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
     }
-    cell.recipeLabel.text = recipe.title;
+    // Need to style
+    cell.textLabel.text = recipe.title;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.textLabel.numberOfLines = 1;
@@ -201,7 +202,8 @@
 {
     if (!self.searchController.active)
     {
-        return [self.sectionRecipeTitles objectAtIndex:section];
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        return [sectionInfo name];
     }
     return nil;
 }
@@ -211,7 +213,10 @@
 {
     if (!self.searchController.active)
     {
-        return self.recipeIndexTitles;
+        NSMutableArray *index = [NSMutableArray arrayWithObject:UITableViewIndexSearch];
+        NSArray *initials = [self.fetchedResultsController sectionIndexTitles];
+        [index addObjectsFromArray:initials];
+        return index;
     }
     return nil;
 }
@@ -223,7 +228,7 @@
     {
         if (index > 0)
         {
-            return [self.sectionRecipeTitles indexOfObject:title];;
+            return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index-1];
         } else {
             // The first entry in the index is for the search icon so we return section not found
             // and force the table to scroll to the top.
@@ -236,11 +241,10 @@
     return 0;
 }
 
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"ShowDetailView" sender:tableView];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50.0f;
 }
-
 
 #pragma mark - Navigation
 
@@ -257,7 +261,7 @@
         {
             recipe = [self.filteredList objectAtIndex:indexPath.row];
         } else {
-            recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
+            recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
         }
         
         recipeInfo.recipe = recipe;

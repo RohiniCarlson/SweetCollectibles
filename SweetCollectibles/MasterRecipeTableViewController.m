@@ -50,12 +50,6 @@
 }
 
 
-- (void)didChangePreferredContentSize:(NSNotification *)notification
-{
-    [self.tableView reloadData];
-}
-
-
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
@@ -63,29 +57,7 @@
 }
 
 
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"ShowDetailView"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        Recipe *recipe = nil;
-        recipe = [self.fetchedResultsController objectAtIndexPath:
-                  indexPath];
-        if (self.searchController.isActive)
-        {
-            recipe = [self.filteredList objectAtIndex:indexPath.row];
-        } else {
-            recipe = [self.fetchedResultsController objectAtIndexPath:
-                      indexPath];
-        }
-        RecipeInfo *recipeInfo = [segue destinationViewController];
-        recipeInfo.recipe = recipe;
-        } else {
-        NSLog(@"You forgot the segue %@",segue);
-    }
-}
-
+#pragma mark - NSFetchRequest setup
 
 - (NSFetchRequest *)searchFetchRequest
 {
@@ -105,6 +77,7 @@
     return _searchFetchRequest;
 }
 
+#pragma mark - NSFetchedResultsController setup
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
@@ -126,7 +99,7 @@
         NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                               managedObjectContext:self.context
                                                                                 sectionNameKeyPath:@"sectionTitle"
-                                                                                         cacheName:@"Recipe"];
+                                                                                         cacheName:nil];
         frc.delegate = self;
         self.fetchedResultsController = frc;
         
@@ -274,6 +247,30 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 50.0f;
+}
+
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ShowDetailView"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        Recipe *recipe = nil;
+        recipe = [self.fetchedResultsController objectAtIndexPath:
+                  indexPath];
+        if (self.searchController.isActive)
+        {
+            recipe = [self.filteredList objectAtIndex:indexPath.row];
+        } else {
+            recipe = [self.fetchedResultsController objectAtIndexPath:
+                      indexPath];
+        }
+        RecipeInfo *recipeInfo = [segue destinationViewController];
+        recipeInfo.recipe = recipe;
+    } else {
+        NSLog(@"You forgot the segue %@",segue);
+    }
 }
 
 @end
