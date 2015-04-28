@@ -8,6 +8,9 @@
 
 #import "ShoppingList.h"
 #import "Recipe.h"
+#import "RecipeDetail.h"
+#import "Ingredient.h"
+#import "IngredientObject.h"
 
 @interface ShoppingList ()
 
@@ -22,6 +25,13 @@
         recipe = self.recipeList[i];
         NSLog(@"Title: %@", recipe.title);
     }
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Under Construction!"
+                                                    message:@"Your patience is greatly appreciated."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,14 +39,40 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(NSMutableArray*)createIngredientsArray{
+    
+    NSMutableArray *ingredientsArray = [[NSMutableArray alloc] init];
+    IngredientObject *ingredientObject = [[IngredientObject alloc]init];
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"ingredientName"
+                                                 ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    
+    for (Recipe *recipe in self.recipeList) {
+         NSArray *recipeDetails = [recipe.recipeDetails allObjects];
+        for (RecipeDetail *recipeDetail in recipeDetails) {
+            NSArray *ingredients = [recipeDetail.ingredients allObjects];
+            NSMutableArray *subRecipeIngredients = [[NSMutableArray alloc] init];
+            for (Ingredient *ingredient in ingredients) {
+                NSString *name = ingredient.ingredientType;
+                if ([name rangeOfString:@"egg" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                    name = @"egg";
+                } else if ([name rangeOfString:@"salt" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                    name = @"salt";
+                } else {
+                    name = [name substringFromIndex:[name rangeOfString:@")"].location +2 ];
+                }
+                ingredientObject.ingredientName = name;
+                ingredientObject.amount = ingredient.amount;
+                ingredientObject.unitOfMeasure = ingredient.unitOfMeasure;
+                ingredientObject.addedToList = @0;
+                [subRecipeIngredients addObject:ingredientObject];
+            }
+            subRecipeIngredients = [[subRecipeIngredients sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
+            [ingredientsArray addObject:subRecipeIngredients];
+        }
+    }
+    return ingredientsArray;
 }
-*/
 
 @end

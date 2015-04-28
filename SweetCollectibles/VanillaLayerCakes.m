@@ -192,18 +192,35 @@
     }
     cell.textLabel.text = recipe.title;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.adjustsFontSizeToFitWidth = YES;
-    cell.textLabel.numberOfLines = 1;
+    cell.textLabel.font=[UIFont systemFontOfSize:12];
+    cell.textLabel.lineBreakMode= NSLineBreakByTruncatingTail;
     return cell;
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+/*- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (!self.searchController.active)
     {
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
         return [sectionInfo name];
+    }
+    return nil;
+}*/
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (!self.searchController.active) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+        
+        // Create custom view to display section header
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        label.text =[sectionInfo name];
+        label.font = [UIFont boldSystemFontOfSize:14];
+        [view addSubview:label];
+        view.backgroundColor = [UIColor colorWithRed:241/255.0 green:229/255.0 blue:255/255.0 alpha:1.0];
+        return view;
     }
     return nil;
 }

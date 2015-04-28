@@ -17,6 +17,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    // Change background color of tabbar
+  /* UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    UITabBar *tabBar = tabBarController.tabBar;
+    tabBar.barTintColor  = [UIColor colorWithRed:(255/255.0) green:(229/255.0) blue:(254/255.0) alpha:0.5];
+    
+    // Change background color of navigation bar
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:(255/255.0) green:(229/255.0) blue:(254/255.0) alpha:0.1]];*/
+    
     return YES;
 }
 

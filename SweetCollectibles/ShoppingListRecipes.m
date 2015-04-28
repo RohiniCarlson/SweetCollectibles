@@ -31,6 +31,7 @@
     [super viewDidLoad];
     self.tableView.allowsMultipleSelection = YES;
     self.doneButton.enabled = NO;
+    //self.clearsSelectionOnViewWillAppear = YES;
     self.delegate = [UIApplication sharedApplication].delegate;
     self.context = self.delegate.managedObjectContext;
     self.recipeIndexTitles = @[@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z"];
@@ -130,17 +131,32 @@
     Recipe *recipe = nil;
     recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = recipe.title;
-    cell.textLabel.adjustsFontSizeToFitWidth = YES;
-    cell.textLabel.numberOfLines = 1;
-    
+    cell.textLabel.font=[UIFont systemFontOfSize:12];
+    cell.textLabel.lineBreakMode= NSLineBreakByTruncatingTail;
+    cell.selected = NO;
+    cell.accessoryType = UITableViewCellAccessoryNone;
     return cell;
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+/*- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
     return [sectionInfo name];
+}*/
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+        
+        // Create custom view to display section header
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        label.text =[sectionInfo name];
+        label.font = [UIFont boldSystemFontOfSize:14];
+        [view addSubview:label];
+        view.backgroundColor = [UIColor colorWithRed:241/255.0 green:229/255.0 blue:255/255.0 alpha:1.0];
+        return view;
 }
 
 

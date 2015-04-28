@@ -101,7 +101,7 @@
     [cake addIngredientsObject:cakeIngredient4];
     
     Ingredient *cakeIngredient5 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
-    cakeIngredient5.ingredientType = @"2 teaspoons baking powder";
+    cakeIngredient5.ingredientType = @"(2 teaspoons) baking powder";
     cakeIngredient5.amount = @10;
     cakeIngredient5.unitOfMeasure = @"g";
     cakeIngredient5.recipeDetail = cake;
@@ -136,7 +136,7 @@
     [cake addIngredientsObject:cakeIngredient9];
     
     Ingredient *cakeIngredient10 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
-    cakeIngredient10.ingredientType = @"eggs, room temperature";
+    cakeIngredient10.ingredientType = @"eggs, at room temperature";
     cakeIngredient10.amount = @3;
     //cakeIngredient10.unit_of_measure = @"";
     cakeIngredient10.recipeDetail = cake;
@@ -191,7 +191,7 @@
     [frosting addIngredientsObject:frostingIngredient4];
     
     Ingredient *frostingIngredient5 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
-    frostingIngredient5.ingredientType = @"best-quality dark chocolate, melted and cooled slightly";
+    frostingIngredient5.ingredientType = @"(11 ounces) best-quality dark chocolate, melted and cooled slightly";
     frostingIngredient5.amount = @330;
     frostingIngredient5.unitOfMeasure = @"g";
     frostingIngredient5.recipeDetail = frosting;
@@ -205,7 +205,7 @@
     [frosting addIngredientsObject:frostingIngredient6];
     
     Ingredient *frostingIngredient7 = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:context];
-    frostingIngredient7.ingredientType = @"salt, just a pinch";
+    frostingIngredient7.ingredientType = @"pinch of salt";
     //frostingIngredient7.amount = @0;
     //frostingIngredient7.unitOfMeasure = @"";
     frostingIngredient7.recipeDetail = frosting;

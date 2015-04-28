@@ -28,6 +28,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    //self.tableView.backgroundView = nil;
+    //[self.tableView setBackgroundColor : [UIColor colorWithRed : 39.0f/255.0f green : 39.0f/255.0f blue : 39.0f/255.0f alpha : 1.0]];
     self.delegate = [UIApplication sharedApplication].delegate;
     self.context = self.delegate.managedObjectContext;
     self.filteredList = [[NSMutableArray alloc] init];
@@ -183,7 +185,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    RecipeCell *cell = (RecipeCell*)[self.tableView dequeueReusableCellWithIdentifier: @"CustomRecipeCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier: @"CustomRecipeCell" forIndexPath:indexPath];
     
     Recipe *recipe = nil;
     if (self.searchController.active)
@@ -192,16 +194,15 @@
     } else {
         recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
     }
-    cell.recipeLabel.text = recipe.title;
+    cell.textLabel.text = recipe.title;
+    cell.textLabel.font=[UIFont systemFontOfSize:12];
+    cell.textLabel.lineBreakMode= NSLineBreakByTruncatingTail;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.adjustsFontSizeToFitWidth = YES;
-    cell.textLabel.numberOfLines = 1;
-    
     return cell;
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+/*- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (!self.searchController.active)
     {
@@ -209,8 +210,24 @@
         return [sectionInfo name];
     }
     return nil;
-}
+}*/
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (!self.searchController.active) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+        
+        // Create custom view to display section header
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        label.text =[sectionInfo name];
+        label.font = [UIFont boldSystemFontOfSize:14];
+        [view addSubview:label];
+        view.backgroundColor = [UIColor colorWithRed:241/255.0 green:229/255.0 blue:255/255.0 alpha:1.0];
+        return view;
+    }
+    return nil;
+}
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
@@ -247,6 +264,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 50.0f;
+}
+
+- (void)tableView: (UITableView*)tableView willDisplayCell: (UITableViewCell*)cell forRowAtIndexPath: (NSIndexPath*)indexPath
+{
+    
 }
 
 
