@@ -8,19 +8,16 @@
 
 #import "ShoppingListRecipes.h"
 #import "AppDelegate.h"
-//#import "CustomRecipeCell.h"
 #import "Recipe.h"
 #import "Recipe+RecipeCategory.h"
 #import "RecipeInfo.h"
 #import "ShoppingList.h"
 
-@interface ShoppingListRecipes ()  <UISearchBarDelegate, UISearchResultsUpdating, NSFetchedResultsControllerDelegate>
+@interface ShoppingListRecipes ()  <NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) NSFetchRequest *searchFetchRequest;
 @property (strong, nonatomic) AppDelegate *delegate;
-@property (strong, nonatomic) NSArray *filteredList;
 @property (strong, nonatomic) NSArray *recipeIndexTitles;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 
@@ -37,26 +34,11 @@
     self.delegate = [UIApplication sharedApplication].delegate;
     self.context = self.delegate.managedObjectContext;
     self.recipeIndexTitles = @[@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z"];
-    
-    // Search results shown in same view so initialised with nil searchresutscontroller
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    
-    self.searchController.searchResultsUpdater = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-    
-    self.searchController.searchBar.delegate = self;
-    
-    self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x, self.searchController.searchBar.frame.origin.y, self.searchController.searchBar.frame.size.width, 44.0);
-    
-    self.tableView.tableHeaderView = self.searchController.searchBar;
-    
-    self.definesPresentationContext = YES;
 }
 
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
-    self.filteredList = nil;
 }
 
 #pragma mark - NSFetchRequest setup
@@ -128,61 +110,16 @@
 }
 
 
-#pragma mark - UISearchResultsUpdating
-
-- (void)updateSearchResultsForSearchController:(UISearchController *) searchController {
-    
-    NSString *searchString = searchController.searchBar.text;
-    [self searchForText:searchString];
-    [self.tableView reloadData];
-}
-
-
--(void)searchForText:(NSString *)searchText {
-    
-    self.filteredList = nil; // First clear the filtered array.
-    
-    if (self.context)
-    {
-        NSString *predicateFormat = @"%K BEGINSWITH[cd] %@";
-        NSString *searchAttribute = @"title";
-        
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat, searchAttribute, searchText];
-        [self.searchFetchRequest setPredicate:predicate];
-        
-        NSError *error = nil;
-        
-        self.filteredList = [self.context executeFetchRequest:self.searchFetchRequest error:&error];
-        if (error)
-        {
-            NSLog(@"searchFetchRequest failed: %@",[error localizedDescription]);
-        }
-    }
-}
-
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.searchController.active)
-    {
-        return 1;
-    } else {
-        return [[self.fetchedResultsController sections] count];
-    }
+    return [[self.fetchedResultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    if (self.searchController.active)
-    {
-        return [self.filteredList count];
-    }
-    else {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-        return [sectionInfo numberOfObjects];
-    }
+    
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 
@@ -191,12 +128,7 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier: @"RecipeCell" forIndexPath:indexPath];
     
     Recipe *recipe = nil;
-    if (self.searchController.active)
-    {
-        recipe = [self.filteredList objectAtIndex:indexPath.row];
-    } else {
-        recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    }
+    recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = recipe.title;
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.textLabel.numberOfLines = 1;
@@ -207,45 +139,28 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (!self.searchController.active)
-    {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-        return [sectionInfo name];
-    }
-    return nil;
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo name];
 }
 
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    if (!self.searchController.active)
-    {
-        NSMutableArray *index = [NSMutableArray arrayWithObject:UITableViewIndexSearch];
-        NSArray *initials = [self.fetchedResultsController sectionIndexTitles];
-        [index addObjectsFromArray:initials];
-        return index;
-    }
-    return nil;
+    NSMutableArray *index = [NSMutableArray arrayWithObject:UITableViewIndexSearch];
+    NSArray *initials = [self.fetchedResultsController sectionIndexTitles];
+    [index addObjectsFromArray:initials];
+    return index;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-    if (!self.searchController.active)
+    if (index > 0)
     {
-        if (index > 0)
-        {
-            return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index-1];
-        } else {
-            // The first entry in the index is for the search icon so we return section not found
-            // and force the table to scroll to the top.
-            
-            CGRect searchBarFrame = self.searchController.searchBar.frame;
-            [self.tableView scrollRectToVisible:searchBarFrame animated:NO];
-            return NSNotFound;
-        }
+        return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index-1];
+    } else {
+        return NSNotFound;
     }
-    return 0;
 }
 
 // Needs to be REDONE!!!!!
@@ -283,20 +198,10 @@
         NSIndexPath *indexPath;
         Recipe *recipe = nil;
         NSArray *selecetedIndexPaths = self.tableView.indexPathsForSelectedRows;
-        if (self.searchController.isActive)
-        {
-            for (int i=0; i<selecetedIndexPaths.count; i++) {
-                indexPath = selecetedIndexPaths[i];
-                recipe = self.filteredList[indexPath.row];
-                [shoppingList.recipeList addObject:recipe];
-            }
-            
-        } else {
-            for (int i=0; i<selecetedIndexPaths.count; i++) {
-                indexPath = selecetedIndexPaths[i];
-                recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
-                [shoppingList.recipeList addObject:recipe];
-            }
+        for (int i=0; i<selecetedIndexPaths.count; i++) {
+            indexPath = selecetedIndexPaths[i];
+            recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            [shoppingList.recipeList addObject:recipe];
         }
     } else {
         
