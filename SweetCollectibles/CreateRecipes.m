@@ -32,7 +32,6 @@
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
     fetchedObjects = [fetchedObjects sortedArrayUsingDescriptors:@[sd]];
-    NSLog(@"Num records in model: %lu",(unsigned long)fetchedObjects.count);
     if (fetchedObjects.count == 0) {
         [self addRecipe1];
         [self addRecipe2];

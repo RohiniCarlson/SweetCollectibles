@@ -7,7 +7,6 @@
 //
 #import "MasterRecipeTableViewController.h"
 #import "AppDelegate.h"
-//#import "CustomRecipeCell.h"
 #import "RecipeCell.h"
 #import "Recipe.h"
 #import "Recipe+RecipeCategory.h"
@@ -19,10 +18,7 @@
 @property (strong, nonatomic) NSFetchRequest *searchFetchRequest;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) AppDelegate *delegate;
-@property (strong, nonatomic) NSArray *fetchedObjects;
 @property (strong, nonatomic) NSArray *filteredList;
-@property (strong, nonatomic) NSArray *titlesArray;
-@property (strong, nonatomic) NSMutableArray *sectionRecipeTitles;
 @property (strong, nonatomic) NSArray *recipeIndexTitles;
 @end
 
@@ -35,11 +31,7 @@
     self.delegate = [UIApplication sharedApplication].delegate;
     self.context = self.delegate.managedObjectContext;
     self.filteredList = [[NSMutableArray alloc] init];
-    self.sectionRecipeTitles = [[NSMutableArray alloc] init];
     self.recipeIndexTitles = @[@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z"];
-    
-    self.tableView.estimatedRowHeight = 50.0;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     // Search results shown in same view so initialised with nil searchresutscontroller
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -70,33 +62,26 @@
     self.searchFetchRequest = nil;
 }
 
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
     if ([segue.identifier isEqualToString:@"ShowDetailView"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        NSLog(@"Section: %ld",(long)indexPath.section);
-        NSLog(@"Row: %ld",(long)indexPath.row);
         Recipe *recipe = nil;
         recipe = [self.fetchedResultsController objectAtIndexPath:
                   indexPath];
-        NSLog(@"Before if section: %ld", (long)indexPath.section);
-        NSLog(@"Before if row: %ld", (long)indexPath.row);
-        
         if (self.searchController.isActive)
         {
             recipe = [self.filteredList objectAtIndex:indexPath.row];
         } else {
             recipe = [self.fetchedResultsController objectAtIndexPath:
                       indexPath];
-            NSLog(@"searchcontroller not active and recipe title is: %@",recipe.title);
         }
         RecipeInfo *recipeInfo = [segue destinationViewController];
         recipeInfo.recipe = recipe;
         } else {
-        
         NSLog(@"You forgot the segue %@",segue);
     }
 }
@@ -120,32 +105,6 @@
     return _searchFetchRequest;
 }
 
-
-/*-(void) createArrayForSectionRecipeTitles {
-    
-    Recipe *recipe;
-    NSString *firstLetter;
-    for(int i=0; i<self.fetchedObjects.count; i++) {
-        recipe = self.fetchedObjects[i];
-        firstLetter = [recipe.title substringToIndex:1];
-        if(![self isLetterExists:firstLetter]) {
-            [self.sectionRecipeTitles addObject:firstLetter];
-        }
-    }
-    NSArray *temp = [self.sectionRecipeTitles sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-    self.sectionRecipeTitles = [[NSMutableArray alloc] initWithArray:temp];
-}
-
-
--(BOOL) isLetterExists:(NSString*)letter {
-    
-    for(int i=0; i<self.sectionRecipeTitles.count; i++) {
-        if([self.sectionRecipeTitles[i] isEqualToString:letter]){
-            return YES;
-        }
-    }
-    return NO;
-}*/
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
@@ -310,6 +269,11 @@
         }
     }
     return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50.0f;
 }
 
 @end

@@ -26,7 +26,6 @@
 @synthesize scrollView;
 
 -(void)initAccordion{
-    NSLog(@"initAccordion");
     views = [NSMutableArray new];
     headers = [NSMutableArray new];
     originalSizes = [NSMutableArray new];
@@ -56,7 +55,6 @@
 }
 
 - (id)initWithFrame:(CGRect)frame {
-    NSLog(@"initWithFrame");
     self = [super initWithFrame:frame];
     if (self) {
         [self initAccordion];
@@ -68,7 +66,6 @@
  NIB constructor
  **/
 -(id)initWithCoder:(NSCoder *)aDecoder{
-    NSLog(@"initWithCoder");
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self initAccordion];
@@ -90,7 +87,6 @@
 }
 
 - (void)addHeader:(UIControl *)aHeader withView:(id)aView {
-    NSLog(@"addHeader");
     if ((aHeader != nil) && (aView != nil)) {
         [headers addObject:aHeader];        
         [views addObject:aView];        
@@ -129,7 +125,6 @@
 }
 
 - (void)removeHeaderAtIndex:(NSInteger)index {
-    NSLog(@"removeHeaderAtIndex");
     if (index > [headers count] - 1) return;
 
     NSMutableIndexSet *cleanIndexes = [NSMutableIndexSet new];
@@ -160,7 +155,6 @@
 }
 
 - (void)setSelectionIndexes:(NSIndexSet *)aSelectionIndexes {
-    NSLog(@"setSelectionIndexes");
     if ([headers count] == 0) return;
     if (!allowsMultipleSelection && [aSelectionIndexes count] > 1) {
         aSelectionIndexes = [NSIndexSet indexSetWithIndex:[aSelectionIndexes firstIndex]];
@@ -182,17 +176,14 @@
 }
 
 - (void)setSelectedIndex:(NSInteger)aSelectedIndex {
-    NSLog(@"setSelectedIndex");
     [self setSelectionIndexes:[NSIndexSet indexSetWithIndex:aSelectedIndex]];    
 }
 
 - (NSInteger)selectedIndex {
-    NSLog(@"selectedIndex");
     return [selectionIndexes firstIndex];
 }
 
 - (void)setOriginalSize:(CGSize)size forIndex:(NSUInteger)index {
-    NSLog(@"setOriginalSize");
     if (index >= [views count]) return;
     
     [originalSizes replaceObjectAtIndex:index withObject:[NSValue valueWithCGSize:size]];
@@ -201,7 +192,6 @@
 }
 
 - (void)setStartsClosed:(BOOL)itStartsClosed {
-    NSLog(@"setStartsClosed");
     if (itStartsClosed) {
         [self setSelectionIndexes:[NSIndexSet indexSet]];
     }
@@ -210,46 +200,35 @@
 }
 
 - (void)touchDown:(id)sender {
-    NSLog(@"touchDown");
     if (allowsMultipleSelection) {
-        NSLog(@"touchDown - allowsmultipleselection");
         NSMutableIndexSet *mis = [selectionIndexes mutableCopy];
         if ([selectionIndexes containsIndex:[sender tag]]) {
-            NSLog(@"touchDown - allowsmultipleselection 1");
             if (self.allowsEmptySelection || [selectionIndexes count] > 1) {
-                NSLog(@"touchDown - allowsmultipleselection 2");
                 [mis removeIndex:[sender tag]];
                 [sender setImage:[UIImage imageNamed:@"collapse"] forState:UIControlStateNormal];
             }
         } else {
-            NSLog(@"touchDown - allowsmultipleselection 3");
             [sender setImage:[UIImage imageNamed:@"expand"] forState:UIControlStateNormal];
             [mis addIndex:[sender tag]];
         }
-        NSLog(@"touchDown - allowsmultipleselection 4");
         [self setSelectionIndexes:mis];
     } else {
-        NSLog(@"touchDown - allowsmultipleselection 5");
         // If the touched section is already opened, close it.
         if (([selectionIndexes firstIndex] == [sender tag]) && self.allowsEmptySelection) {
-            NSLog(@"touchDown - allowsmultipleselection 6");
             [self setSelectionIndexes:[NSIndexSet indexSet]];
         } else {
-            NSLog(@"touchDown - allowsmultipleselection 7");
             [self setSelectedIndex:[sender tag]];
         }
     }
 }
 
 - (void)animationDone {
-    NSLog(@"animationDone");
     for (int i=0; i<[views count]; i++) {
         if (![selectionIndexes containsIndex:i]) [[views objectAtIndex:i] setHidden:YES];
     }
 }
 
 - (void)layoutSubviews {
-    NSLog(@"layoutSubviews");
     if (self.isHorizontal) {
         // TODO
     } else {
@@ -322,7 +301,6 @@
 }
 
 - (void)setFrame:(CGRect)frame{
-    NSLog(@"setFrame");
     [super setFrame:frame];
     scrollView.frame = frame;
 }
@@ -330,7 +308,6 @@
 #pragma mark UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
-    NSLog(@"scrollViewDidScroll");
     int i = 0;
     for (UIView *view in views) {
         if (self.isHorizontal) {
