@@ -32,6 +32,14 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
+    /*NSMutableArray *array = [self createIngredientsArray];
+    for (int i=0; i<array.count; i++) {
+        NSArray *items = array[i];
+        for (IngredientObject *ingredientObject in items) {
+            NSString *string = [NSString stringWithFormat: @"%@ %@ %@", ingredientObject.ingredientName, ingredientObject.amount, ingredientObject.unitOfMeasure];
+            NSLog(string);
+        }
+    }*/
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,8 +52,7 @@
     NSMutableArray *ingredientsArray = [[NSMutableArray alloc] init];
     IngredientObject *ingredientObject = [[IngredientObject alloc]init];
     NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"ingredientName"
-                                                 ascending:YES];
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"ingredientName" ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     
     for (Recipe *recipe in self.recipeList) {
@@ -59,6 +66,8 @@
                     name = @"egg";
                 } else if ([name rangeOfString:@"salt" options:NSCaseInsensitiveSearch].location != NSNotFound) {
                     name = @"salt";
+                } else if ([name rangeOfString:@"unsalted butter" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                    name = @"unsalted butter";
                 } else {
                     name = [name substringFromIndex:[name rangeOfString:@")"].location +2 ];
                 }
@@ -68,8 +77,10 @@
                 ingredientObject.addedToList = @0;
                 [subRecipeIngredients addObject:ingredientObject];
             }
-            subRecipeIngredients = [[subRecipeIngredients sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
-            [ingredientsArray addObject:subRecipeIngredients];
+           subRecipeIngredients = [[subRecipeIngredients sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
+             //subRecipeIngredients = [[subRecipeIngredients sortedArrayUsingComparator:^(IngredientObject *a, IngredientObject *b) {
+               //return [a.ingredientName caseInsensitiveCompare:b.ingredientName];}];
+             [ingredientsArray addObject:subRecipeIngredients];
         }
     }
     return ingredientsArray;

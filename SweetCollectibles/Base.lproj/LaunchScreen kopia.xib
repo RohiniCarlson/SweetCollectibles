@@ -10,26 +10,19 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" alpha="0.29999999999999966" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startscreen" translatesAutoresizingMaskIntoConstraints="NO" id="hgQ-hm-SXC">
+                <imageView userInteractionEnabled="NO" alpha="0.29999999999999966" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="startscreen" translatesAutoresizingMaskIntoConstraints="NO" id="hgQ-hm-SXC">
                     <rect key="frame" x="40" y="64" width="400" height="352"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sweet Collectibles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPg-lV-tiX">
-                    <rect key="frame" x="85" y="243" width="270" height="35"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="35" id="kF2-QW-wJb"/>
-                    </constraints>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sweet Collectibles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPg-lV-tiX">
+                    <rect key="frame" x="85" y="243" width="307" height="35"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="hgQ-hm-SXC" firstAttribute="centerY" secondItem="tPg-lV-tiX" secondAttribute="centerY" constant="-20.5" id="F51-sV-MO2"/>
                 <constraint firstAttribute="centerX" secondItem="hgQ-hm-SXC" secondAttribute="centerX" id="S96-J1-fRE"/>
                 <constraint firstAttribute="centerY" secondItem="hgQ-hm-SXC" secondAttribute="centerY" id="W2M-Qk-omO"/>
-                <constraint firstItem="hgQ-hm-SXC" firstAttribute="width" secondItem="tPg-lV-tiX" secondAttribute="width" constant="130" id="Ye4-ZI-BEq"/>
-                <constraint firstItem="hgQ-hm-SXC" firstAttribute="centerX" secondItem="tPg-lV-tiX" secondAttribute="centerX" constant="20" id="eDw-sa-Xdf"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
