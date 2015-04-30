@@ -229,7 +229,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="50" id="SDT-iU-bOl">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="50" id="SDT-iU-bOl">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SDT-iU-bOl" id="0UI-OI-sK1">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -382,7 +382,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteRecipeCell" rowHeight="50" id="PPH-ek-iz2">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="50" id="PPH-ek-iz2">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PPH-ek-iz2" id="2dU-Tn-MKo">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -530,6 +530,6 @@
         <image name="vanillaicon" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YPE-dd-xaz"/>
+        <segue reference="ZbG-LF-ASp"/>
     </inferredMetricsTieBreakers>
 </document>

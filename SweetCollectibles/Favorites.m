@@ -32,9 +32,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UINib *recipeNib = [UINib nibWithNibName:@"CustomRecipeCell" bundle:nil];
+   /* UINib *recipeNib = [UINib nibWithNibName:@"CustomRecipeCell" bundle:nil];
     [self.tableView registerNib:recipeNib
-         forCellReuseIdentifier:@"RecipeCell"];
+         forCellReuseIdentifier:@"RecipeCell"];*/
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,13 +54,14 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CustomRecipeCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"RecipeCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"RecipeCell" forIndexPath:indexPath];
     Recipe *recipe = nil;
     recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.recipeLabel.text = recipe.title;
-    cell.textLabel.adjustsFontSizeToFitWidth = YES;
-    cell.textLabel.numberOfLines = 1;
+    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.font=[UIFont systemFontOfSize:12];
+    cell.textLabel.lineBreakMode= NSLineBreakByTruncatingTail;
+    cell.textLabel.text = recipe.title;
+    
     return cell;
 }
 
@@ -104,9 +105,9 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"ShowDetailView" sender:tableView];
-}
+/*- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"AddToFavorites" sender:tableView];
+}*/
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,16 +120,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"ShowDetailView"])
-    {
+    if ([segue.identifier isEqualToString:@"ShowDetailView"]) {
         RecipeInfo *recipeInfo = [segue destinationViewController];
-        
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        
         recipeInfo.recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
         
+    } else if ([segue.identifier isEqualToString:@"AddToFavorites"]) {
+        // Do nothing extra, just go to view
     } else {
-        
         NSLog(@"You forgot the segue %@",segue);
     }
 }
