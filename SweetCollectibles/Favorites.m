@@ -8,7 +8,6 @@
 
 #import "Favorites.h"
 #import "AppDelegate.h"
-#import "CustomRecipeCell.h"
 #import "AddToFavorites.h"
 #import "Recipe.h"
 #import "RecipeInfo.h"
@@ -32,9 +31,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   /* UINib *recipeNib = [UINib nibWithNibName:@"CustomRecipeCell" bundle:nil];
-    [self.tableView registerNib:recipeNib
-         forCellReuseIdentifier:@"RecipeCell"];*/
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,17 +53,14 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"RecipeCell" forIndexPath:indexPath];
     Recipe *recipe = nil;
     recipe = [self.fetchedObjects objectAtIndex:indexPath.row];
-    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.font=[UIFont systemFontOfSize:12];
     cell.textLabel.lineBreakMode= NSLineBreakByTruncatingTail;
     cell.textLabel.text = recipe.title;
-    
     return cell;
 }
 
 
 -(void) fetchFavoriteRecipes {
-    
     NSFetchRequest *fetchRequest;
     NSError *error;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favorite = %@", @1];
@@ -105,21 +98,14 @@
 }
 
 
-/*- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"AddToFavorites" sender:tableView];
-}*/
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50.0f;
 }
 
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowDetailView"]) {
         RecipeInfo *recipeInfo = [segue destinationViewController];
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
