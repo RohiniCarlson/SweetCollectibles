@@ -13,77 +13,107 @@
 #import "IngredientObject.h"
 
 @interface ShoppingList ()
-
+@property (nonatomic) NSMutableDictionary * shoppingList;
 @end
 
 @implementation ShoppingList
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    Recipe *recipe;
-    for (int i=0; i< self.recipeList.count; i++) {
-        recipe = self.recipeList[i];
-        NSLog(@"Title: %@", recipe.title);
-    }
-    
+    self.shoppingList = [[NSMutableDictionary alloc] init];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Under Construction!"
                                                     message:@"Your patience is greatly appreciated."
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
-    /*NSMutableArray *array = [self createIngredientsArray];
-    for (int i=0; i<array.count; i++) {
-        NSArray *items = array[i];
-        for (IngredientObject *ingredientObject in items) {
-            NSString *string = [NSString stringWithFormat: @"%@ %@ %@", ingredientObject.ingredientName, ingredientObject.amount, ingredientObject.unitOfMeasure];
-            NSLog(string);
-        }
-    }*/
+    [self addToShoppingList];
+    [self createShoppingList];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
--(NSMutableArray*)createIngredientsArray{
-    
-    NSMutableArray *ingredientsArray = [[NSMutableArray alloc] init];
-    IngredientObject *ingredientObject = [[IngredientObject alloc]init];
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"ingredientName" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
+
+-(void)addToShoppingList {
     for (Recipe *recipe in self.recipeList) {
-         NSArray *recipeDetails = [recipe.recipeDetails allObjects];
+        NSArray *recipeDetails = [recipe.recipeDetails allObjects];
         for (RecipeDetail *recipeDetail in recipeDetails) {
             NSArray *ingredients = [recipeDetail.ingredients allObjects];
-            NSMutableArray *subRecipeIngredients = [[NSMutableArray alloc] init];
             for (Ingredient *ingredient in ingredients) {
                 NSString *name = ingredient.ingredientType;
-                if ([name rangeOfString:@"egg" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                if ([name rangeOfString:@"egg white" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                    name = @"egg white";
+                } else if ([name rangeOfString:@"egg" options:NSCaseInsensitiveSearch].location != NSNotFound) {
                     name = @"egg";
                 } else if ([name rangeOfString:@"salt" options:NSCaseInsensitiveSearch].location != NSNotFound) {
                     name = @"salt";
                 } else if ([name rangeOfString:@"unsalted butter" options:NSCaseInsensitiveSearch].location != NSNotFound) {
                     name = @"unsalted butter";
+                } else if ([name rangeOfString:@"dark chocolate" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                    name = @"dark chocolate";
+                } else if ([name rangeOfString:@"unsweetened chocolate" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                    name = @"unsweetened chocolate";
+                } else if ([name rangeOfString:@"coffee" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                    name = @"coffee";
                 } else {
-                    name = [name substringFromIndex:[name rangeOfString:@")"].location +2 ];
+                    if ([name rangeOfString:@")"].location != NSNotFound) {
+                        name = [name substringFromIndex:[name rangeOfString:@")"].location +2 ];
+                    }
+                    if ([name rangeOfString:@","].location != NSNotFound) {
+                        NSUInteger index = [name rangeOfString:@","].location;
+                        name = [name substringToIndex:index];
+                    }
                 }
-                ingredientObject.ingredientName = name;
-                ingredientObject.amount = ingredient.amount;
-                ingredientObject.unitOfMeasure = ingredient.unitOfMeasure;
-                ingredientObject.addedToList = @0;
-                [subRecipeIngredients addObject:ingredientObject];
+                IngredientObject *ingredientObject = [[IngredientObject alloc]init];
+                if (ingredient.amount == nil) {
+                    ingredientObject.amount = @0;
+                } else {
+                    ingredientObject.amount = ingredient.amount;
+                }
+                if (ingredient.unitOfMeasure == nil) {
+                   ingredientObject.unitOfMeasure = @"none";
+                } else {
+                    ingredientObject.unitOfMeasure = ingredient.unitOfMeasure;
+                }
+                IngredientObject *savedIngredient;
+                if ((savedIngredient = [self.shoppingList objectForKey:name])) {
+                    if (![savedIngredient.unitOfMeasure isEqualToString:@"none"]) {
+                        savedIngredient.amount = [NSNumber numberWithDouble:[savedIngredient.amount doubleValue]  + [ingredientObject.amount doubleValue]];
+                        [self.shoppingList setObject:savedIngredient forKey:name];
+                    }
+                } else {
+                    [self.shoppingList setObject:ingredientObject forKey:name];
+                }
             }
-           subRecipeIngredients = [[subRecipeIngredients sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
-             //subRecipeIngredients = [[subRecipeIngredients sortedArrayUsingComparator:^(IngredientObject *a, IngredientObject *b) {
-               //return [a.ingredientName caseInsensitiveCompare:b.ingredientName];}];
-             [ingredientsArray addObject:subRecipeIngredients];
         }
     }
-    return ingredientsArray;
 }
+
+-(void)createShoppingList {
+    IngredientObject *ingredient = [[IngredientObject alloc] init];
+    NSString *listItem;
+    NSString *ingredientType;
+    for (id key in self.shoppingList) {
+        ingredient = [self.shoppingList objectForKey:key];
+        ingredientType = key;
+        if ([ingredient.unitOfMeasure isEqualToString:@"none"] && [ingredient.amount doubleValue] == 0) {
+            listItem = ingredientType;
+        } else if([ingredient.unitOfMeasure isEqualToString:@"none"] && [ingredient.amount doubleValue] != 0) {
+            if ([@"egg" isEqualToString:key] && [ingredient.amount doubleValue] > 1) {
+                ingredientType = @"eggs";
+            } else {
+                ingredientType = key;
+            }
+            listItem = [NSString stringWithFormat:@"%@ %@",ingredient.amount, ingredientType ];
+        } else {
+            listItem = [NSString stringWithFormat:@"%@ %@ %@",ingredient.amount, ingredient.unitOfMeasure, ingredientType];
+        }
+        NSLog(@"Shopping List Item: %@",listItem);
+    }
+}
+
 
 @end

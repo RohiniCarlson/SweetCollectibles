@@ -9,10 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface IngredientObject : NSObject
-@property (nonatomic) NSString *ingredientName;
 @property (nonatomic) NSNumber *amount;
 @property (nonatomic) NSString *unitOfMeasure;
-@property (nonatomic) NSNumber *addedToList;
 
 -(instancetype)init;
 @end
