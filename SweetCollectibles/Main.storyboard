@@ -167,90 +167,112 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3v-zP-pCT">
-                                <rect key="frame" x="98" y="128" width="206" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="Tpp-pq-Cua"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Chocolate Layer Cakes    >">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="laP-sS-VOc" kind="show" id="5Uw-aV-Ufq"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalCompressionResistancePriority="730" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2YE-uE-keV">
-                                <rect key="frame" x="93" y="279" width="211" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="aoW-O6-Q94"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Vanilla Layer Cakes         >">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="plj-hZ-70C" kind="show" identifier="ShowVanillaLayerCakes" id="ZT2-8A-kBo"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="245" text="Chocolate layer cake recipes in alphabetical order" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TP3-vf-HZL">
-                                <rect key="frame" x="93" y="164" width="211" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="xkt-xD-gTn"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="733" image="vanillaicon" translatesAutoresizingMaskIntoConstraints="NO" id="l77-Hn-cs8">
-                                <rect key="frame" x="16" y="254" width="67" height="128"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="731" image="chocoicon" translatesAutoresizingMaskIntoConstraints="NO" id="nxe-jD-57A">
-                                <rect key="frame" x="16" y="90" width="79" height="128"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vanilla layer cake recipes in alphabetical order" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWm-od-Hyy">
-                                <rect key="frame" x="91" y="323" width="200" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="dnG-Oa-1Ot"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vco-dM-ZVE">
                                 <rect key="frame" x="16" y="239" width="288" height="2"/>
-                                <color key="backgroundColor" red="0.72068319520000002" green="0.72068319520000002" blue="0.72068319520000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="iz9-Rr-AUg"/>
+                                    <constraint firstAttribute="height" constant="2" id="Gqm-2f-qcB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRu-9B-nJC">
+                                <rect key="frame" x="16" y="64" width="288" height="167"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3v-zP-pCT">
+                                        <rect key="frame" x="87" y="46" width="206" height="32"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="Chocolate Layer Cakes    >">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="laP-sS-VOc" kind="show" id="5Uw-aV-Ufq"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="245" text="Chocolate layer cake recipes in alphabetical order" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TP3-vf-HZL">
+                                        <rect key="frame" x="87" y="90" width="211" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="5wj-Bq-SJ2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="731" image="chocoicon" translatesAutoresizingMaskIntoConstraints="NO" id="nxe-jD-57A">
+                                        <rect key="frame" x="0.0" y="20" width="79" height="128"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.97084048190000005" blue="0.99878276509999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="nxe-jD-57A" secondAttribute="bottom" constant="19" id="0BT-eS-fAb"/>
+                                    <constraint firstAttribute="trailing" secondItem="m3v-zP-pCT" secondAttribute="trailing" constant="-5" id="3Fp-Ps-hRD"/>
+                                    <constraint firstItem="nxe-jD-57A" firstAttribute="top" secondItem="uRu-9B-nJC" secondAttribute="top" constant="20" id="9DX-gq-kM9"/>
+                                    <constraint firstItem="nxe-jD-57A" firstAttribute="leading" secondItem="uRu-9B-nJC" secondAttribute="leading" id="CbV-UF-had"/>
+                                    <constraint firstAttribute="trailing" secondItem="TP3-vf-HZL" secondAttribute="trailing" constant="-10" id="G5H-OA-L5K"/>
+                                    <constraint firstItem="nxe-jD-57A" firstAttribute="width" secondItem="uRu-9B-nJC" secondAttribute="height" multiplier="79:167" id="WDQ-ak-PPl"/>
+                                    <constraint firstItem="TP3-vf-HZL" firstAttribute="leading" secondItem="m3v-zP-pCT" secondAttribute="leading" id="cCa-LM-Opl"/>
+                                    <constraint firstItem="nxe-jD-57A" firstAttribute="centerY" secondItem="m3v-zP-pCT" secondAttribute="centerY" constant="22" id="hsf-5T-zBb"/>
+                                    <constraint firstItem="TP3-vf-HZL" firstAttribute="top" secondItem="m3v-zP-pCT" secondAttribute="bottom" constant="12" id="ocb-RX-Mnz"/>
+                                    <constraint firstItem="m3v-zP-pCT" firstAttribute="leading" secondItem="nxe-jD-57A" secondAttribute="trailing" constant="8" id="q6h-aW-kn7"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2nB-dI-I3k">
+                                <rect key="frame" x="16" y="249" width="288" height="182"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="733" image="vanillaicon" translatesAutoresizingMaskIntoConstraints="NO" id="l77-Hn-cs8">
+                                        <rect key="frame" x="20" y="20" width="67" height="128"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalCompressionResistancePriority="730" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2YE-uE-keV">
+                                        <rect key="frame" x="97" y="47" width="211" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Vanilla Layer Cakes      >">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="plj-hZ-70C" kind="show" identifier="ShowVanillaLayerCakes" id="ZT2-8A-kBo"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vanilla layer cake recipes in alphabetical order" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWm-od-Hyy">
+                                        <rect key="frame" x="95" y="89" width="200" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="cMF-Ev-Wo6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.97084048190000005" blue="0.99878276509999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="l77-Hn-cs8" firstAttribute="top" secondItem="2nB-dI-I3k" secondAttribute="top" constant="20" id="13l-CP-m5I"/>
+                                    <constraint firstItem="2YE-uE-keV" firstAttribute="centerY" secondItem="l77-Hn-cs8" secondAttribute="centerY" constant="-21" id="D7g-km-e8u"/>
+                                    <constraint firstItem="l77-Hn-cs8" firstAttribute="leading" secondItem="2nB-dI-I3k" secondAttribute="leading" constant="20" id="DMq-30-QgZ"/>
+                                    <constraint firstItem="2YE-uE-keV" firstAttribute="leading" secondItem="rWm-od-Hyy" secondAttribute="leading" constant="2" id="N8I-w2-gDV"/>
+                                    <constraint firstAttribute="trailing" secondItem="rWm-od-Hyy" secondAttribute="trailing" constant="-7" id="b0c-Eg-iiz"/>
+                                    <constraint firstItem="2YE-uE-keV" firstAttribute="leading" secondItem="l77-Hn-cs8" secondAttribute="trailing" constant="10" id="b6J-3x-xaj"/>
+                                    <constraint firstItem="rWm-od-Hyy" firstAttribute="top" secondItem="2YE-uE-keV" secondAttribute="bottom" constant="9" id="fdf-FY-DEq"/>
+                                    <constraint firstItem="rWm-od-Hyy" firstAttribute="leading" secondItem="l77-Hn-cs8" secondAttribute="trailing" constant="8" id="mvN-RM-2ab"/>
+                                    <constraint firstItem="l77-Hn-cs8" firstAttribute="width" secondItem="2nB-dI-I3k" secondAttribute="height" multiplier="67:182" id="pMH-XD-y7X"/>
+                                    <constraint firstAttribute="trailing" secondItem="2YE-uE-keV" secondAttribute="trailing" constant="-20" id="utZ-rT-Im0"/>
+                                    <constraint firstAttribute="bottom" secondItem="l77-Hn-cs8" secondAttribute="bottom" constant="34" id="xgc-AO-C3v"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.97084048190000005" blue="0.99878276509999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="vco-dM-ZVE" firstAttribute="trailing" secondItem="KCn-sw-7dt" secondAttribute="trailingMargin" id="28D-5i-P5W"/>
-                            <constraint firstItem="TP3-vf-HZL" firstAttribute="trailing" secondItem="KCn-sw-7dt" secondAttribute="trailingMargin" id="5fy-3T-T1K"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rWm-od-Hyy" secondAttribute="trailing" constant="13" id="9ts-pV-CYn"/>
-                            <constraint firstItem="nxe-jD-57A" firstAttribute="width" secondItem="KCn-sw-7dt" secondAttribute="height" multiplier="79:480" id="AyP-CT-ZX4"/>
-                            <constraint firstItem="m3v-zP-pCT" firstAttribute="leading" secondItem="nxe-jD-57A" secondAttribute="trailing" constant="3" id="HTP-qw-PJZ"/>
-                            <constraint firstItem="TP3-vf-HZL" firstAttribute="leading" secondItem="nxe-jD-57A" secondAttribute="trailing" constant="-2" id="Krh-pb-blA"/>
-                            <constraint firstItem="l77-Hn-cs8" firstAttribute="top" secondItem="p5u-Ut-huI" secondAttribute="bottom" constant="190" id="P8s-RS-eq9"/>
-                            <constraint firstItem="rWm-od-Hyy" firstAttribute="leading" secondItem="l77-Hn-cs8" secondAttribute="trailing" constant="8" id="VW2-fK-Fp6"/>
-                            <constraint firstItem="vco-dM-ZVE" firstAttribute="top" secondItem="nxe-jD-57A" secondAttribute="bottom" constant="21" id="Xz8-Ys-xZW"/>
-                            <constraint firstItem="2YE-uE-keV" firstAttribute="trailing" secondItem="KCn-sw-7dt" secondAttribute="trailingMargin" id="fbB-sm-1Za"/>
-                            <constraint firstItem="nxe-jD-57A" firstAttribute="top" secondItem="p5u-Ut-huI" secondAttribute="bottom" constant="26" id="fkg-RM-5qD"/>
-                            <constraint firstItem="2YE-uE-keV" firstAttribute="leading" secondItem="l77-Hn-cs8" secondAttribute="trailing" constant="10" id="fwi-pS-ohX"/>
-                            <constraint firstItem="TP3-vf-HZL" firstAttribute="top" secondItem="m3v-zP-pCT" secondAttribute="bottom" constant="4" id="i9m-dR-O9S"/>
-                            <constraint firstItem="m3v-zP-pCT" firstAttribute="trailing" secondItem="KCn-sw-7dt" secondAttribute="trailingMargin" id="iSI-5f-JHn"/>
-                            <constraint firstItem="nxe-jD-57A" firstAttribute="leading" secondItem="KCn-sw-7dt" secondAttribute="leadingMargin" id="mKn-o5-3Zv"/>
-                            <constraint firstItem="l77-Hn-cs8" firstAttribute="leading" secondItem="KCn-sw-7dt" secondAttribute="leadingMargin" id="n4a-7c-uvK"/>
-                            <constraint firstItem="m3v-zP-pCT" firstAttribute="top" secondItem="p5u-Ut-huI" secondAttribute="bottom" constant="64" id="nty-5O-dpm"/>
-                            <constraint firstItem="2YE-uE-keV" firstAttribute="top" secondItem="vco-dM-ZVE" secondAttribute="bottom" constant="38" id="uL7-4i-C1A"/>
-                            <constraint firstItem="rWm-od-Hyy" firstAttribute="top" secondItem="2YE-uE-keV" secondAttribute="bottom" constant="8" id="umE-YS-Ptz"/>
-                            <constraint firstItem="vco-dM-ZVE" firstAttribute="leading" secondItem="KCn-sw-7dt" secondAttribute="leadingMargin" id="wbK-bg-o5d"/>
-                            <constraint firstItem="l77-Hn-cs8" firstAttribute="width" secondItem="KCn-sw-7dt" secondAttribute="height" multiplier="67:480" id="zhV-nC-UdE"/>
+                            <constraint firstAttribute="centerX" secondItem="vco-dM-ZVE" secondAttribute="centerX" id="3wr-5v-mfE"/>
+                            <constraint firstItem="vco-dM-ZVE" firstAttribute="top" secondItem="uRu-9B-nJC" secondAttribute="bottom" constant="8" symbolic="YES" id="80T-Qe-NiH"/>
+                            <constraint firstItem="uRu-9B-nJC" firstAttribute="leading" secondItem="KCn-sw-7dt" secondAttribute="leadingMargin" id="C6y-UZ-DsF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uRu-9B-nJC" secondAttribute="trailing" id="DpQ-Ol-4NY"/>
+                            <constraint firstItem="2nB-dI-I3k" firstAttribute="top" secondItem="vco-dM-ZVE" secondAttribute="bottom" constant="8" symbolic="YES" id="ELB-Dw-LFr"/>
+                            <constraint firstAttribute="centerY" secondItem="vco-dM-ZVE" secondAttribute="centerY" id="JQS-ql-tfk"/>
+                            <constraint firstItem="Ez7-L7-mi8" firstAttribute="top" secondItem="2nB-dI-I3k" secondAttribute="bottom" id="JUw-C6-2uM"/>
+                            <constraint firstItem="vco-dM-ZVE" firstAttribute="trailing" secondItem="KCn-sw-7dt" secondAttribute="trailingMargin" id="bey-Pw-BO2"/>
+                            <constraint firstItem="vco-dM-ZVE" firstAttribute="leading" secondItem="KCn-sw-7dt" secondAttribute="leadingMargin" id="kSc-Gd-nXl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2nB-dI-I3k" secondAttribute="trailing" id="nb0-pj-WMn"/>
+                            <constraint firstItem="2nB-dI-I3k" firstAttribute="leading" secondItem="KCn-sw-7dt" secondAttribute="leadingMargin" id="ngw-Z1-ebL"/>
+                            <constraint firstItem="uRu-9B-nJC" firstAttribute="top" secondItem="p5u-Ut-huI" secondAttribute="bottom" id="zfE-Ub-eyH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Categories" id="cN7-7Z-lTa"/>
