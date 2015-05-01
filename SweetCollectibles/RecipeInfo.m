@@ -17,7 +17,6 @@
 @property (nonatomic) AccordionView *accordion;
 @property (nonatomic) CGFloat screenWidth;
 @property (nonatomic) CGFloat screenHeight;
-@property (nonatomic) CGRect newFrame;
 @end
 
 @implementation RecipeInfo

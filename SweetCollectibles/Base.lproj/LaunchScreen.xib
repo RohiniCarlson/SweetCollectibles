@@ -10,13 +10,12 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" alpha="0.29999999999999966" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startscreen" translatesAutoresizingMaskIntoConstraints="NO" id="hgQ-hm-SXC">
+                <imageView userInteractionEnabled="NO" alpha="0.19999999999999968" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startscreen" translatesAutoresizingMaskIntoConstraints="NO" id="hgQ-hm-SXC">
                     <rect key="frame" x="20" y="20" width="440" height="440"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sweet Collectibles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPg-lV-tiX">
-                    <rect key="frame" x="97" y="243" width="247" height="35"/>
+                    <rect key="frame" x="117" y="222" width="247" height="35"/>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="YqI-Xk-7Jy"/>
                         <constraint firstAttribute="height" constant="35" id="kF2-QW-wJb"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
@@ -26,8 +25,8 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="hgQ-hm-SXC" firstAttribute="centerY" secondItem="tPg-lV-tiX" secondAttribute="centerY" constant="-20.5" id="0xs-3L-EDZ"/>
-                <constraint firstItem="hgQ-hm-SXC" firstAttribute="centerX" secondItem="tPg-lV-tiX" secondAttribute="centerX" constant="20" id="RFK-s7-pzU"/>
+                <constraint firstAttribute="centerX" secondItem="tPg-lV-tiX" secondAttribute="centerX" id="LHZ-cv-CKV"/>
+                <constraint firstAttribute="centerY" secondItem="tPg-lV-tiX" secondAttribute="centerY" id="ZXk-nd-WrV"/>
                 <constraint firstAttribute="bottom" secondItem="hgQ-hm-SXC" secondAttribute="bottom" constant="20" symbolic="YES" id="kVD-DF-r6g"/>
                 <constraint firstItem="hgQ-hm-SXC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" symbolic="YES" id="lcT-IY-EwG"/>
                 <constraint firstAttribute="trailing" secondItem="hgQ-hm-SXC" secondAttribute="trailing" constant="20" symbolic="YES" id="rxX-uX-CVJ"/>
@@ -35,7 +34,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="548" y="455"/>
+            <point key="canvasLocation" x="542" y="390"/>
         </view>
     </objects>
     <resources>
