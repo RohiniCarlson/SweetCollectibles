@@ -342,7 +342,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mTt-4f-e0f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2630" y="299"/>
+            <point key="canvasLocation" x="2654" y="295"/>
         </scene>
         <!--Recipe Info-->
         <scene sceneID="B6d-6X-SvP">
@@ -362,7 +362,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybq-nJ-PJP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3086" y="-320"/>
+            <point key="canvasLocation" x="3282" y="-320"/>
         </scene>
         <!--Chocolate Layer Cakes-->
         <scene sceneID="vDD-yO-CWI">
@@ -591,6 +591,6 @@
         <image name="vanillaicon" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZbG-LF-ASp"/>
+        <segue reference="raQ-jW-cnW"/>
     </inferredMetricsTieBreakers>
 </document>
